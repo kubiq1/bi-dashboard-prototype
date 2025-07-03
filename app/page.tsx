@@ -5,7 +5,6 @@ import {
   Filter,
   TrendingUp,
   TrendingDown,
-  Building,
   User,
   ChevronDown,
   Server,
@@ -119,37 +118,39 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <header className="sticky top-0 z-50 border-b bg-[#08312a] backdrop-blur h-20 flex flex-col justify-center items-center">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded bg-[#002c5f]">
-                  <Building className="h-5 w-5 text-white" />
-                </div>
+                <img
+                  src="/assets/primary-logo-accent.svg"
+                  alt="BI Dashboard Logo"
+                  className="h-auto w-[140px]"
+                />
                 <h1
-                  className="text-xl font-medium text-[#002c5f]"
+                  className="text-xl font-medium text-white"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
-                  BI Dashboard
+                  Dashboard
                 </h1>
               </div>
               <nav className="hidden md:flex items-center space-x-6">
                 <a
                   href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Billing
                 </a>
                 <a
                   href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Projects
                 </a>
                 <a
                   href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Cluster Info
                 </a>
@@ -202,7 +203,10 @@ export default function Dashboard() {
               <CardContent>
                 <div className="flex items-center space-x-2">
                   <TrendingUp className="h-5 w-5 text-green-600" />
-                  <span className="text-3xl font-bold text-green-600">
+                  <span
+                    className="text-3xl font-bold"
+                    style={{ color: "rgba(0, 228, 124, 1)" }}
+                  >
                     +6.4%
                   </span>
                 </div>
