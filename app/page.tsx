@@ -132,8 +132,7 @@ export default function Dashboard() {
                   className="text-xl font-medium text-white"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
-                  BI{" "}
-                  <span style={{ color: "rgb(0, 228, 124)" }}>Dashboard</span>
+                  Dashboard
                 </h1>
               </div>
               <nav className="hidden md:flex items-center space-x-6">
