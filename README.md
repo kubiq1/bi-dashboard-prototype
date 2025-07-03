@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BI Dashboard Prototype
 
-## Getting Started
+This repository contains the prototype of a data-driven web dashboard built using modern frontend technologies. The project is designed as a proof of concept to visualize structured hosting and billing data, with an emphasis on clean design, performance, and reusability.
 
-First, run the development server:
+## ✨ Features
+
+- Modular UI built with **React**, **Tailwind CSS**, and **shadcn/ui**
+- Custom font integration using locally hosted `.woff2` files
+- Responsive design with dark-mode-ready components
+- Clickable prototype using mock data and placeholder structures
+- Table views with filtering, sorting, and status indicators
+- Layouts prepared for future integration of API-based data sources
+
+## 🧱 Tech Stack
+
+- **React** (Vite or Next.js recommended)
+- **Tailwind CSS**
+- **shadcn/ui** component library
+- **Builder.io** for visual prototyping and UI iteration
+- Fonts: Custom font-face declarations for typography consistency
+
+## 🗂️ Folder Structure (sample)
+
+/public/fonts/ → Local fonts (.woff2) for Boehringer styles
+/src/components/ → Reusable UI components
+/src/pages/ → Screen templates (e.g. Billing Overview)
+/src/styles/ → Global styles, Tailwind setup
+
+markdown
+Kopieren
+Bearbeiten
+
+## 🛠 Setup
+
+1. Clone the repo
+2. Install dependencies
 
 ```bash
+npm install
+Start the dev server
+
+bash
+Kopieren
+Bearbeiten
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Fonts are already included under /public/fonts/ and registered via @font-face in global styles.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📦 Deployment
+To deploy this prototype, push the project to a platform such as:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Netlify
 
-## Learn More
+GitHub Pages (for static builds)
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+📄 License
+This project is for prototyping and internal demonstration purposes.
+No production use intended. Fonts are subject to their respective license terms.
