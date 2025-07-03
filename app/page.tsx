@@ -1,105 +1,348 @@
-import Image from "next/image";
+"use client";
+
+import {
+  Search,
+  Filter,
+  TrendingUp,
+  TrendingDown,
+  Building,
+  User,
+  ChevronDown,
+} from "lucide-react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
-export default function Home() {
+const mockProjects = [
+  {
+    name: "Customer Portal Redesign",
+    cluster: "Production",
+    cost: "CHF 2'890",
+    percentage: "23.4%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "Clinical Trial Platform",
+    cluster: "Staging",
+    cost: "CHF 1'950",
+    percentage: "15.7%",
+    cms: "Custom",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "Research Data Hub",
+    cluster: "Production",
+    cost: "CHF 1'750",
+    percentage: "14.1%",
+    cms: "WordPress",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "Internal Training Portal",
+    cluster: "Development",
+    cost: "CHF 1'420",
+    percentage: "11.5%",
+    cms: "Drupal",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "Product Documentation",
+    cluster: "Production",
+    cost: "CHF 980",
+    percentage: "7.9%",
+    cms: "GitBook",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "Regulatory Dashboard",
+    cluster: "Staging",
+    cost: "CHF 850",
+    percentage: "6.9%",
+    cms: "Custom",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "Partner API Gateway",
+    cluster: "Production",
+    cost: "CHF 740",
+    percentage: "6.0%",
+    cms: "N/A",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "Legacy CRM Migration",
+    cluster: "Development",
+    cost: "CHF 620",
+    percentage: "5.0%",
+    cms: "Salesforce",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+];
+
+export default function Dashboard() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-          {/* Here is your shadcn Button */}
-        <Button>Click me</Button>
+    <div className="min-h-screen bg-white">
+      {/* Navigation Header */}
+      <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="container mx-auto px-4 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-3">
+                <div className="flex h-8 w-8 items-center justify-center rounded bg-[#002c5f]">
+                  <Building className="h-5 w-5 text-white" />
+                </div>
+                <h1
+                  className="text-xl font-medium text-[#002c5f]"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
+                  BI Dashboard
+                </h1>
+              </div>
+              <nav className="hidden md:flex items-center space-x-6">
+                <a
+                  href="#"
+                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                >
+                  Billing
+                </a>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                >
+                  Projects
+                </a>
+                <a
+                  href="#"
+                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                >
+                  Cluster Info
+                </a>
+              </nav>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Avatar className="h-8 w-8">
+                <AvatarFallback className="bg-[#002c5f] text-white text-sm font-medium">
+                  CH
+                </AvatarFallback>
+              </Avatar>
+            </div>
+          </div>
         </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 lg:px-8 py-8">
+        {/* Monthly Billing Overview */}
+        <section className="mb-12">
+          <h2
+            className="text-2xl font-medium text-gray-900 mb-6"
+            style={{ fontFamily: "var(--font-headline)" }}
+          >
+            Monthly Billing Overview
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="border-gray-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">
+                  Total Cost This Month
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold text-gray-900">
+                  CHF 12'390
+                </div>
+                <p className="text-xs text-gray-500 mt-1">
+                  As of {new Date().toLocaleDateString("en-CH")}
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-gray-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">
+                  Change vs Last Month
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center space-x-2">
+                  <TrendingUp className="h-5 w-5 text-green-600" />
+                  <span className="text-3xl font-bold text-green-600">
+                    +6.4%
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 mt-1">CHF 740 increase</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-gray-200">
+              <CardHeader className="pb-3">
+                <CardTitle className="text-sm font-medium text-gray-600">
+                  Monthly Trend
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center justify-between h-16">
+                  <div className="flex space-x-1">
+                    {[65, 45, 70, 55, 80, 75, 85, 60, 90, 70, 85, 100].map(
+                      (height, i) => (
+                        <div
+                          key={i}
+                          className="w-2 bg-[#002c5f] rounded-sm"
+                          style={{ height: `${height}%` }}
+                        />
+                      ),
+                    )}
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mt-2">12-month overview</p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Projects Cost Breakdown */}
+        <section>
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+            <h2
+              className="font-medium text-gray-900 mb-4 lg:mb-0"
+              style={{
+                fontFamily: "var(--font-headline)",
+                fontSize: "26px",
+                lineHeight: "32px",
+              }}
+            >
+              Projects – Cost Breakdown
+            </h2>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search projects..."
+                  className="pl-10 w-full sm:w-64"
+                />
+              </div>
+              <Select>
+                <SelectTrigger className="w-full sm:w-48">
+                  <Filter className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Filter by cluster" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Clusters</SelectItem>
+                  <SelectItem value="production">Production</SelectItem>
+                  <SelectItem value="staging">Staging</SelectItem>
+                  <SelectItem value="development">Development</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <Card className="border-gray-200">
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow className="hover:bg-transparent">
+                      <TableHead className="font-semibold text-gray-900">
+                        Project Name
+                      </TableHead>
+                      <TableHead className="font-semibold text-gray-900">
+                        Cluster
+                      </TableHead>
+                      <TableHead className="font-semibold text-gray-900 text-right">
+                        Cost (CHF)
+                      </TableHead>
+                      <TableHead className="font-semibold text-gray-900 text-right">
+                        % of Total
+                      </TableHead>
+                      <TableHead className="font-semibold text-gray-900">
+                        CMS
+                      </TableHead>
+                      <TableHead className="font-semibold text-gray-900">
+                        Lifecycle Stage
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {mockProjects.map((project, index) => (
+                      <TableRow key={index} className="hover:bg-gray-50">
+                        <TableCell className="font-medium text-gray-900">
+                          {project.name}
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline" className="font-normal">
+                            {project.cluster}
+                          </Badge>
+                        </TableCell>
+                        <TableCell className="text-right font-medium">
+                          {project.cost}
+                        </TableCell>
+                        <TableCell className="text-right text-gray-600">
+                          {project.percentage}
+                        </TableCell>
+                        <TableCell className="text-gray-600">
+                          {project.cms}
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            className={`${project.stageColor} border-0 font-normal`}
+                            variant="secondary"
+                          >
+                            {project.stage}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </CardContent>
+          </Card>
+
+          <div className="flex items-center justify-between mt-6">
+            <p className="text-sm text-gray-600">Showing 8 of 24 projects</p>
+            <div className="flex space-x-2">
+              <Button variant="outline" size="sm" disabled>
+                Previous
+              </Button>
+              <Button variant="outline" size="sm">
+                Next
+              </Button>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
