@@ -236,8 +236,12 @@ export default function Dashboard() {
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
             <h2
-              className="text-2xl font-medium text-gray-900 mb-4 lg:mb-0"
-              style={{ fontFamily: "var(--font-headline)" }}
+              className="font-medium text-gray-900 mb-4 lg:mb-0"
+              style={{
+                fontFamily: "var(--font-headline)",
+                fontSize: "26px",
+                lineHeight: "32px",
+              }}
             >
               Projects – Cost Breakdown
             </h2>
