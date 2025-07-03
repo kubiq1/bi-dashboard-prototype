@@ -123,7 +123,10 @@ export default function Dashboard() {
                 <div className="flex h-8 w-8 items-center justify-center rounded bg-[#002c5f]">
                   <Building className="h-5 w-5 text-white" />
                 </div>
-                <h1 className="text-xl font-semibold text-[#002c5f]">
+                <h1
+                  className="text-xl font-medium text-[#002c5f]"
+                  style={{ fontFamily: "var(--font-headline)" }}
+                >
                   BI Dashboard
                 </h1>
               </div>
@@ -163,7 +166,10 @@ export default function Dashboard() {
       <main className="container mx-auto px-4 lg:px-8 py-8">
         {/* Monthly Billing Overview */}
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-900 mb-6">
+          <h2
+            className="text-2xl font-medium text-gray-900 mb-6"
+            style={{ fontFamily: "var(--font-headline)" }}
+          >
             Monthly Billing Overview
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -229,7 +235,10 @@ export default function Dashboard() {
         {/* Projects Cost Breakdown */}
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4 lg:mb-0">
+            <h2
+              className="text-2xl font-medium text-gray-900 mb-4 lg:mb-0"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
               Projects – Cost Breakdown
             </h2>
             <div className="flex flex-col sm:flex-row gap-3">
