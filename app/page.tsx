@@ -118,20 +118,18 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <header className="sticky top-0 z-50 border-b bg-[#08312a] backdrop-blur">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded bg-[#08312a] p-1">
-                  <img
-                    src="/assets/primary-logo-accent.svg"
-                    alt="BI Dashboard Logo"
-                    className="h-full w-full"
-                  />
-                </div>
+                <img
+                  src="/assets/primary-logo-accent.svg"
+                  alt="BI Dashboard Logo"
+                  className="h-8 w-8"
+                />
                 <h1
-                  className="text-xl font-medium text-[#002c5f]"
+                  className="text-xl font-medium text-white"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   BI Dashboard
