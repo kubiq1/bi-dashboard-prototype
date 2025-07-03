@@ -232,6 +232,159 @@ export default function Dashboard() {
           </div>
         </section>
 
+        {/* Cluster Overview */}
+        <section className="mb-12">
+          <h2
+            className="text-2xl font-medium text-gray-900 mb-6"
+            style={{ fontFamily: "var(--font-headline)" }}
+          >
+            Cluster Overview
+          </h2>
+          <div className="overflow-x-auto">
+            <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
+              {/* BI-1 Cluster */}
+              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-medium text-gray-900">
+                      BI-1
+                    </CardTitle>
+                    <div className="flex h-3 w-3 rounded-full bg-green-500 shadow-sm">
+                      <div className="h-3 w-3 rounded-full bg-green-500 animate-ping"></div>
+                    </div>
+                  </div>
+                  <CardDescription className="text-sm text-gray-600">
+                    Production Cluster
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Server className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">
+                        Active Nodes
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      12
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Cpu className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">RAM Usage</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      78%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Activity className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">Pod Count</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      143
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* BI-2 Cluster */}
+              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-medium text-gray-900">
+                      BI-2
+                    </CardTitle>
+                    <div className="flex h-3 w-3 rounded-full bg-yellow-500 shadow-sm">
+                      <div className="h-3 w-3 rounded-full bg-yellow-500 animate-ping"></div>
+                    </div>
+                  </div>
+                  <CardDescription className="text-sm text-gray-600">
+                    Staging Cluster
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Server className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">
+                        Active Nodes
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">8</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Cpu className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">RAM Usage</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      65%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Activity className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">Pod Count</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      89
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* BI-CN2 Cluster */}
+              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-lg font-medium text-gray-900">
+                      BI-CN2
+                    </CardTitle>
+                    <div className="flex h-3 w-3 rounded-full bg-red-500 shadow-sm">
+                      <div className="h-3 w-3 rounded-full bg-red-500 animate-ping"></div>
+                    </div>
+                  </div>
+                  <CardDescription className="text-sm text-gray-600">
+                    Development Cluster
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Server className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">
+                        Active Nodes
+                      </span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">4</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Cpu className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">RAM Usage</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      92%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Activity className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">Pod Count</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      56
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
         {/* Projects Cost Breakdown */}
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
