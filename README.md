@@ -21,7 +21,7 @@ This repository contains the prototype of a data-driven web dashboard built usin
 
 ## 🗂️ Folder Structure (sample)
 
-/public/fonts/ → Local fonts (.woff2) for Boehringer styles
+/public/fonts/ → Local fonts (.woff2)
 /src/components/ → Reusable UI components
 /src/pages/ → Screen templates (e.g. Billing Overview)
 /src/styles/ → Global styles, Tailwind setup
