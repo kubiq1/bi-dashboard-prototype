@@ -5,7 +5,6 @@ import {
   Filter,
   TrendingUp,
   TrendingDown,
-  Building,
   User,
   ChevronDown,
   Server,
