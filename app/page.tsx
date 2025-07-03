@@ -124,8 +124,12 @@ export default function Dashboard() {
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded bg-[#002c5f]">
-                  <Building className="h-5 w-5 text-white" />
+                <div className="flex h-8 w-8 items-center justify-center rounded bg-[#08312a] p-1">
+                  <img
+                    src="/assets/primary-logo-accent.svg"
+                    alt="BI Dashboard Logo"
+                    className="h-full w-full"
+                  />
                 </div>
                 <h1
                   className="text-xl font-medium text-[#002c5f]"
@@ -137,19 +141,19 @@ export default function Dashboard() {
               <nav className="hidden md:flex items-center space-x-6">
                 <a
                   href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Billing
                 </a>
                 <a
                   href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Projects
                 </a>
                 <a
                   href="#"
-                  className="text-sm font-medium text-gray-700 hover:text-[#002c5f] transition-colors"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Cluster Info
                 </a>
