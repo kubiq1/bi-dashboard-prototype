@@ -8,6 +8,10 @@ import {
   Building,
   User,
   ChevronDown,
+  Server,
+  Cpu,
+  HardDrive,
+  Activity,
 } from "lucide-react";
 import {
   Card,
