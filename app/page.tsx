@@ -118,7 +118,7 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
-      <header className="sticky top-0 z-50 border-b bg-[#08312a] backdrop-blur">
+      <header className="sticky top-0 z-50 border-b bg-[#08312a] backdrop-blur h-20 flex flex-col justify-center items-center">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
@@ -132,7 +132,8 @@ export default function Dashboard() {
                   className="text-xl font-medium text-white"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
-                  BI Dashboard
+                  BI{" "}
+                  <span style={{ color: "rgb(0, 228, 124)" }}>Dashboard</span>
                 </h1>
               </div>
               <nav className="hidden md:flex items-center space-x-6">
@@ -203,7 +204,10 @@ export default function Dashboard() {
               <CardContent>
                 <div className="flex items-center space-x-2">
                   <TrendingUp className="h-5 w-5 text-green-600" />
-                  <span className="text-3xl font-bold text-green-600">
+                  <span
+                    className="text-3xl font-bold"
+                    style={{ color: "rgba(0, 228, 124, 1)" }}
+                  >
                     +6.4%
                   </span>
                 </div>
