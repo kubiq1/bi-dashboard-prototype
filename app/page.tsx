@@ -126,7 +126,7 @@ export default function Dashboard() {
                 <img
                   src="/assets/primary-logo-accent.svg"
                   alt="BI Dashboard Logo"
-                  className="h-8 w-8"
+                  className="h-auto w-[140px]"
                 />
                 <h1
                   className="text-xl font-medium text-white"
