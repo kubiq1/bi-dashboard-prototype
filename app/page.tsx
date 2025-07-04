@@ -38,6 +38,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
 
 const mockProjects = [
   {
@@ -115,6 +116,11 @@ const mockProjects = [
 ];
 
 export default function Dashboard() {
+  const [today, setToday] = useState("");
+  useEffect(() => {
+    setToday(new Date().toLocaleDateString("en-CH"));
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
@@ -189,7 +195,7 @@ export default function Dashboard() {
                   CHF 12'390
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
-                  As of {new Date().toLocaleDateString("en-CH")}
+                  As of {today}
                 </p>
               </CardContent>
             </Card>
