@@ -185,7 +185,10 @@ export default function Dashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold text-gray-900">
+                <div
+                  className="font-bold text-gray-900"
+                  style={{ fontSize: "40px" }}
+                >
                   CHF 12'390
                 </div>
                 <p className="text-xs text-gray-500 mt-1">
