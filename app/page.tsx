@@ -179,7 +179,7 @@ export default function Dashboard() {
               {/* User Profile */}
               <div className="flex items-center space-x-3">
                 <Avatar className="h-8 w-8">
-                  <AvatarFallback className="bg-[#002c5f] text-white text-sm font-medium">
+                  <AvatarFallback className="bg-[#00E47C] text-white text-sm font-medium">
                     CH
                   </AvatarFallback>
                 </Avatar>
