@@ -11,6 +11,7 @@ import {
   Cpu,
   HardDrive,
   Activity,
+  Bell,
 } from "lucide-react";
 import {
   Card,
@@ -117,6 +118,8 @@ const mockProjects = [
 
 export default function Dashboard() {
   const [today, setToday] = useState("");
+  const [hasNotifications, setHasNotifications] = useState(true);
+
   useEffect(() => {
     setToday(new Date().toLocaleDateString("en-CH"));
   }, []);
@@ -135,7 +138,7 @@ export default function Dashboard() {
                   className="h-auto w-[140px]"
                 />
                 <h1
-                  className="text-xl font-medium text-white"
+                  className="text-sm font-extralight text-[#00E47C]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Dashboard
@@ -162,12 +165,31 @@ export default function Dashboard() {
                 </a>
               </nav>
             </div>
-            <div className="flex items-center space-x-4">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-[#002c5f] text-white text-sm font-medium">
-                  CH
-                </AvatarFallback>
-              </Avatar>
+            <div className="flex items-center space-x-6">
+              {/* Notification Bell */}
+              <div className="relative">
+                <button className="relative p-2 text-white hover:text-[#00e47c] transition-colors">
+                  <Bell className="h-5 w-5" />
+                  {hasNotifications && (
+                    <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full"></div>
+                  )}
+                </button>
+              </div>
+
+              {/* User Profile */}
+              <div className="flex items-center space-x-3">
+                <Avatar className="h-8 w-8">
+                  <AvatarFallback className="bg-[#00E47C] text-white text-sm font-medium">
+                    CH
+                  </AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col">
+                  <span className="text-sm font-medium text-white">
+                    Alexandra
+                  </span>
+                  <span className="text-xs text-gray-300">admin</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -197,9 +219,7 @@ export default function Dashboard() {
                 >
                   CHF 12'390
                 </div>
-                <p className="text-xs text-gray-500 mt-1">
-                  As of {today}
-                </p>
+                <p className="text-xs text-gray-500 mt-1">As of {today}</p>
               </CardContent>
             </Card>
 
