@@ -116,6 +116,143 @@ const mockProjects = [
   },
 ];
 
+function SparklineChart() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mousePosition, setMousePosition] = useState<{
+    x: number;
+    y: number;
+  } | null>(null);
+
+  // Use the provided example data
+  const chfValues = [
+    13800, 14600, 15800, 15200, 16400, 17500, 17300, 18200, 18800, 18200, 19200,
+    20000,
+  ];
+  const width = 280;
+  const height = 64;
+  const padding = 8;
+
+  const max = Math.max(...chfValues);
+  const min = Math.min(...chfValues);
+  const range = max - min;
+
+  // Create smooth curve path
+  const points = chfValues.map((value, index) => {
+    const x =
+      padding + (index * (width - 2 * padding)) / (chfValues.length - 1);
+    const y =
+      height - padding - ((value - min) / range) * (height - 2 * padding);
+    return { x, y, chf: value };
+  });
+
+  // Create smooth curve using cubic bezier
+  const pathData = points.reduce((path, point, index) => {
+    if (index === 0) {
+      return `M ${point.x} ${point.y}`;
+    } else {
+      const prevPoint = points[index - 1];
+      const cpx1 = prevPoint.x + (point.x - prevPoint.x) * 0.5;
+      const cpy1 = prevPoint.y;
+      const cpx2 = prevPoint.x + (point.x - prevPoint.x) * 0.5;
+      const cpy2 = point.y;
+      return (
+        path + ` C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${point.x} ${point.y}`
+      );
+    }
+  }, "");
+
+  const handleMouseMove = (event: React.MouseEvent<SVGElement>) => {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * width;
+
+    // Find nearest point
+    let nearestIndex = 0;
+    let minDistance = Math.abs(points[0].x - x);
+
+    points.forEach((point, index) => {
+      const distance = Math.abs(point.x - x);
+      if (distance < minDistance) {
+        minDistance = distance;
+        nearestIndex = index;
+      }
+    });
+
+    setHoveredIndex(nearestIndex);
+    setMousePosition({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+    setMousePosition(null);
+  };
+
+  return (
+    <div className="h-16 relative">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${width} ${height}`}
+        className="overflow-visible cursor-crosshair"
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+      >
+        {/* Sparkline path */}
+        <path
+          d={pathData}
+          fill="none"
+          stroke="#00b871"
+          strokeWidth="2"
+          className="transition-all duration-200"
+        />
+
+        {/* Single hover dot for nearest point */}
+        {hoveredIndex !== null && (
+          <circle
+            cx={points[hoveredIndex].x}
+            cy={points[hoveredIndex].y}
+            r="4"
+            fill="#00b871"
+            stroke="white"
+            strokeWidth="2"
+            className="transition-all duration-150"
+          />
+        )}
+
+        {/* Invisible hover areas for better interaction */}
+        {points.map((point, index) => (
+          <circle
+            key={index}
+            cx={point.x}
+            cy={point.y}
+            r="8"
+            fill="transparent"
+            className="cursor-crosshair"
+          />
+        ))}
+      </svg>
+
+      {/* Tooltip */}
+      {hoveredIndex !== null && mousePosition && (
+        <div
+          className="absolute pointer-events-none z-10 transition-all duration-150"
+          style={{
+            left: points[hoveredIndex].x,
+            top: points[hoveredIndex].y - 35,
+            transform: "translateX(-50%)",
+          }}
+        >
+          <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+            CHF {points[hoveredIndex].chf.toLocaleString()}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function Dashboard() {
   const [today, setToday] = useState("");
   const [hasNotifications, setHasNotifications] = useState(true);
