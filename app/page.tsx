@@ -180,7 +180,7 @@ export default function Dashboard() {
               <div className="flex items-center space-x-3">
                 <Avatar className="h-8 w-8">
                   <AvatarFallback className="bg-[#00E47C] text-white text-sm font-medium">
-                    CH
+                    <span style={{ color: "rgb(8, 49, 42)" }}>CH</span>
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col">
