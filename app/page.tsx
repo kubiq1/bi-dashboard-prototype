@@ -118,31 +118,34 @@ const mockProjects = [
 
 function SparklineChart() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState<{
-    x: number;
-    y: number;
-  } | null>(null);
+  const [svgRef, setSvgRef] = useState<SVGSVGElement | null>(null);
 
   // Use the provided example data
   const chfValues = [
     13800, 14600, 15800, 15200, 16400, 17500, 17300, 18200, 18800, 18200, 19200,
     20000,
   ];
+
+  // Remove padding to align with text edges
   const width = 280;
   const height = 64;
-  const padding = 8;
+  const padding = 0; // No padding for edge alignment
 
   const max = Math.max(...chfValues);
   const min = Math.min(...chfValues);
   const range = max - min;
 
-  // Create smooth curve path
+  // Create smooth curve path - using full width
   const points = chfValues.map((value, index) => {
-    const x =
-      padding + (index * (width - 2 * padding)) / (chfValues.length - 1);
-    const y =
-      height - padding - ((value - min) / range) * (height - 2 * padding);
+    const x = (index * width) / (chfValues.length - 1);
+    const y = height - ((value - min) / range) * height;
     return { x, y, chf: value };
+  });
+
+  // Create grid lines (4 horizontal lines)
+  const gridLines = Array.from({ length: 4 }, (_, i) => {
+    const y = (height / 5) * (i + 1); // Evenly spaced
+    return y;
   });
 
   // Create smooth curve using cubic bezier
@@ -165,7 +168,7 @@ function SparklineChart() {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = ((event.clientX - rect.left) / rect.width) * width;
 
-    // Find nearest point
+    // Find nearest point with stricter distance checking
     let nearestIndex = 0;
     let minDistance = Math.abs(points[0].x - x);
 
@@ -177,21 +180,23 @@ function SparklineChart() {
       }
     });
 
-    setHoveredIndex(nearestIndex);
-    setMousePosition({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
-    });
+    // Only show tooltip if mouse is reasonably close to a point
+    const threshold = width / (chfValues.length - 1) / 2; // Half the distance between points
+    if (minDistance <= threshold) {
+      setHoveredIndex(nearestIndex);
+    } else {
+      setHoveredIndex(null);
+    }
   };
 
   const handleMouseLeave = () => {
     setHoveredIndex(null);
-    setMousePosition(null);
   };
 
   return (
     <div className="h-16 relative">
       <svg
+        ref={setSvgRef}
         width="100%"
         height="100%"
         viewBox={`0 0 ${width} ${height}`}
@@ -199,6 +204,20 @@ function SparklineChart() {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
+        {/* Grid lines */}
+        {gridLines.map((y, index) => (
+          <line
+            key={index}
+            x1="0"
+            y1={y}
+            x2={width}
+            y2={y}
+            stroke="#F1F3F5"
+            strokeWidth="1"
+            opacity="0.15"
+          />
+        ))}
+
         {/* Sparkline path */}
         <path
           d={pathData}
@@ -221,30 +240,30 @@ function SparklineChart() {
           />
         )}
 
-        {/* Invisible hover areas for better interaction */}
+        {/* Hover trigger areas only over actual points */}
         {points.map((point, index) => (
           <circle
             key={index}
             cx={point.x}
             cy={point.y}
-            r="8"
+            r="12"
             fill="transparent"
             className="cursor-crosshair"
           />
         ))}
       </svg>
 
-      {/* Tooltip */}
-      {hoveredIndex !== null && mousePosition && (
+      {/* Tooltip positioned exactly at the dot */}
+      {hoveredIndex !== null && svgRef && (
         <div
           className="absolute pointer-events-none z-10 transition-all duration-150"
           style={{
-            left: points[hoveredIndex].x,
-            top: points[hoveredIndex].y - 35,
-            transform: "translateX(-50%)",
+            left: `${(points[hoveredIndex].x / width) * 100}%`,
+            top: `${(points[hoveredIndex].y / height) * 100}%`,
+            transform: "translate(-50%, -100%) translateY(-8px)",
           }}
         >
-          <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg">
+          <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
             CHF {points[hoveredIndex].chf.toLocaleString()}
           </div>
         </div>
