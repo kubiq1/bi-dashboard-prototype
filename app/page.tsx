@@ -250,18 +250,107 @@ export default function Dashboard() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-between h-16">
-                  <div className="flex space-x-1">
-                    {[65, 45, 70, 55, 80, 75, 85, 60, 90, 70, 85, 100].map(
-                      (height, i) => (
-                        <div
-                          key={i}
-                          className="w-2 bg-[#002c5f] rounded-sm"
-                          style={{ height: `${height}%` }}
+                <div className="h-16 relative group">
+                  {(() => {
+                    // Convert percentage values to CHF amounts (scaled for visualization)
+                    const monthlyData = [
+                      65, 45, 70, 55, 80, 75, 85, 60, 90, 70, 85, 100,
+                    ];
+                    const chfValues = monthlyData.map((val) =>
+                      Math.round((val / 100) * 12000 + 8000),
+                    ); // Scale to realistic CHF values
+                    const width = 280;
+                    const height = 64;
+                    const padding = 8;
+
+                    const max = Math.max(...monthlyData);
+                    const min = Math.min(...monthlyData);
+                    const range = max - min;
+
+                    // Create smooth curve path
+                    const points = monthlyData.map((value, index) => {
+                      const x =
+                        padding +
+                        (index * (width - 2 * padding)) /
+                          (monthlyData.length - 1);
+                      const y =
+                        height -
+                        padding -
+                        ((value - min) / range) * (height - 2 * padding);
+                      return { x, y, chf: chfValues[index] };
+                    });
+
+                    // Create smooth curve using cubic bezier
+                    const pathData = points.reduce((path, point, index) => {
+                      if (index === 0) {
+                        return `M ${point.x} ${point.y}`;
+                      } else {
+                        const prevPoint = points[index - 1];
+                        const cpx1 =
+                          prevPoint.x + (point.x - prevPoint.x) * 0.5;
+                        const cpy1 = prevPoint.y;
+                        const cpx2 =
+                          prevPoint.x + (point.x - prevPoint.x) * 0.5;
+                        const cpy2 = point.y;
+                        return (
+                          path +
+                          ` C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${point.x} ${point.y}`
+                        );
+                      }
+                    }, "");
+
+                    return (
+                      <svg
+                        width="100%"
+                        height="100%"
+                        viewBox={`0 0 ${width} ${height}`}
+                        className="overflow-visible"
+                      >
+                        {/* Sparkline path */}
+                        <path
+                          d={pathData}
+                          fill="none"
+                          stroke="#00b871"
+                          strokeWidth="2"
+                          className="transition-all duration-200"
                         />
-                      ),
-                    )}
-                  </div>
+
+                        {/* Hover dots */}
+                        {points.map((point, index) => (
+                          <g key={index}>
+                            <circle
+                              cx={point.x}
+                              cy={point.y}
+                              r="3"
+                              fill="#00b871"
+                              className="opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                            />
+                            {/* Tooltip */}
+                            <g className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+                              <rect
+                                x={point.x - 25}
+                                y={point.y - 25}
+                                width="50"
+                                height="16"
+                                rx="4"
+                                fill="#1f2937"
+                                fillOpacity="0.9"
+                              />
+                              <text
+                                x={point.x}
+                                y={point.y - 15}
+                                textAnchor="middle"
+                                className="text-xs fill-white"
+                                style={{ fontSize: "10px" }}
+                              >
+                                CHF {point.chf.toLocaleString()}
+                              </text>
+                            </g>
+                          </g>
+                        ))}
+                      </svg>
+                    );
+                  })()}
                 </div>
                 <p className="text-xs text-gray-500 mt-2">12-month overview</p>
               </CardContent>
