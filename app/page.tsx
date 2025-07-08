@@ -138,7 +138,7 @@ export default function Dashboard() {
                   className="h-auto w-[140px]"
                 />
                 <h1
-                  className="text-xl font-medium text-white"
+                  className="text-sm font-extralight text-[#00E47C]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Dashboard
