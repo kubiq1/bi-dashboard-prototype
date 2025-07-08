@@ -251,7 +251,6 @@ export default function Dashboard() {
               </CardHeader>
               <CardContent>
                 <SparklineChart />
-              </CardContent>
                 <p className="text-xs text-gray-500 mt-2">12-month overview</p>
               </CardContent>
             </Card>
