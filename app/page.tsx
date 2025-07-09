@@ -118,7 +118,6 @@ const mockProjects = [
 
 function SparklineChart() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [svgRef, setSvgRef] = useState<SVGSVGElement | null>(null);
 
   // Use the provided example data
   const chfValues = [
@@ -126,25 +125,31 @@ function SparklineChart() {
     20000,
   ];
 
-  // Remove padding to align with text edges
-  const width = 280;
+  // Match the card padding (24px on each side for alignment with text)
+  const containerWidth = 280;
+  const padding = 24;
+  const chartWidth = containerWidth - padding * 2;
   const height = 64;
-  const padding = 0; // No padding for edge alignment
+  const chartPadding = 4; // Small padding inside chart for visual breathing room
 
   const max = Math.max(...chfValues);
   const min = Math.min(...chfValues);
   const range = max - min;
 
-  // Create smooth curve path - using full width
+  // Create points with proper alignment to text
   const points = chfValues.map((value, index) => {
-    const x = (index * width) / (chfValues.length - 1);
-    const y = height - ((value - min) / range) * height;
+    const x =
+      padding +
+      chartPadding +
+      (index * (chartWidth - chartPadding * 2)) / (chfValues.length - 1);
+    const y =
+      chartPadding + ((max - value) / range) * (height - chartPadding * 2);
     return { x, y, chf: value };
   });
 
-  // Create grid lines (4 horizontal lines)
+  // Create 4 horizontal grid lines
   const gridLines = Array.from({ length: 4 }, (_, i) => {
-    const y = (height / 5) * (i + 1); // Evenly spaced
+    const y = chartPadding + ((i + 1) * (height - chartPadding * 2)) / 5;
     return y;
   });
 
@@ -166,27 +171,29 @@ function SparklineChart() {
 
   const handleMouseMove = (event: React.MouseEvent<SVGElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
-    const x = ((event.clientX - rect.left) / rect.width) * width;
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
 
-    // Find nearest point with stricter distance checking
-    let nearestIndex = 0;
-    let minDistance = Math.abs(points[0].x - x);
+    // Scale to SVG coordinates
+    const svgX = (mouseX / rect.width) * containerWidth;
+    const svgY = (mouseY / rect.height) * height;
+
+    // Find nearest point with distance checking in both X and Y
+    let nearestIndex = -1;
+    let minDistance = Infinity;
 
     points.forEach((point, index) => {
-      const distance = Math.abs(point.x - x);
-      if (distance < minDistance) {
+      const distance = Math.sqrt(
+        Math.pow(point.x - svgX, 2) + Math.pow(point.y - svgY, 2),
+      );
+      if (distance < minDistance && distance <= 12) {
+        // 12px threshold
         minDistance = distance;
         nearestIndex = index;
       }
     });
 
-    // Only show tooltip if mouse is reasonably close to a point
-    const threshold = width / (chfValues.length - 1) / 2; // Half the distance between points
-    if (minDistance <= threshold) {
-      setHoveredIndex(nearestIndex);
-    } else {
-      setHoveredIndex(null);
-    }
+    setHoveredIndex(nearestIndex >= 0 ? nearestIndex : null);
   };
 
   const handleMouseLeave = () => {
@@ -196,24 +203,23 @@ function SparklineChart() {
   return (
     <div className="h-16 relative">
       <svg
-        ref={setSvgRef}
         width="100%"
         height="100%"
-        viewBox={`0 0 ${width} ${height}`}
-        className="overflow-visible cursor-crosshair"
+        viewBox={`0 0 ${containerWidth} ${height}`}
+        className="overflow-visible"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Grid lines */}
+        {/* Grid lines - make sure they're visible */}
         {gridLines.map((y, index) => (
           <line
-            key={index}
-            x1="0"
+            key={`grid-${index}`}
+            x1={padding}
             y1={y}
-            x2={width}
+            x2={containerWidth - padding}
             y2={y}
             stroke="#F1F3F5"
-            strokeWidth="1"
+            strokeWidth="0.5"
             opacity="0.15"
           />
         ))}
@@ -240,10 +246,10 @@ function SparklineChart() {
           />
         )}
 
-        {/* Hover trigger areas only over actual points */}
+        {/* Invisible hover areas for better interaction */}
         {points.map((point, index) => (
           <circle
-            key={index}
+            key={`hover-${index}`}
             cx={point.x}
             cy={point.y}
             r="12"
@@ -254,11 +260,11 @@ function SparklineChart() {
       </svg>
 
       {/* Tooltip positioned exactly at the dot */}
-      {hoveredIndex !== null && svgRef && (
+      {hoveredIndex !== null && (
         <div
           className="absolute pointer-events-none z-10 transition-all duration-150"
           style={{
-            left: `${(points[hoveredIndex].x / width) * 100}%`,
+            left: `${(points[hoveredIndex].x / containerWidth) * 100}%`,
             top: `${(points[hoveredIndex].y / height) * 100}%`,
             transform: "translate(-50%, -100%) translateY(-8px)",
           }}
