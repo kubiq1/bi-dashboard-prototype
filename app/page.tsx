@@ -393,7 +393,7 @@ export default function Dashboard() {
                   className="font-bold text-gray-900"
                   style={{ fontSize: "30px" }}
                 >
-                  CHF 12'390
+                  USD 12'390
                 </div>
                 <p className="text-xs text-gray-500 mt-1">As of {today}</p>
               </CardContent>
