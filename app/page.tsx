@@ -140,10 +140,17 @@ function SparklineChart() {
     return { x, y, chf: value };
   });
 
-  // Create 4 horizontal grid lines spanning full width
-  const gridLines = Array.from({ length: 4 }, (_, i) => {
-    const y = ((i + 1) * height) / 5;
-    return y;
+  // Create horizontal grid lines (4 middle + top + bottom = 6 total)
+  const horizontalGridLines = [
+    0, // Top line
+    ...Array.from({ length: 4 }, (_, i) => ((i + 1) * height) / 5), // Middle lines
+    height, // Bottom line
+  ];
+
+  // Create 12 vertical grid lines for each month
+  const verticalGridLines = Array.from({ length: 12 }, (_, i) => {
+    const x = (i * containerWidth) / (chfValues.length - 1);
+    return x;
   });
 
   // Create smooth curve using cubic bezier
