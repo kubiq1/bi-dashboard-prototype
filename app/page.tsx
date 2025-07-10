@@ -43,7 +43,7 @@ import { useEffect, useState } from "react";
 
 const mockProjects = [
   {
-    name: "Customer Portal Redesign",
+    name: "pro-bi-com-us-jentadueto",
     cluster: "Production",
     cost: "USD 2'890",
     percentage: "23.4%",
@@ -52,7 +52,7 @@ const mockProjects = [
     stageColor: "bg-green-100 text-green-800",
   },
   {
-    name: "Clinical Trial Platform",
+    name: "hz-qa-bi-hubnext-com",
     cluster: "Staging",
     cost: "USD 1'950",
     percentage: "15.7%",
@@ -61,7 +61,7 @@ const mockProjects = [
     stageColor: "bg-yellow-100 text-yellow-800",
   },
   {
-    name: "Research Data Hub",
+    name: "hz-storybook-bi-hubnext-com",
     cluster: "Production",
     cost: "USD 1'750",
     percentage: "14.1%",
@@ -70,7 +70,7 @@ const mockProjects = [
     stageColor: "bg-green-100 text-green-800",
   },
   {
-    name: "Internal Training Portal",
+    name: "centaura-se",
     cluster: "Development",
     cost: "USD 1'420",
     percentage: "11.5%",
@@ -79,7 +79,7 @@ const mockProjects = [
     stageColor: "bg-gray-100 text-gray-800",
   },
   {
-    name: "Product Documentation",
+    name: "insights-in-ild",
     cluster: "Production",
     cost: "USD 980",
     percentage: "7.9%",
@@ -88,7 +88,7 @@ const mockProjects = [
     stageColor: "bg-green-100 text-green-800",
   },
   {
-    name: "Regulatory Dashboard",
+    name: "agentereversor-com-ar",
     cluster: "Staging",
     cost: "USD 850",
     percentage: "6.9%",
@@ -97,7 +97,7 @@ const mockProjects = [
     stageColor: "bg-yellow-100 text-yellow-800",
   },
   {
-    name: "Partner API Gateway",
+    name: "frontline-si",
     cluster: "Production",
     cost: "USD 740",
     percentage: "6.0%",
@@ -106,13 +106,31 @@ const mockProjects = [
     stageColor: "bg-green-100 text-green-800",
   },
   {
-    name: "Legacy CRM Migration",
+    name: "making-more-health",
     cluster: "Development",
     cost: "USD 620",
     percentage: "5.0%",
     cms: "Salesforce",
     stage: "Legacy",
     stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "guides-boehringer-ingelheim-com",
+    cluster: "Production",
+    cost: "USD 580",
+    percentage: "4.7%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "bvdzero-es",
+    cluster: "Staging",
+    cost: "USD 520",
+    percentage: "4.2%",
+    cms: "Custom",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
   },
 ];
 
