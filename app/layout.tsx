@@ -1,6 +1,34 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ErrorBoundary from "@/components/error-boundary";
+
+// Global error handler for clipboard API errors
+if (typeof window !== "undefined") {
+  window.addEventListener("error", (event) => {
+    if (
+      event.error?.name === "NotAllowedError" &&
+      event.error?.message?.includes("Clipboard")
+    ) {
+      console.warn(
+        "Clipboard API blocked by browser security policy. This is normal in development.",
+      );
+      event.preventDefault();
+    }
+  });
+
+  window.addEventListener("unhandledrejection", (event) => {
+    if (
+      event.reason?.name === "NotAllowedError" &&
+      event.reason?.message?.includes("Clipboard")
+    ) {
+      console.warn(
+        "Clipboard API blocked by browser security policy. This is normal in development.",
+      );
+      event.preventDefault();
+    }
+  });
+}
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +55,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ErrorBoundary>{children}</ErrorBoundary>
       </body>
     </html>
   );

@@ -439,24 +439,30 @@ export default function Dashboard() {
     field: string;
     children: React.ReactNode;
     className?: string;
-  }) => (
-    <TableHead
-      className={`font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 ${className}`}
-      onClick={() => handleSort(field)}
-    >
-      <div className="flex items-center space-x-2">
-        <span>{children}</span>
-        <div className="flex flex-col">
-          <ChevronUp
-            className={`h-3 w-3 ${sortField === field && sortDirection === "asc" ? "text-gray-900" : "text-gray-400"}`}
-          />
-          <ChevronDown
-            className={`h-3 w-3 -mt-1 ${sortField === field && sortDirection === "desc" ? "text-gray-900" : "text-gray-400"}`}
-          />
+  }) => {
+    const isRightAligned = className.includes("text-right");
+
+    return (
+      <TableHead
+        className={`font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 ${className}`}
+        onClick={() => handleSort(field)}
+      >
+        <div
+          className={`flex items-center space-x-2 ${isRightAligned ? "justify-end" : ""}`}
+        >
+          <span>{children}</span>
+          <div className="flex flex-col">
+            <ChevronUp
+              className={`h-3 w-3 ${sortField === field && sortDirection === "asc" ? "text-gray-900" : "text-gray-400"}`}
+            />
+            <ChevronDown
+              className={`h-3 w-3 -mt-1 ${sortField === field && sortDirection === "desc" ? "text-gray-900" : "text-gray-400"}`}
+            />
+          </div>
         </div>
-      </div>
-    </TableHead>
-  );
+      </TableHead>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -472,7 +478,7 @@ export default function Dashboard() {
                   className="h-auto w-[140px]"
                 />
                 <h1
-                  className="text-sm font-extralight text-[#00E47C]"
+                  className="text-sm font-extralight text-[#08312a]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Dashboard
@@ -534,7 +540,7 @@ export default function Dashboard() {
         {/* Monthly Billing Overview */}
         <section className="mb-12">
           <h2
-            className="text-2xl font-medium text-gray-900 mb-6"
+            className="text-2xl font-medium text-[#08312a] mb-6"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             Monthly Billing Overview
@@ -595,12 +601,16 @@ export default function Dashboard() {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2
-              className="text-2xl font-medium text-gray-900"
+              className="text-2xl font-medium text-[#08312a]"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Production Cluster
             </h2>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none [&_svg]:text-[#08312a]"
+            >
               Show all Clusters
             </Button>
           </div>
@@ -610,7 +620,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI4
                     </CardTitle>
                     <div className="flex items-center space-x-2">
@@ -671,7 +681,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI5
                     </CardTitle>
                     <div className="flex items-center space-x-2">
@@ -730,7 +740,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI6
                     </CardTitle>
                     <div className="flex items-center space-x-2">
@@ -792,7 +802,7 @@ export default function Dashboard() {
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
             <h2
-              className="font-medium text-gray-900 mb-4 lg:mb-0"
+              className="font-medium text-[#08312a] mb-4 lg:mb-0"
               style={{
                 fontFamily: "var(--font-headline)",
                 fontSize: "26px",
@@ -812,8 +822,8 @@ export default function Dashboard() {
 
               {/* Department Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-40">
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                  <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Department" />
                 </SelectTrigger>
                 <SelectContent>
@@ -825,8 +835,8 @@ export default function Dashboard() {
 
               {/* Application Type Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-44">
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                  <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -842,8 +852,8 @@ export default function Dashboard() {
 
               {/* Cluster Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-36">
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                  <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Cluster" />
                 </SelectTrigger>
                 <SelectContent>
@@ -861,60 +871,82 @@ export default function Dashboard() {
           <Card className="border-gray-200">
             <CardContent className="p-0">
               <div className="overflow-x-auto">
-                <Table>
+                <Table className="table-fixed w-full">
                   <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                      <SortableHeader field="name">Project Name</SortableHeader>
-                      <SortableHeader field="cluster">Cluster</SortableHeader>
-                      <SortableHeader field="cost" className="text-right">
+                      <SortableHeader field="name" className="w-[35%]">
+                        Project Name
+                      </SortableHeader>
+                      <SortableHeader field="cluster" className="w-[20%]">
+                        Cluster
+                      </SortableHeader>
+                      <SortableHeader
+                        field="cost"
+                        className="text-right w-[15%]"
+                      >
                         Cost (USD)
                       </SortableHeader>
-                      <SortableHeader field="percentage" className="text-right">
+                      <SortableHeader
+                        field="percentage"
+                        className="text-right w-[15%]"
+                      >
                         % of Total
                       </SortableHeader>
-                      <SortableHeader field="cms">CMS</SortableHeader>
-                      <SortableHeader field="stage">
-                        Lifecycle Stage
+                      <SortableHeader field="cms" className="w-[15%]">
+                        CMS
                       </SortableHeader>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {sortedProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-900">
-                          <ProjectRow project={project} />
+                        <TableCell className="font-medium text-gray-900 w-[35%]">
+                          <div className="truncate">
+                            <ProjectRow project={project} />
+                          </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="w-[20%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
-                              (clusterName, clusterIndex) => (
-                                <Badge
-                                  key={clusterIndex}
-                                  variant="outline"
-                                  className="font-normal"
-                                >
-                                  {clusterName}
-                                </Badge>
-                              ),
+                              (clusterName, clusterIndex) => {
+                                // Define subtle colors for different clusters
+                                const clusterColors: Record<string, string> = {
+                                  BI3: "bg-slate-50 text-slate-600 border-slate-200",
+                                  BI4: "bg-blue-50 text-blue-600 border-blue-200",
+                                  BI5: "bg-emerald-50 text-emerald-600 border-emerald-200",
+                                  BI6: "bg-purple-50 text-purple-600 border-purple-200",
+                                  BICN2:
+                                    "bg-amber-50 text-amber-600 border-amber-200",
+                                };
+                                const colorClass =
+                                  clusterColors[clusterName] ||
+                                  "bg-gray-50 text-gray-600 border-gray-200";
+
+                                return (
+                                  <Badge
+                                    key={clusterIndex}
+                                    variant="outline"
+                                    className={`font-normal whitespace-nowrap ${colorClass}`}
+                                  >
+                                    {clusterName}
+                                  </Badge>
+                                );
+                              },
                             )}
                           </div>
                         </TableCell>
-                        <TableCell className="text-right font-medium">
-                          {project.cost}
+                        <TableCell className="text-right font-medium w-[15%]">
+                          <div className="whitespace-nowrap">
+                            {project.cost}
+                          </div>
                         </TableCell>
-                        <TableCell className="text-right text-gray-600">
-                          {project.percentage}
+                        <TableCell className="text-right text-gray-600 w-[15%]">
+                          <div className="whitespace-nowrap">
+                            {project.percentage}
+                          </div>
                         </TableCell>
-                        <TableCell className="text-gray-600">
-                          {project.cms}
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            className={`${project.stageColor} border-0 font-normal`}
-                            variant="secondary"
-                          >
-                            {project.stage}
-                          </Badge>
+                        <TableCell className="text-gray-600 w-[15%]">
+                          <div className="whitespace-nowrap">{project.cms}</div>
                         </TableCell>
                       </TableRow>
                     ))}
@@ -927,10 +959,19 @@ export default function Dashboard() {
           <div className="flex items-center justify-between mt-6">
             <p className="text-sm text-gray-600">Showing 10 of 1100 projects</p>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm" disabled>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled
+                className="bg-gray-100 text-gray-400 border-gray-200 rounded-none"
+              >
                 Previous
               </Button>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none"
+              >
                 Next
               </Button>
             </div>
