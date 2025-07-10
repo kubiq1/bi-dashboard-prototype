@@ -672,29 +672,7 @@ export default function Dashboard() {
                     {mockProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
                         <TableCell className="font-medium text-gray-900">
-                          <div className="flex items-center space-x-3">
-                            <span>{project.name}</span>
-                            <div className="flex space-x-2">
-                              <a
-                                href="https://animal.boehringer-ingelheim.com"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-gray-600 transition-colors"
-                                title="View Project"
-                              >
-                                <ExternalLink className="h-4 w-4" />
-                              </a>
-                              <a
-                                href="https://bitbucket.biscrum.com/wpsites/ah-vetportal"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-gray-400 hover:text-gray-600 transition-colors"
-                                title="View Repository"
-                              >
-                                <GitBranch className="h-4 w-4" />
-                              </a>
-                            </div>
-                          </div>
+                          <ProjectRow project={project} />
                         </TableCell>
                         <TableCell>
                           <Badge variant="outline" className="font-normal">
