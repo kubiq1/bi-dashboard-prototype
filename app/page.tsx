@@ -284,7 +284,7 @@ function SparklineChart() {
           }}
         >
           <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
-            CHF {points[hoveredIndex].chf.toLocaleString()}
+            USD {points[hoveredIndex].usd.toLocaleString()}
           </div>
         </div>
       )}
