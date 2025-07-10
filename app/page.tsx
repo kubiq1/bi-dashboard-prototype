@@ -478,7 +478,7 @@ export default function Dashboard() {
                   className="h-auto w-[140px]"
                 />
                 <h1
-                  className="text-sm font-extralight text-[#00E47C]"
+                  className="text-sm font-extralight text-[#08312a]"
                   style={{ fontFamily: "var(--font-headline)" }}
                 >
                   Dashboard
@@ -540,7 +540,7 @@ export default function Dashboard() {
         {/* Monthly Billing Overview */}
         <section className="mb-12">
           <h2
-            className="text-2xl font-medium text-gray-900 mb-6"
+            className="text-2xl font-medium text-[#08312a] mb-6"
             style={{ fontFamily: "var(--font-headline)" }}
           >
             Monthly Billing Overview
@@ -601,7 +601,7 @@ export default function Dashboard() {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2
-              className="text-2xl font-medium text-gray-900"
+              className="text-2xl font-medium text-[#08312a]"
               style={{ fontFamily: "var(--font-headline)" }}
             >
               Production Cluster
@@ -620,7 +620,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI4
                     </CardTitle>
                     <div className="flex items-center space-x-2">
@@ -681,7 +681,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI5
                     </CardTitle>
                     <div className="flex items-center space-x-2">
@@ -740,7 +740,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-xl font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI6
                     </CardTitle>
                     <div className="flex items-center space-x-2">
@@ -802,7 +802,7 @@ export default function Dashboard() {
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
             <h2
-              className="font-medium text-gray-900 mb-4 lg:mb-0"
+              className="font-medium text-[#08312a] mb-4 lg:mb-0"
               style={{
                 fontFamily: "var(--font-headline)",
                 fontSize: "26px",
