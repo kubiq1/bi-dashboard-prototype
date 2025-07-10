@@ -241,7 +241,7 @@ function SparklineChart() {
   };
 
   return (
-    <div className="h-16 relative">
+    <div ref={containerRef} className="h-16 relative">
       <svg
         width="100%"
         height="100%"
