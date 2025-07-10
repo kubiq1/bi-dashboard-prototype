@@ -410,12 +410,12 @@ export default function Dashboard() {
                   Dashboard
                 </h1>
               </div>
-              <nav className="hidden md:flex items-center space-x-6">
+              <nav className="hidden md:flex items-center space-x-8 ml-8">
                 <a
                   href="#"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
-                  Billing
+                  Cluster Info
                 </a>
                 <a
                   href="#"
@@ -425,9 +425,9 @@ export default function Dashboard() {
                 </a>
                 <a
                   href="#"
-                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  className="text-sm font-medium text-[#00e47c] hover:text-[#00e47c] transition-colors"
                 >
-                  Cluster Info
+                  Billing
                 </a>
               </nav>
             </div>
