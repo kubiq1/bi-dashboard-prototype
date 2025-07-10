@@ -12,6 +12,8 @@ import {
   HardDrive,
   Activity,
   Bell,
+  ExternalLink,
+  GitBranch,
 } from "lucide-react";
 import {
   Card,
