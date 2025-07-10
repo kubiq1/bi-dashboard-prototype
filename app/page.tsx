@@ -48,7 +48,7 @@ import { useEffect, useState, useRef } from "react";
 const mockProjects = [
   {
     name: "pro-bi-com-us-jentadueto",
-    cluster: "Production",
+    cluster: ["BI4"],
     cost: "USD 2'890",
     percentage: "23.4%",
     cms: "Drupal",
@@ -57,7 +57,7 @@ const mockProjects = [
   },
   {
     name: "hz-qa-bi-hubnext-com",
-    cluster: "Staging",
+    cluster: ["BI5", "BI6"],
     cost: "USD 1'950",
     percentage: "15.7%",
     cms: "Custom",
@@ -66,7 +66,7 @@ const mockProjects = [
   },
   {
     name: "hz-storybook-bi-hubnext-com",
-    cluster: "Production",
+    cluster: ["BI3"],
     cost: "USD 1'750",
     percentage: "14.1%",
     cms: "WordPress",
@@ -75,7 +75,7 @@ const mockProjects = [
   },
   {
     name: "centaura-se",
-    cluster: "Development",
+    cluster: ["BICN2"],
     cost: "USD 1'420",
     percentage: "11.5%",
     cms: "Drupal",
@@ -84,7 +84,7 @@ const mockProjects = [
   },
   {
     name: "insights-in-ild",
-    cluster: "Production",
+    cluster: ["BI4", "BI5"],
     cost: "USD 980",
     percentage: "7.9%",
     cms: "GitBook",
@@ -93,7 +93,7 @@ const mockProjects = [
   },
   {
     name: "agentereversor-com-ar",
-    cluster: "Staging",
+    cluster: ["BI6"],
     cost: "USD 850",
     percentage: "6.9%",
     cms: "Custom",
@@ -102,7 +102,7 @@ const mockProjects = [
   },
   {
     name: "frontline-si",
-    cluster: "Production",
+    cluster: ["BI3", "BI4", "BI5"],
     cost: "USD 740",
     percentage: "6.0%",
     cms: "N/A",
@@ -111,7 +111,7 @@ const mockProjects = [
   },
   {
     name: "making-more-health",
-    cluster: "Development",
+    cluster: ["BICN2"],
     cost: "USD 620",
     percentage: "5.0%",
     cms: "Salesforce",
@@ -120,7 +120,7 @@ const mockProjects = [
   },
   {
     name: "guides-boehringer-ingelheim-com",
-    cluster: "Production",
+    cluster: ["BI5"],
     cost: "USD 580",
     percentage: "4.7%",
     cms: "Drupal",
@@ -129,7 +129,7 @@ const mockProjects = [
   },
   {
     name: "bvdzero-es",
-    cluster: "Staging",
+    cluster: ["BI6", "BICN2"],
     cost: "USD 520",
     percentage: "4.2%",
     cms: "Custom",
