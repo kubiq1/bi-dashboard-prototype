@@ -120,7 +120,7 @@ function SparklineChart() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Use the provided example data
-  const chfValues = [
+  const usdValues = [
     13800, 14600, 15800, 15200, 16400, 17500, 17300, 18200, 18800, 18200, 19200,
     20000,
   ];
