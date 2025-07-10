@@ -606,7 +606,11 @@ export default function Dashboard() {
             >
               Production Cluster
             </h2>
-            <Button variant="outline" size="sm">
+            <Button
+              variant="outline"
+              size="sm"
+              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none [&_svg]:text-[#08312a]"
+            >
               Show all Clusters
             </Button>
           </div>
@@ -818,8 +822,8 @@ export default function Dashboard() {
 
               {/* Department Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-40">
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                  <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Department" />
                 </SelectTrigger>
                 <SelectContent>
@@ -831,8 +835,8 @@ export default function Dashboard() {
 
               {/* Application Type Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-44">
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                  <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -848,8 +852,8 @@ export default function Dashboard() {
 
               {/* Cluster Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-36">
-                  <Filter className="h-4 w-4 mr-2" />
+                <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                  <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Cluster" />
                 </SelectTrigger>
                 <SelectContent>
@@ -955,10 +959,19 @@ export default function Dashboard() {
           <div className="flex items-center justify-between mt-6">
             <p className="text-sm text-gray-600">Showing 10 of 1100 projects</p>
             <div className="flex space-x-2">
-              <Button variant="outline" size="sm" disabled>
+              <Button
+                variant="outline"
+                size="sm"
+                disabled
+                className="bg-gray-100 text-gray-400 border-gray-200 rounded-none"
+              >
                 Previous
               </Button>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none"
+              >
                 Next
               </Button>
             </div>
