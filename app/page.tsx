@@ -613,15 +613,7 @@ export default function Dashboard() {
                     </div>
                     <span className="text-sm font-medium text-gray-900">8</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <CheckCircle className="h-4 w-4 text-yellow-500" />
-                      <span className="text-sm text-gray-600">Node Health</span>
-                    </div>
-                    <span className="text-sm font-medium text-yellow-600">
-                      Warning
-                    </span>
-                  </div>
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <MemoryStick className="h-4 w-4 text-gray-500" />
