@@ -864,24 +864,18 @@ export default function Dashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                      <TableHead className="font-semibold text-gray-900">
-                        Project Name
-                      </TableHead>
-                      <TableHead className="font-semibold text-gray-900">
-                        Cluster
-                      </TableHead>
-                      <TableHead className="font-semibold text-gray-900 text-right">
+                      <SortableHeader field="name">Project Name</SortableHeader>
+                      <SortableHeader field="cluster">Cluster</SortableHeader>
+                      <SortableHeader field="cost" className="text-right">
                         Cost (USD)
-                      </TableHead>
-                      <TableHead className="font-semibold text-gray-900 text-right">
+                      </SortableHeader>
+                      <SortableHeader field="percentage" className="text-right">
                         % of Total
-                      </TableHead>
-                      <TableHead className="font-semibold text-gray-900">
-                        CMS
-                      </TableHead>
-                      <TableHead className="font-semibold text-gray-900">
+                      </SortableHeader>
+                      <SortableHeader field="cms">CMS</SortableHeader>
+                      <SortableHeader field="stage">
                         Lifecycle Stage
-                      </TableHead>
+                      </SortableHeader>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
