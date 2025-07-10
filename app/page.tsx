@@ -879,7 +879,7 @@ export default function Dashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {mockProjects.map((project, index) => (
+                    {sortedProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
                         <TableCell className="font-medium text-gray-900">
                           <ProjectRow project={project} />
