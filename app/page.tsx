@@ -685,7 +685,7 @@ export default function Dashboard() {
           </Card>
 
           <div className="flex items-center justify-between mt-6">
-            <p className="text-sm text-gray-600">Showing 8 of 24 projects</p>
+            <p className="text-sm text-gray-600">Showing 10 of 1100 projects</p>
             <div className="flex space-x-2">
               <Button variant="outline" size="sm" disabled>
                 Previous
