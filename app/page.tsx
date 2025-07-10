@@ -210,14 +210,28 @@ function SparklineChart() {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
-        {/* Grid lines - make sure they're visible */}
-        {gridLines.map((y, index) => (
+        {/* Horizontal grid lines */}
+        {horizontalGridLines.map((y, index) => (
           <line
-            key={`grid-${index}`}
+            key={`horizontal-grid-${index}`}
             x1="0"
             y1={y}
             x2={containerWidth}
             y2={y}
+            stroke="#e5e7eb"
+            strokeWidth="0.5"
+            opacity="1"
+          />
+        ))}
+
+        {/* Vertical grid lines for each month */}
+        {verticalGridLines.map((x, index) => (
+          <line
+            key={`vertical-grid-${index}`}
+            x1={x}
+            y1="0"
+            x2={x}
+            y2={height}
             stroke="#e5e7eb"
             strokeWidth="0.5"
             opacity="1"
