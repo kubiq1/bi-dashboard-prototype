@@ -585,7 +585,7 @@ export default function Dashboard() {
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-lg font-medium text-gray-900">
+                    <CardTitle className="text-xl font-medium text-gray-900">
                       BI5
                     </CardTitle>
                     <div className="flex items-center space-x-2">
