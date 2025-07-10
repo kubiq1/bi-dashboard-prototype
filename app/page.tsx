@@ -207,13 +207,13 @@ function SparklineChart() {
         {gridLines.map((y, index) => (
           <line
             key={`grid-${index}`}
-            x1={chartPadding}
+            x1="0"
             y1={y}
-            x2={containerWidth - chartPadding}
+            x2={containerWidth}
             y2={y}
             stroke="#F1F3F5"
             strokeWidth="1"
-            opacity="0.4"
+            opacity="0.8"
           />
         ))}
 
