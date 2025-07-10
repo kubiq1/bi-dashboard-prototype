@@ -507,12 +507,17 @@ export default function Dashboard() {
 
         {/* Production Cluster */}
         <section className="mb-12">
-          <h2
-            className="text-2xl font-medium text-gray-900 mb-6"
-            style={{ fontFamily: "var(--font-headline)" }}
-          >
-            Production Cluster
-          </h2>
+          <div className="flex items-center justify-between mb-6">
+            <h2
+              className="text-2xl font-medium text-gray-900"
+              style={{ fontFamily: "var(--font-headline)" }}
+            >
+              Production Cluster
+            </h2>
+            <Button variant="outline" size="sm">
+              Show all Clusters
+            </Button>
+          </div>
           <div className="overflow-x-auto">
             <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
               {/* BI4 Cluster */}
