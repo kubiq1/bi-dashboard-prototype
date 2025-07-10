@@ -149,7 +149,7 @@ function SparklineChart() {
 
   // Create 12 vertical grid lines for each month
   const verticalGridLines = Array.from({ length: 12 }, (_, i) => {
-    const x = (i * containerWidth) / (chfValues.length - 1);
+    const x = (i * containerWidth) / (usdValues.length - 1);
     return x;
   });
 
