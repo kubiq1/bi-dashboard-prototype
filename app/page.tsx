@@ -522,8 +522,13 @@ export default function Dashboard() {
                     <CardTitle className="text-lg font-medium text-gray-900">
                       BI4
                     </CardTitle>
-                    <div className="flex h-3 w-3 rounded-full bg-green-500 shadow-sm">
-                      <div className="h-3 w-3 rounded-full bg-green-500 animate-ping"></div>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-sm font-medium text-green-600">
+                        Healthy
+                      </span>
+                      <div className="flex h-3 w-3 rounded-full bg-green-500 shadow-sm">
+                        <div className="h-3 w-3 rounded-full bg-green-500 animate-ping"></div>
+                      </div>
                     </div>
                   </div>
                   <CardDescription className="text-sm text-gray-600">
