@@ -635,7 +635,7 @@ export default function Dashboard() {
                         Cluster
                       </TableHead>
                       <TableHead className="font-semibold text-gray-900 text-right">
-                        Cost (CHF)
+                        Cost (USD)
                       </TableHead>
                       <TableHead className="font-semibold text-gray-900 text-right">
                         % of Total
