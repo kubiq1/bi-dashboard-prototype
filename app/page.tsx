@@ -431,6 +431,33 @@ export default function Dashboard() {
 
   const sortedProjects = getSortedProjects();
 
+  const SortableHeader = ({
+    field,
+    children,
+    className = "",
+  }: {
+    field: string;
+    children: React.ReactNode;
+    className?: string;
+  }) => (
+    <TableHead
+      className={`font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 ${className}`}
+      onClick={() => handleSort(field)}
+    >
+      <div className="flex items-center space-x-2">
+        <span>{children}</span>
+        <div className="flex flex-col">
+          <ChevronUp
+            className={`h-3 w-3 ${sortField === field && sortDirection === "asc" ? "text-gray-900" : "text-gray-400"}`}
+          />
+          <ChevronDown
+            className={`h-3 w-3 -mt-1 ${sortField === field && sortDirection === "desc" ? "text-gray-900" : "text-gray-400"}`}
+          />
+        </div>
+      </div>
+    </TableHead>
+  );
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
