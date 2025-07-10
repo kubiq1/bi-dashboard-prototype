@@ -125,10 +125,8 @@ function SparklineChart() {
     20000,
   ];
 
-  // Match the card padding (24px on each side for alignment with text)
+  // Use full container width for the sparkline
   const containerWidth = 280;
-  const padding = 24;
-  const chartWidth = containerWidth - padding * 2;
   const height = 64;
   const chartPadding = 4; // Small padding inside chart for visual breathing room
 
@@ -136,18 +134,17 @@ function SparklineChart() {
   const min = Math.min(...chfValues);
   const range = max - min;
 
-  // Create points with proper alignment to text
+  // Create points spanning full container width
   const points = chfValues.map((value, index) => {
     const x =
-      padding +
       chartPadding +
-      (index * (chartWidth - chartPadding * 2)) / (chfValues.length - 1);
+      (index * (containerWidth - chartPadding * 2)) / (chfValues.length - 1);
     const y =
       chartPadding + ((max - value) / range) * (height - chartPadding * 2);
     return { x, y, chf: value };
   });
 
-  // Create 4 horizontal grid lines
+  // Create 4 horizontal grid lines spanning full width
   const gridLines = Array.from({ length: 4 }, (_, i) => {
     const y = chartPadding + ((i + 1) * (height - chartPadding * 2)) / 5;
     return y;
