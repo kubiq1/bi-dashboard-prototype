@@ -867,27 +867,41 @@ export default function Dashboard() {
           <Card className="border-gray-200">
             <CardContent className="p-0">
               <div className="overflow-x-auto">
-                <Table>
+                <Table className="table-fixed w-full">
                   <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                      <SortableHeader field="name">Project Name</SortableHeader>
-                      <SortableHeader field="cluster">Cluster</SortableHeader>
-                      <SortableHeader field="cost" className="text-right">
+                      <SortableHeader field="name" className="w-[35%]">
+                        Project Name
+                      </SortableHeader>
+                      <SortableHeader field="cluster" className="w-[20%]">
+                        Cluster
+                      </SortableHeader>
+                      <SortableHeader
+                        field="cost"
+                        className="text-right w-[15%]"
+                      >
                         Cost (USD)
                       </SortableHeader>
-                      <SortableHeader field="percentage" className="text-right">
+                      <SortableHeader
+                        field="percentage"
+                        className="text-right w-[15%]"
+                      >
                         % of Total
                       </SortableHeader>
-                      <SortableHeader field="cms">CMS</SortableHeader>
+                      <SortableHeader field="cms" className="w-[15%]">
+                        CMS
+                      </SortableHeader>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {sortedProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-900">
-                          <ProjectRow project={project} />
+                        <TableCell className="font-medium text-gray-900 w-[35%]">
+                          <div className="truncate">
+                            <ProjectRow project={project} />
+                          </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="w-[20%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
                               (clusterName, clusterIndex) => {
@@ -908,7 +922,7 @@ export default function Dashboard() {
                                   <Badge
                                     key={clusterIndex}
                                     variant="outline"
-                                    className={`font-normal ${colorClass}`}
+                                    className={`font-normal whitespace-nowrap ${colorClass}`}
                                   >
                                     {clusterName}
                                   </Badge>
@@ -917,14 +931,18 @@ export default function Dashboard() {
                             )}
                           </div>
                         </TableCell>
-                        <TableCell className="text-right font-medium">
-                          {project.cost}
+                        <TableCell className="text-right font-medium w-[15%]">
+                          <div className="whitespace-nowrap">
+                            {project.cost}
+                          </div>
                         </TableCell>
-                        <TableCell className="text-right text-gray-600">
-                          {project.percentage}
+                        <TableCell className="text-right text-gray-600 w-[15%]">
+                          <div className="whitespace-nowrap">
+                            {project.percentage}
+                          </div>
                         </TableCell>
-                        <TableCell className="text-gray-600">
-                          {project.cms}
+                        <TableCell className="text-gray-600 w-[15%]">
+                          <div className="whitespace-nowrap">{project.cms}</div>
                         </TableCell>
                       </TableRow>
                     ))}
