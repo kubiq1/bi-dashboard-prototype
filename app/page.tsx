@@ -211,9 +211,9 @@ function SparklineChart() {
             y1={y}
             x2={containerWidth}
             y2={y}
-            stroke="#F1F3F5"
+            stroke="#e5e7eb"
             strokeWidth="1"
-            opacity="0.8"
+            opacity="1"
           />
         ))}
 
