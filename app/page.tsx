@@ -45,7 +45,7 @@ const mockProjects = [
   {
     name: "Customer Portal Redesign",
     cluster: "Production",
-    cost: "CHF 2'890",
+    cost: "USD 2'890",
     percentage: "23.4%",
     cms: "Drupal",
     stage: "Active",
@@ -54,7 +54,7 @@ const mockProjects = [
   {
     name: "Clinical Trial Platform",
     cluster: "Staging",
-    cost: "CHF 1'950",
+    cost: "USD 1'950",
     percentage: "15.7%",
     cms: "Custom",
     stage: "In Review",
@@ -63,7 +63,7 @@ const mockProjects = [
   {
     name: "Research Data Hub",
     cluster: "Production",
-    cost: "CHF 1'750",
+    cost: "USD 1'750",
     percentage: "14.1%",
     cms: "WordPress",
     stage: "Active",
@@ -72,7 +72,7 @@ const mockProjects = [
   {
     name: "Internal Training Portal",
     cluster: "Development",
-    cost: "CHF 1'420",
+    cost: "USD 1'420",
     percentage: "11.5%",
     cms: "Drupal",
     stage: "Legacy",
@@ -81,7 +81,7 @@ const mockProjects = [
   {
     name: "Product Documentation",
     cluster: "Production",
-    cost: "CHF 980",
+    cost: "USD 980",
     percentage: "7.9%",
     cms: "GitBook",
     stage: "Active",
@@ -90,7 +90,7 @@ const mockProjects = [
   {
     name: "Regulatory Dashboard",
     cluster: "Staging",
-    cost: "CHF 850",
+    cost: "USD 850",
     percentage: "6.9%",
     cms: "Custom",
     stage: "In Review",
@@ -99,7 +99,7 @@ const mockProjects = [
   {
     name: "Partner API Gateway",
     cluster: "Production",
-    cost: "CHF 740",
+    cost: "USD 740",
     percentage: "6.0%",
     cms: "N/A",
     stage: "Active",
@@ -108,7 +108,7 @@ const mockProjects = [
   {
     name: "Legacy CRM Migration",
     cluster: "Development",
-    cost: "CHF 620",
+    cost: "USD 620",
     percentage: "5.0%",
     cms: "Salesforce",
     stage: "Legacy",
