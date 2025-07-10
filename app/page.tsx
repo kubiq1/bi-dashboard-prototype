@@ -129,15 +129,15 @@ function SparklineChart() {
   const containerWidth = 280;
   const height = 64;
 
-  const max = Math.max(...chfValues);
-  const min = Math.min(...chfValues);
+  const max = Math.max(...usdValues);
+  const min = Math.min(...usdValues);
   const range = max - min;
 
   // Create points spanning full container width (edge to edge)
-  const points = chfValues.map((value, index) => {
-    const x = (index * containerWidth) / (chfValues.length - 1);
+  const points = usdValues.map((value, index) => {
+    const x = (index * containerWidth) / (usdValues.length - 1);
     const y = ((max - value) / range) * height;
-    return { x, y, chf: value };
+    return { x, y, usd: value };
   });
 
   // Create horizontal grid lines (4 middle + top + bottom = 6 total)
