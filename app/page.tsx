@@ -597,7 +597,7 @@ export default function Dashboard() {
                 lineHeight: "32px",
               }}
             >
-              Projects – Cost Breakdown
+              Projects
             </h2>
             <div className="flex flex-col sm:flex-row gap-3">
               <div className="relative">
