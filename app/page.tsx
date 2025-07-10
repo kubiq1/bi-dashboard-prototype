@@ -415,7 +415,7 @@ export default function Dashboard() {
                     +6.4%
                   </span>
                 </div>
-                <p className="text-xs text-gray-500 mt-1">CHF 740 increase</p>
+                <p className="text-xs text-gray-500 mt-1">USD 740 increase</p>
               </CardContent>
             </Card>
 
