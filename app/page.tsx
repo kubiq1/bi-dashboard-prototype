@@ -386,6 +386,8 @@ function ProjectRow({ project }: { project: any }) {
 export default function Dashboard() {
   const [today, setToday] = useState("");
   const [hasNotifications, setHasNotifications] = useState(true);
+  const [sortField, setSortField] = useState<string | null>(null);
+  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     setToday(new Date().toLocaleDateString("en-CH"));
