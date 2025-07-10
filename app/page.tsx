@@ -234,7 +234,7 @@ function SparklineChart() {
             y2={height}
             stroke="#e5e7eb"
             strokeWidth="0.5"
-            opacity="1"
+            opacity="0.5"
           />
         ))}
 
