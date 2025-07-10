@@ -505,13 +505,13 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* Cluster Overview */}
+        {/* Production Cluster */}
         <section className="mb-12">
           <h2
             className="text-2xl font-medium text-gray-900 mb-6"
             style={{ fontFamily: "var(--font-headline)" }}
           >
-            Cluster Overview
+            Production Cluster
           </h2>
           <div className="overflow-x-auto">
             <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
