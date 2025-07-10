@@ -128,25 +128,21 @@ function SparklineChart() {
   // Use full container width for the sparkline
   const containerWidth = 280;
   const height = 64;
-  const chartPadding = 4; // Small padding inside chart for visual breathing room
 
   const max = Math.max(...chfValues);
   const min = Math.min(...chfValues);
   const range = max - min;
 
-  // Create points spanning full container width
+  // Create points spanning full container width (edge to edge)
   const points = chfValues.map((value, index) => {
-    const x =
-      chartPadding +
-      (index * (containerWidth - chartPadding * 2)) / (chfValues.length - 1);
-    const y =
-      chartPadding + ((max - value) / range) * (height - chartPadding * 2);
+    const x = (index * containerWidth) / (chfValues.length - 1);
+    const y = ((max - value) / range) * height;
     return { x, y, chf: value };
   });
 
   // Create 4 horizontal grid lines spanning full width
   const gridLines = Array.from({ length: 4 }, (_, i) => {
-    const y = chartPadding + ((i + 1) * (height - chartPadding * 2)) / 5;
+    const y = ((i + 1) * height) / 5;
     return y;
   });
 
