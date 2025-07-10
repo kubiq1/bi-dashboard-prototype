@@ -14,6 +14,8 @@ import {
   Bell,
   ExternalLink,
   GitBranch,
+  CheckCircle,
+  MemoryStick,
 } from "lucide-react";
 import {
   Card,
