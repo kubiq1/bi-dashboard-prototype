@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import ErrorBoundary from "@/components/error-boundary";
 
 // Global error handler for clipboard API errors
 if (typeof window !== "undefined") {
