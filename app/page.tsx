@@ -439,24 +439,30 @@ export default function Dashboard() {
     field: string;
     children: React.ReactNode;
     className?: string;
-  }) => (
-    <TableHead
-      className={`font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 ${className}`}
-      onClick={() => handleSort(field)}
-    >
-      <div className="flex items-center space-x-2">
-        <span>{children}</span>
-        <div className="flex flex-col">
-          <ChevronUp
-            className={`h-3 w-3 ${sortField === field && sortDirection === "asc" ? "text-gray-900" : "text-gray-400"}`}
-          />
-          <ChevronDown
-            className={`h-3 w-3 -mt-1 ${sortField === field && sortDirection === "desc" ? "text-gray-900" : "text-gray-400"}`}
-          />
+  }) => {
+    const isRightAligned = className.includes("text-right");
+
+    return (
+      <TableHead
+        className={`font-semibold text-gray-900 cursor-pointer hover:bg-gray-50 ${className}`}
+        onClick={() => handleSort(field)}
+      >
+        <div
+          className={`flex items-center space-x-2 ${isRightAligned ? "justify-end" : ""}`}
+        >
+          <span>{children}</span>
+          <div className="flex flex-col">
+            <ChevronUp
+              className={`h-3 w-3 ${sortField === field && sortDirection === "asc" ? "text-gray-900" : "text-gray-400"}`}
+            />
+            <ChevronDown
+              className={`h-3 w-3 -mt-1 ${sortField === field && sortDirection === "desc" ? "text-gray-900" : "text-gray-400"}`}
+            />
+          </div>
         </div>
-      </div>
-    </TableHead>
-  );
+      </TableHead>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-white">
