@@ -140,6 +140,8 @@ const mockProjects = [
 
 function SparklineChart() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [containerWidth, setContainerWidth] = useState(280);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   // Use the provided example data
   const usdValues = [
@@ -147,8 +149,6 @@ function SparklineChart() {
     20000,
   ];
 
-  // Use full container width for the sparkline
-  const containerWidth = 280;
   const height = 64;
 
   const max = Math.max(...usdValues);
