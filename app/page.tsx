@@ -789,9 +789,19 @@ export default function Dashboard() {
                           <ProjectRow project={project} />
                         </TableCell>
                         <TableCell>
-                          <Badge variant="outline" className="font-normal">
-                            {project.cluster}
-                          </Badge>
+                          <div className="flex flex-wrap gap-1">
+                            {project.cluster.map(
+                              (clusterName, clusterIndex) => (
+                                <Badge
+                                  key={clusterIndex}
+                                  variant="outline"
+                                  className="font-normal"
+                                >
+                                  {clusterName}
+                                </Badge>
+                              ),
+                            )}
+                          </div>
                         </TableCell>
                         <TableCell className="text-right font-medium">
                           {project.cost}
