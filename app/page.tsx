@@ -7,6 +7,7 @@ import {
   TrendingDown,
   User,
   ChevronDown,
+  ChevronUp,
   Server,
   Cpu,
   HardDrive,
