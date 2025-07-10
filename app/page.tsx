@@ -873,9 +873,6 @@ export default function Dashboard() {
                         % of Total
                       </SortableHeader>
                       <SortableHeader field="cms">CMS</SortableHeader>
-                      <SortableHeader field="stage">
-                        Lifecycle Stage
-                      </SortableHeader>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -887,15 +884,30 @@ export default function Dashboard() {
                         <TableCell>
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
-                              (clusterName, clusterIndex) => (
-                                <Badge
-                                  key={clusterIndex}
-                                  variant="outline"
-                                  className="font-normal"
-                                >
-                                  {clusterName}
-                                </Badge>
-                              ),
+                              (clusterName, clusterIndex) => {
+                                // Define subtle colors for different clusters
+                                const clusterColors: Record<string, string> = {
+                                  BI3: "bg-slate-50 text-slate-600 border-slate-200",
+                                  BI4: "bg-blue-50 text-blue-600 border-blue-200",
+                                  BI5: "bg-emerald-50 text-emerald-600 border-emerald-200",
+                                  BI6: "bg-purple-50 text-purple-600 border-purple-200",
+                                  BICN2:
+                                    "bg-amber-50 text-amber-600 border-amber-200",
+                                };
+                                const colorClass =
+                                  clusterColors[clusterName] ||
+                                  "bg-gray-50 text-gray-600 border-gray-200";
+
+                                return (
+                                  <Badge
+                                    key={clusterIndex}
+                                    variant="outline"
+                                    className={`font-normal ${colorClass}`}
+                                  >
+                                    {clusterName}
+                                  </Badge>
+                                );
+                              },
                             )}
                           </div>
                         </TableCell>
@@ -907,14 +919,6 @@ export default function Dashboard() {
                         </TableCell>
                         <TableCell className="text-gray-600">
                           {project.cms}
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            className={`${project.stageColor} border-0 font-normal`}
-                            variant="secondary"
-                          >
-                            {project.stage}
-                          </Badge>
                         </TableCell>
                       </TableRow>
                     ))}
