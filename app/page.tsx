@@ -733,7 +733,7 @@ export default function Dashboard() {
             >
               Projects
             </h2>
-            <div className="flex flex-col sm:flex-row gap-3">
+            <div className="flex flex-col lg:flex-row gap-3">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
@@ -741,16 +741,50 @@ export default function Dashboard() {
                   className="pl-10 w-full sm:w-64"
                 />
               </div>
+
+              {/* Department Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-48">
+                <SelectTrigger className="w-full sm:w-40">
                   <Filter className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Filter by cluster" />
+                  <SelectValue placeholder="Department" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Departments</SelectItem>
+                  <SelectItem value="human">Human</SelectItem>
+                  <SelectItem value="animal">Animal</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Application Type Filter */}
+              <Select>
+                <SelectTrigger className="w-full sm:w-44">
+                  <Filter className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Application Type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Types</SelectItem>
+                  <SelectItem value="drupal">Drupal</SelectItem>
+                  <SelectItem value="wordpress">WordPress</SelectItem>
+                  <SelectItem value="custom">Custom</SelectItem>
+                  <SelectItem value="gitbook">GitBook</SelectItem>
+                  <SelectItem value="salesforce">Salesforce</SelectItem>
+                  <SelectItem value="na">N/A</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Cluster Filter */}
+              <Select>
+                <SelectTrigger className="w-full sm:w-36">
+                  <Filter className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Cluster" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Clusters</SelectItem>
-                  <SelectItem value="production">Production</SelectItem>
-                  <SelectItem value="staging">Staging</SelectItem>
-                  <SelectItem value="development">Development</SelectItem>
+                  <SelectItem value="bi3">BI3</SelectItem>
+                  <SelectItem value="bi4">BI4</SelectItem>
+                  <SelectItem value="bi5">BI5</SelectItem>
+                  <SelectItem value="bi6">BI6</SelectItem>
+                  <SelectItem value="bicn2">BICN2</SelectItem>
                 </SelectContent>
               </Select>
             </div>
