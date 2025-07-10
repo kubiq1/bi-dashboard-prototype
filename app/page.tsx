@@ -393,6 +393,44 @@ export default function Dashboard() {
     setToday(new Date().toLocaleDateString("en-CH"));
   }, []);
 
+  const handleSort = (field: string) => {
+    if (sortField === field) {
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+    } else {
+      setSortField(field);
+      setSortDirection("asc");
+    }
+  };
+
+  const getSortedProjects = () => {
+    if (!sortField) return mockProjects;
+
+    return [...mockProjects].sort((a, b) => {
+      let aValue: any = a[sortField as keyof typeof a];
+      let bValue: any = b[sortField as keyof typeof b];
+
+      // Handle special cases
+      if (sortField === "cost") {
+        aValue = parseInt(aValue.replace(/[^\d]/g, ""));
+        bValue = parseInt(bValue.replace(/[^\d]/g, ""));
+      } else if (sortField === "percentage") {
+        aValue = parseFloat(aValue.replace("%", ""));
+        bValue = parseFloat(bValue.replace("%", ""));
+      } else if (sortField === "cluster") {
+        aValue = Array.isArray(aValue) ? aValue.join(", ") : aValue;
+        bValue = Array.isArray(bValue) ? bValue.join(", ") : bValue;
+      }
+
+      if (sortDirection === "asc") {
+        return aValue > bValue ? 1 : -1;
+      } else {
+        return aValue < bValue ? 1 : -1;
+      }
+    });
+  };
+
+  const sortedProjects = getSortedProjects();
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navigation Header */}
