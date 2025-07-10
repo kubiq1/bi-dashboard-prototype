@@ -641,35 +641,26 @@ export default function Dashboard() {
                 </CardContent>
               </Card>
 
-              {/* BI-CN2 Cluster */}
+              {/* BI6 Cluster */}
               <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
                 <CardHeader className="pb-3">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-lg font-medium text-gray-900">
-                      BI-CN2
+                      BI6
                     </CardTitle>
                     <div className="flex h-3 w-3 rounded-full bg-red-500 shadow-sm">
                       <div className="h-3 w-3 rounded-full bg-red-500 animate-ping"></div>
                     </div>
                   </div>
                   <CardDescription className="text-sm text-gray-600">
-                    Development Cluster
+                    Production Cluster
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <Server className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">
-                        Active Nodes
-                      </span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-900">4</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <Cpu className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">RAM Usage</span>
+                      <Activity className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">Pod Density</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
                       92%
@@ -677,11 +668,36 @@ export default function Dashboard() {
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <Activity className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Pod Count</span>
+                      <Server className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">Node Count</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">4</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-red-500" />
+                      <span className="text-sm text-gray-600">Node Health</span>
+                    </div>
+                    <span className="text-sm font-medium text-red-600">
+                      Critical
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <MemoryStick className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      56
+                      7.8 GB
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Cpu className="h-4 w-4 text-gray-500" />
+                      <span className="text-sm text-gray-600">CPU Usage</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      94%
                     </span>
                   </div>
                 </CardContent>
