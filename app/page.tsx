@@ -1079,15 +1079,19 @@ export default function Dashboard() {
               <Pagination className="w-auto">
                 <PaginationContent>
                   <PaginationItem>
-                    <PaginationPrevious
+                    <button
                       onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
                       className={cn(
-                        "cursor-pointer rounded-none shadow-none",
+                        "flex items-center gap-1 pl-2.5 h-9 px-3 rounded-none shadow-none border text-sm font-medium transition-colors",
                         currentPage === 1
-                          ? "bg-gray-100 text-gray-400 border-gray-200 pointer-events-none"
-                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
+                          ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer",
                       )}
-                    />
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>Previous</span>
+                    </button>
                   </PaginationItem>
 
                   {generatePageNumbers().map((pageNumber, index) => (
@@ -1095,32 +1099,35 @@ export default function Dashboard() {
                       {pageNumber === "..." ? (
                         <PaginationEllipsis />
                       ) : (
-                        <PaginationLink
+                        <button
                           onClick={() => handlePageChange(pageNumber as number)}
-                          isActive={pageNumber === currentPage}
                           className={cn(
-                            "cursor-pointer rounded-none shadow-none",
+                            "h-9 w-9 rounded-none shadow-none border text-sm font-medium transition-colors cursor-pointer",
                             pageNumber === currentPage
                               ? "bg-[#00e47c] text-[#08312a] border-[#00e47c]"
                               : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
                           )}
                         >
                           {pageNumber}
-                        </PaginationLink>
+                        </button>
                       )}
                     </PaginationItem>
                   ))}
 
                   <PaginationItem>
-                    <PaginationNext
+                    <button
                       onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
                       className={cn(
-                        "cursor-pointer rounded-none shadow-none",
+                        "flex items-center gap-1 pr-2.5 h-9 px-3 rounded-none shadow-none border text-sm font-medium transition-colors",
                         currentPage === totalPages
-                          ? "bg-gray-100 text-gray-400 border-gray-200 pointer-events-none"
-                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
+                          ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer",
                       )}
-                    />
+                    >
+                      <span>Next</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
                   </PaginationItem>
                 </PaginationContent>
               </Pagination>
