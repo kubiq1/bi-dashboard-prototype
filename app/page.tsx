@@ -484,6 +484,23 @@ export default function Dashboard() {
     const range = [];
     const rangeWithDots = [];
 
+    // Handle cases with small total pages
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        rangeWithDots.push(i);
+      }
+      return rangeWithDots;
+    }
+
+    // Add first page
+    rangeWithDots.push(1);
+
+    // Add ellipsis if needed
+    if (currentPage - delta > 2) {
+      rangeWithDots.push("...");
+    }
+
+    // Add pages around current page
     for (
       let i = Math.max(2, currentPage - delta);
       i <= Math.min(totalPages - 1, currentPage + delta);
@@ -491,18 +508,15 @@ export default function Dashboard() {
     ) {
       range.push(i);
     }
-
-    if (currentPage - delta > 2) {
-      rangeWithDots.push(1, "...");
-    } else {
-      rangeWithDots.push(1);
-    }
-
     rangeWithDots.push(...range);
 
+    // Add ellipsis if needed
     if (currentPage + delta < totalPages - 1) {
-      rangeWithDots.push("...", totalPages);
-    } else {
+      rangeWithDots.push("...");
+    }
+
+    // Add last page if not already included
+    if (totalPages > 1 && !rangeWithDots.includes(totalPages)) {
       rangeWithDots.push(totalPages);
     }
 
