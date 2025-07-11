@@ -8,6 +8,8 @@ import {
   User,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Server,
   Cpu,
   HardDrive,
