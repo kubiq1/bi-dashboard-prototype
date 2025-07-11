@@ -407,6 +407,12 @@ export default function Dashboard() {
   const [hasNotifications, setHasNotifications] = useState(true);
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageInput, setPageInput] = useState("1");
+
+  const itemsPerPage = 10;
+  const totalItems = 1100;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
     setToday(
