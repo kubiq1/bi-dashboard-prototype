@@ -890,10 +890,13 @@ export default function Dashboard() {
                 <Table className="table-fixed w-full">
                   <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                      <SortableHeader field="name" className="w-[35%]">
+                      <SortableHeader field="name" className="w-[30%]">
                         Project Name
                       </SortableHeader>
-                      <SortableHeader field="cluster" className="w-[20%]">
+                      <SortableHeader field="department" className="w-[15%]">
+                        Department
+                      </SortableHeader>
+                      <SortableHeader field="cluster" className="w-[15%]">
                         Cluster
                       </SortableHeader>
                       <SortableHeader
@@ -904,7 +907,7 @@ export default function Dashboard() {
                       </SortableHeader>
                       <SortableHeader
                         field="percentage"
-                        className="text-right w-[15%]"
+                        className="text-right w-[10%]"
                       >
                         % of Total
                       </SortableHeader>
