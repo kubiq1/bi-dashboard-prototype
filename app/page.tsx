@@ -963,7 +963,7 @@ export default function Dashboard() {
                 variant="outline"
                 size="sm"
                 disabled
-                className="bg-gray-100 text-gray-400 border-gray-200 rounded-none"
+                className="bg-gray-100 text-gray-400 border-gray-200 rounded-none shadow-none"
               >
                 Previous
               </Button>
