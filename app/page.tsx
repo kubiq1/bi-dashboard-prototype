@@ -8,6 +8,8 @@ import {
   User,
   ChevronDown,
   ChevronUp,
+  ChevronLeft,
+  ChevronRight,
   Server,
   Cpu,
   HardDrive,
@@ -44,11 +46,19 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+} from "@/components/ui/pagination";
+import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
 
 const mockProjects = [
   {
     name: "pro-bi-com-us-jentadueto",
+    department: "Human",
     cluster: ["BI4"],
     cost: "USD 2'890",
     percentage: "23.4%",
@@ -58,6 +68,7 @@ const mockProjects = [
   },
   {
     name: "hz-qa-bi-hubnext-com",
+    department: "Animal",
     cluster: ["BI5", "BI6"],
     cost: "USD 1'950",
     percentage: "15.7%",
@@ -67,6 +78,7 @@ const mockProjects = [
   },
   {
     name: "hz-storybook-bi-hubnext-com",
+    department: "Human",
     cluster: ["BI3"],
     cost: "USD 1'750",
     percentage: "14.1%",
@@ -76,6 +88,7 @@ const mockProjects = [
   },
   {
     name: "centaura-se",
+    department: "Animal",
     cluster: ["BICN2"],
     cost: "USD 1'420",
     percentage: "11.5%",
@@ -85,6 +98,7 @@ const mockProjects = [
   },
   {
     name: "insights-in-ild",
+    department: "Human",
     cluster: ["BI4", "BI5"],
     cost: "USD 980",
     percentage: "7.9%",
@@ -94,6 +108,7 @@ const mockProjects = [
   },
   {
     name: "agentereversor-com-ar",
+    department: "Animal",
     cluster: ["BI6"],
     cost: "USD 850",
     percentage: "6.9%",
@@ -103,6 +118,7 @@ const mockProjects = [
   },
   {
     name: "frontline-si",
+    department: "Human",
     cluster: ["BI3", "BI4", "BI5"],
     cost: "USD 740",
     percentage: "6.0%",
@@ -112,6 +128,7 @@ const mockProjects = [
   },
   {
     name: "making-more-health",
+    department: "Animal",
     cluster: ["BICN2"],
     cost: "USD 620",
     percentage: "5.0%",
@@ -121,6 +138,7 @@ const mockProjects = [
   },
   {
     name: "guides-boehringer-ingelheim-com",
+    department: "Human",
     cluster: ["BI5"],
     cost: "USD 580",
     percentage: "4.7%",
@@ -130,6 +148,7 @@ const mockProjects = [
   },
   {
     name: "bvdzero-es",
+    department: "Animal",
     cluster: ["BI6", "BICN2"],
     cost: "USD 520",
     percentage: "4.2%",
@@ -352,7 +371,7 @@ function ProjectRow({ project }: { project: any }) {
             <ExternalLink className="h-4 w-4" />
           </a>
           {hoveredIcon === "project" && (
-            <div className="absolute z-10 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
+            <div className="absolute z-50 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
               <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
                 View Project
               </div>
@@ -371,7 +390,7 @@ function ProjectRow({ project }: { project: any }) {
             <GitBranch className="h-4 w-4" />
           </a>
           {hoveredIcon === "repository" && (
-            <div className="absolute z-10 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
+            <div className="absolute z-50 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
               <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
                 View Repository
               </div>
@@ -388,9 +407,21 @@ export default function Dashboard() {
   const [hasNotifications, setHasNotifications] = useState(true);
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageInput, setPageInput] = useState("1");
+
+  const itemsPerPage = 10;
+  const totalItems = 1100;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
-    setToday(new Date().toLocaleDateString("en-CH"));
+    setToday(
+      new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+    );
   }, []);
 
   const handleSort = (field: string) => {
@@ -430,6 +461,67 @@ export default function Dashboard() {
   };
 
   const sortedProjects = getSortedProjects();
+
+  const handlePageChange = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+      setPageInput(page.toString());
+    }
+  };
+
+  const handlePageInputSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const page = parseInt(pageInput);
+    if (!isNaN(page) && page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    } else {
+      setPageInput(currentPage.toString());
+    }
+  };
+
+  const generatePageNumbers = () => {
+    const delta = 2;
+    const range = [];
+    const rangeWithDots = [];
+
+    // Handle cases with small total pages
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) {
+        rangeWithDots.push(i);
+      }
+      return rangeWithDots;
+    }
+
+    // Add first page
+    rangeWithDots.push(1);
+
+    // Add ellipsis if needed
+    if (currentPage - delta > 2) {
+      rangeWithDots.push("...");
+    }
+
+    // Add pages around current page
+    for (
+      let i = Math.max(2, currentPage - delta);
+      i <= Math.min(totalPages - 1, currentPage + delta);
+      i++
+    ) {
+      range.push(i);
+    }
+    rangeWithDots.push(...range);
+
+    // Add ellipsis if needed
+    if (currentPage + delta < totalPages - 1) {
+      rangeWithDots.push("...");
+    }
+
+    // Add last page if not already included
+    if (totalPages > 1 && !rangeWithDots.includes(totalPages)) {
+      rangeWithDots.push(totalPages);
+    }
+
+    return rangeWithDots;
+  };
 
   const SortableHeader = ({
     field,
@@ -604,12 +696,12 @@ export default function Dashboard() {
               className="text-2xl font-medium text-[#08312a]"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Production Cluster
+              Cluster
             </h2>
             <Button
               variant="outline"
               size="sm"
-              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none [&_svg]:text-[#08312a]"
+              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
             >
               Show all Clusters
             </Button>
@@ -662,7 +754,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      24.5 GB
+                      256 GB
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -671,7 +763,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">CPU Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      65%
+                      15.39%
                     </span>
                   </div>
                 </CardContent>
@@ -721,7 +813,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      18.2 GB
+                      189 GB
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -730,7 +822,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">CPU Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      82%
+                      82.4%
                     </span>
                   </div>
                 </CardContent>
@@ -780,7 +872,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      7.8 GB
+                      234 GB
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -789,7 +881,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">CPU Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      94%
+                      94.0%
                     </span>
                   </div>
                 </CardContent>
@@ -816,13 +908,13 @@ export default function Dashboard() {
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                 <Input
                   placeholder="Search projects..."
-                  className="pl-10 w-full sm:w-64"
+                  className="pl-10 w-full sm:w-64 rounded-none shadow-none overflow-hidden"
                 />
               </div>
 
               {/* Department Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Department" />
                 </SelectTrigger>
@@ -835,7 +927,7 @@ export default function Dashboard() {
 
               {/* Application Type Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
                 </SelectTrigger>
@@ -852,7 +944,7 @@ export default function Dashboard() {
 
               {/* Cluster Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Cluster" />
                 </SelectTrigger>
@@ -874,10 +966,13 @@ export default function Dashboard() {
                 <Table className="table-fixed w-full">
                   <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                      <SortableHeader field="name" className="w-[35%]">
+                      <SortableHeader field="name" className="w-[30%]">
                         Project Name
                       </SortableHeader>
-                      <SortableHeader field="cluster" className="w-[20%]">
+                      <SortableHeader field="department" className="w-[15%]">
+                        Department
+                      </SortableHeader>
+                      <SortableHeader field="cluster" className="w-[15%]">
                         Cluster
                       </SortableHeader>
                       <SortableHeader
@@ -888,24 +983,29 @@ export default function Dashboard() {
                       </SortableHeader>
                       <SortableHeader
                         field="percentage"
-                        className="text-right w-[15%]"
+                        className="text-right w-[10%]"
                       >
                         % of Total
                       </SortableHeader>
                       <SortableHeader field="cms" className="w-[15%]">
-                        CMS
+                        Application
                       </SortableHeader>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {sortedProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-900 w-[35%]">
-                          <div className="truncate">
+                        <TableCell className="font-medium text-gray-900 w-[30%] relative">
+                          <div className="overflow-visible">
                             <ProjectRow project={project} />
                           </div>
                         </TableCell>
-                        <TableCell className="w-[20%]">
+                        <TableCell className="text-gray-600 w-[15%]">
+                          <div className="whitespace-nowrap">
+                            {project.department}
+                          </div>
+                        </TableCell>
+                        <TableCell className="w-[15%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
                               (clusterName, clusterIndex) => {
@@ -926,7 +1026,7 @@ export default function Dashboard() {
                                   <Badge
                                     key={clusterIndex}
                                     variant="outline"
-                                    className={`font-normal whitespace-nowrap ${colorClass}`}
+                                    className={`font-normal whitespace-nowrap border-0 ${colorClass}`}
                                   >
                                     {clusterName}
                                   </Badge>
@@ -940,7 +1040,7 @@ export default function Dashboard() {
                             {project.cost}
                           </div>
                         </TableCell>
-                        <TableCell className="text-right text-gray-600 w-[15%]">
+                        <TableCell className="text-right text-gray-600 w-[10%]">
                           <div className="whitespace-nowrap">
                             {project.percentage}
                           </div>
@@ -956,24 +1056,94 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <div className="flex items-center justify-between mt-6">
-            <p className="text-sm text-gray-600">Showing 10 of 1100 projects</p>
-            <div className="flex space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled
-                className="bg-gray-100 text-gray-400 border-gray-200 rounded-none"
+          <div className="flex flex-col lg:flex-row items-center justify-between mt-6 gap-4">
+            <p className="text-sm text-gray-600">
+              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+              {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}
+              projects
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {/* Page input field */}
+              <form
+                onSubmit={handlePageInputSubmit}
+                className="flex items-center gap-2"
               >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none"
-              >
-                Next
-              </Button>
+                <span className="text-sm text-gray-600">Go to page:</span>
+                <Input
+                  type="number"
+                  min="1"
+                  max={totalPages}
+                  value={pageInput}
+                  onChange={(e) => setPageInput(e.target.value)}
+                  className="w-20 h-8 text-center rounded-none shadow-none"
+                />
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
+                >
+                  Go
+                </Button>
+              </form>
+
+              {/* Shadcn Pagination */}
+              <Pagination className="w-auto">
+                <PaginationContent>
+                  <PaginationItem>
+                    <button
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      disabled={currentPage === 1}
+                      className={cn(
+                        "flex items-center gap-1 pl-2.5 h-9 px-3 rounded-none shadow-none border text-sm font-medium transition-colors",
+                        currentPage === 1
+                          ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer",
+                      )}
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                      <span>Previous</span>
+                    </button>
+                  </PaginationItem>
+
+                  {generatePageNumbers().map((pageNumber, index) => (
+                    <PaginationItem key={index}>
+                      {pageNumber === "..." ? (
+                        <PaginationEllipsis />
+                      ) : (
+                        <button
+                          onClick={() => handlePageChange(pageNumber as number)}
+                          className={cn(
+                            "h-9 w-9 rounded-none shadow-none border text-sm font-medium transition-colors cursor-pointer",
+                            pageNumber === currentPage
+                              ? "bg-[#00e47c] text-[#08312a] border-[#00e47c]"
+                              : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
+                          )}
+                        >
+                          {pageNumber}
+                        </button>
+                      )}
+                    </PaginationItem>
+                  ))}
+
+                  <PaginationItem>
+                    <button
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      disabled={currentPage === totalPages}
+                      className={cn(
+                        "flex items-center gap-1 pr-2.5 h-9 px-3 rounded-none shadow-none border text-sm font-medium transition-colors",
+                        currentPage === totalPages
+                          ? "bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed"
+                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50 cursor-pointer",
+                      )}
+                    >
+                      <span>Next</span>
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </div>
           </div>
         </section>
