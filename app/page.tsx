@@ -678,7 +678,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      24.5 GB
+                      256 GB
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -687,7 +687,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">CPU Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      65%
+                      15.39%
                     </span>
                   </div>
                 </CardContent>
@@ -737,7 +737,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      18.2 GB
+                      189 GB
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -746,7 +746,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">CPU Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      82%
+                      82.4%
                     </span>
                   </div>
                 </CardContent>
@@ -796,7 +796,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">RAM Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      7.8 GB
+                      234 GB
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
@@ -805,7 +805,7 @@ export default function Dashboard() {
                       <span className="text-sm text-gray-600">CPU Usage</span>
                     </div>
                     <span className="text-sm font-medium text-gray-900">
-                      94%
+                      94.0%
                     </span>
                   </div>
                 </CardContent>
