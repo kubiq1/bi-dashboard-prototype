@@ -893,7 +893,7 @@ export default function Dashboard() {
                         % of Total
                       </SortableHeader>
                       <SortableHeader field="cms" className="w-[15%]">
-                        CMS
+                        Application
                       </SortableHeader>
                     </TableRow>
                   </TableHeader>
