@@ -919,12 +919,17 @@ export default function Dashboard() {
                   <TableBody>
                     {sortedProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-900 w-[35%]">
+                        <TableCell className="font-medium text-gray-900 w-[30%]">
                           <div className="truncate">
                             <ProjectRow project={project} />
                           </div>
                         </TableCell>
-                        <TableCell className="w-[20%]">
+                        <TableCell className="text-gray-600 w-[15%]">
+                          <div className="whitespace-nowrap">
+                            {project.department}
+                          </div>
+                        </TableCell>
+                        <TableCell className="w-[15%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
                               (clusterName, clusterIndex) => {
@@ -959,7 +964,7 @@ export default function Dashboard() {
                             {project.cost}
                           </div>
                         </TableCell>
-                        <TableCell className="text-right text-gray-600 w-[15%]">
+                        <TableCell className="text-right text-gray-600 w-[10%]">
                           <div className="whitespace-nowrap">
                             {project.percentage}
                           </div>
