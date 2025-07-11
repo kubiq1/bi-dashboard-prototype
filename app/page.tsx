@@ -919,8 +919,8 @@ export default function Dashboard() {
                   <TableBody>
                     {sortedProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
-                        <TableCell className="font-medium text-gray-900 w-[30%]">
-                          <div className="truncate">
+                        <TableCell className="font-medium text-gray-900 w-[30%] relative">
+                          <div className="overflow-visible">
                             <ProjectRow project={project} />
                           </div>
                         </TableCell>
