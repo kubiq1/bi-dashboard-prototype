@@ -809,10 +809,11 @@ export default function Dashboard() {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInput, setPageInput] = useState("1");
+  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
+  const [applicationFilter, setApplicationFilter] = useState<string>("all");
+  const [clusterFilter, setClusterFilter] = useState<string>("all");
 
   const itemsPerPage = 10;
-  const totalItems = mockProjects.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
     setToday(
@@ -833,10 +834,47 @@ export default function Dashboard() {
     }
   };
 
-  const getSortedProjects = () => {
-    if (!sortField) return mockProjects;
+  const getFilteredAndSortedProjects = () => {
+    // First apply filters
+    let filteredProjects = mockProjects.filter((project) => {
+      // Department filter
+      if (
+        departmentFilter !== "all" &&
+        project.department.toLowerCase() !== departmentFilter
+      ) {
+        return false;
+      }
 
-    return [...mockProjects].sort((a, b) => {
+      // Application filter
+      if (applicationFilter !== "all") {
+        const projectCms = project.cms.toLowerCase();
+        if (applicationFilter === "na" && projectCms !== "n/a") {
+          return false;
+        } else if (
+          applicationFilter !== "na" &&
+          projectCms !== applicationFilter
+        ) {
+          return false;
+        }
+      }
+
+      // Cluster filter
+      if (clusterFilter !== "all") {
+        const hasCluster = project.cluster.some(
+          (cluster) => cluster.toLowerCase() === clusterFilter.toLowerCase(),
+        );
+        if (!hasCluster) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    // Then apply sorting
+    if (!sortField) return filteredProjects;
+
+    return [...filteredProjects].sort((a, b) => {
       let aValue: any = a[sortField as keyof typeof a];
       let bValue: any = b[sortField as keyof typeof b];
 
@@ -860,12 +898,23 @@ export default function Dashboard() {
     });
   };
 
-  const sortedProjects = getSortedProjects();
+  const filteredAndSortedProjects = getFilteredAndSortedProjects();
+  const totalItems = filteredAndSortedProjects.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   // Get projects for current page
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentPageProjects = sortedProjects.slice(startIndex, endIndex);
+  const currentPageProjects = filteredAndSortedProjects.slice(
+    startIndex,
+    endIndex,
+  );
+
+  // Reset to first page when filters change
+  const resetPagination = () => {
+    setCurrentPage(1);
+    setPageInput("1");
+  };
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -1318,7 +1367,13 @@ export default function Dashboard() {
               </div>
 
               {/* Department Filter */}
-              <Select>
+              <Select
+                value={departmentFilter}
+                onValueChange={(value) => {
+                  setDepartmentFilter(value);
+                  resetPagination();
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Department" />
@@ -1331,7 +1386,13 @@ export default function Dashboard() {
               </Select>
 
               {/* Application Type Filter */}
-              <Select>
+              <Select
+                value={applicationFilter}
+                onValueChange={(value) => {
+                  setApplicationFilter(value);
+                  resetPagination();
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
@@ -1348,7 +1409,13 @@ export default function Dashboard() {
               </Select>
 
               {/* Cluster Filter */}
-              <Select>
+              <Select
+                value={clusterFilter}
+                onValueChange={(value) => {
+                  setClusterFilter(value);
+                  resetPagination();
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Cluster" />
