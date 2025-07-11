@@ -156,6 +156,406 @@ const mockProjects = [
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
   },
+  {
+    name: "vetmedica-research-platform",
+    department: "Animal",
+    cluster: ["BI4"],
+    cost: "USD 890",
+    percentage: "7.2%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "respiratory-solutions-hub",
+    department: "Human",
+    cluster: ["BI5"],
+    cost: "USD 1'200",
+    percentage: "9.7%",
+    cms: "WordPress",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "diabetes-care-portal",
+    department: "Human",
+    cluster: ["BI3", "BI4"],
+    cost: "USD 1'560",
+    percentage: "12.6%",
+    cms: "Custom",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "oncology-research-net",
+    department: "Human",
+    cluster: ["BI6"],
+    cost: "USD 2'100",
+    percentage: "17.0%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "animal-nutrition-guide",
+    department: "Animal",
+    cluster: ["BICN2"],
+    cost: "USD 450",
+    percentage: "3.6%",
+    cms: "GitBook",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "immunology-insights",
+    department: "Human",
+    cluster: ["BI5", "BI6"],
+    cost: "USD 1'340",
+    percentage: "10.8%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "companion-animal-wellness",
+    department: "Animal",
+    cluster: ["BI3"],
+    cost: "USD 760",
+    percentage: "6.1%",
+    cms: "WordPress",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "clinical-trials-dashboard",
+    department: "Human",
+    cluster: ["BI4", "BI5"],
+    cost: "USD 1'890",
+    percentage: "15.3%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "veterinary-diagnostic-tools",
+    department: "Animal",
+    cluster: ["BI6"],
+    cost: "USD 680",
+    percentage: "5.5%",
+    cms: "Drupal",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "patient-support-program",
+    department: "Human",
+    cluster: ["BI3"],
+    cost: "USD 920",
+    percentage: "7.4%",
+    cms: "Salesforce",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "livestock-health-monitor",
+    department: "Animal",
+    cluster: ["BICN2", "BI4"],
+    cost: "USD 1'120",
+    percentage: "9.0%",
+    cms: "Custom",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "biosimilars-knowledge-base",
+    department: "Human",
+    cluster: ["BI5"],
+    cost: "USD 640",
+    percentage: "5.2%",
+    cms: "GitBook",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "equine-care-solutions",
+    department: "Animal",
+    cluster: ["BI6"],
+    cost: "USD 530",
+    percentage: "4.3%",
+    cms: "WordPress",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "rare-disease-registry",
+    department: "Human",
+    cluster: ["BI3", "BI6"],
+    cost: "USD 1'650",
+    percentage: "13.3%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "poultry-health-tracker",
+    department: "Animal",
+    cluster: ["BICN2"],
+    cost: "USD 380",
+    percentage: "3.1%",
+    cms: "Custom",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "pharmaceutical-pipeline",
+    department: "Human",
+    cluster: ["BI4"],
+    cost: "USD 2'450",
+    percentage: "19.8%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "veterinary-education-hub",
+    department: "Animal",
+    cluster: ["BI5"],
+    cost: "USD 710",
+    percentage: "5.7%",
+    cms: "WordPress",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "medical-affairs-portal",
+    department: "Human",
+    cluster: ["BI3", "BI5"],
+    cost: "USD 1'280",
+    percentage: "10.3%",
+    cms: "Salesforce",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "swine-production-optimizer",
+    department: "Animal",
+    cluster: ["BI6", "BICN2"],
+    cost: "USD 590",
+    percentage: "4.8%",
+    cms: "Drupal",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "therapeutic-area-insights",
+    department: "Human",
+    cluster: ["BI4"],
+    cost: "USD 1'470",
+    percentage: "11.9%",
+    cms: "GitBook",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "companion-diagnostics",
+    department: "Animal",
+    cluster: ["BI3"],
+    cost: "USD 820",
+    percentage: "6.6%",
+    cms: "Custom",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "regulatory-submission-tracker",
+    department: "Human",
+    cluster: ["BI5", "BI6"],
+    cost: "USD 1'760",
+    percentage: "14.2%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "farm-animal-welfare",
+    department: "Animal",
+    cluster: ["BICN2"],
+    cost: "USD 440",
+    percentage: "3.6%",
+    cms: "WordPress",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "drug-safety-surveillance",
+    department: "Human",
+    cluster: ["BI3"],
+    cost: "USD 1'390",
+    percentage: "11.2%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "aquaculture-health-solutions",
+    department: "Animal",
+    cluster: ["BI4"],
+    cost: "USD 660",
+    percentage: "5.3%",
+    cms: "Custom",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "personalized-medicine-platform",
+    department: "Human",
+    cluster: ["BI6"],
+    cost: "USD 2'200",
+    percentage: "17.8%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "veterinary-practice-management",
+    department: "Animal",
+    cluster: ["BI5"],
+    cost: "USD 790",
+    percentage: "6.4%",
+    cms: "Salesforce",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "clinical-data-exchange",
+    department: "Human",
+    cluster: ["BI4", "BI5"],
+    cost: "USD 1'630",
+    percentage: "13.2%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "pet-health-monitoring",
+    department: "Animal",
+    cluster: ["BI3", "BI6"],
+    cost: "USD 870",
+    percentage: "7.0%",
+    cms: "WordPress",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "biopharmaceutical-research",
+    department: "Human",
+    cluster: ["BICN2"],
+    cost: "USD 1'540",
+    percentage: "12.4%",
+    cms: "GitBook",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "livestock-breeding-optimizer",
+    department: "Animal",
+    cluster: ["BI4"],
+    cost: "USD 720",
+    percentage: "5.8%",
+    cms: "Drupal",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "therapeutic-protein-tracker",
+    department: "Human",
+    cluster: ["BI5"],
+    cost: "USD 1'180",
+    percentage: "9.5%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "animal-vaccine-registry",
+    department: "Animal",
+    cluster: ["BI6"],
+    cost: "USD 610",
+    percentage: "4.9%",
+    cms: "WordPress",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "precision-dosing-calculator",
+    department: "Human",
+    cluster: ["BI3"],
+    cost: "USD 960",
+    percentage: "7.8%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "zoo-animal-care-system",
+    department: "Animal",
+    cluster: ["BICN2"],
+    cost: "USD 420",
+    percentage: "3.4%",
+    cms: "Salesforce",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "molecular-diagnostics-hub",
+    department: "Human",
+    cluster: ["BI4", "BI6"],
+    cost: "USD 1'820",
+    percentage: "14.7%",
+    cms: "Drupal",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "wildlife-health-tracker",
+    department: "Animal",
+    cluster: ["BI5"],
+    cost: "USD 480",
+    percentage: "3.9%",
+    cms: "GitBook",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
+  {
+    name: "drug-interaction-checker",
+    department: "Human",
+    cluster: ["BI3", "BI4"],
+    cost: "USD 1'100",
+    percentage: "8.9%",
+    cms: "Custom",
+    stage: "Active",
+    stageColor: "bg-green-100 text-green-800",
+  },
+  {
+    name: "veterinary-telemedicine",
+    department: "Animal",
+    cluster: ["BI6"],
+    cost: "USD 750",
+    percentage: "6.1%",
+    cms: "WordPress",
+    stage: "In Review",
+    stageColor: "bg-yellow-100 text-yellow-800",
+  },
+  {
+    name: "biosecurity-monitoring",
+    department: "Animal",
+    cluster: ["BICN2"],
+    cost: "USD 350",
+    percentage: "2.8%",
+    cms: "Custom",
+    stage: "Legacy",
+    stageColor: "bg-gray-100 text-gray-800",
+  },
 ];
 
 function SparklineChart() {
@@ -409,10 +809,11 @@ export default function Dashboard() {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
   const [currentPage, setCurrentPage] = useState(1);
   const [pageInput, setPageInput] = useState("1");
+  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
+  const [applicationFilter, setApplicationFilter] = useState<string>("all");
+  const [clusterFilter, setClusterFilter] = useState<string>("all");
 
   const itemsPerPage = 10;
-  const totalItems = 1100;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
     setToday(
@@ -433,10 +834,47 @@ export default function Dashboard() {
     }
   };
 
-  const getSortedProjects = () => {
-    if (!sortField) return mockProjects;
+  const getFilteredAndSortedProjects = () => {
+    // First apply filters
+    let filteredProjects = mockProjects.filter((project) => {
+      // Department filter
+      if (
+        departmentFilter !== "all" &&
+        project.department.toLowerCase() !== departmentFilter
+      ) {
+        return false;
+      }
 
-    return [...mockProjects].sort((a, b) => {
+      // Application filter
+      if (applicationFilter !== "all") {
+        const projectCms = project.cms.toLowerCase();
+        if (applicationFilter === "na" && projectCms !== "n/a") {
+          return false;
+        } else if (
+          applicationFilter !== "na" &&
+          projectCms !== applicationFilter
+        ) {
+          return false;
+        }
+      }
+
+      // Cluster filter
+      if (clusterFilter !== "all") {
+        const hasCluster = project.cluster.some(
+          (cluster) => cluster.toLowerCase() === clusterFilter.toLowerCase(),
+        );
+        if (!hasCluster) {
+          return false;
+        }
+      }
+
+      return true;
+    });
+
+    // Then apply sorting
+    if (!sortField) return filteredProjects;
+
+    return [...filteredProjects].sort((a, b) => {
       let aValue: any = a[sortField as keyof typeof a];
       let bValue: any = b[sortField as keyof typeof b];
 
@@ -460,7 +898,23 @@ export default function Dashboard() {
     });
   };
 
-  const sortedProjects = getSortedProjects();
+  const filteredAndSortedProjects = getFilteredAndSortedProjects();
+  const totalItems = filteredAndSortedProjects.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  // Get projects for current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageProjects = filteredAndSortedProjects.slice(
+    startIndex,
+    endIndex,
+  );
+
+  // Reset to first page when filters change
+  const resetPagination = () => {
+    setCurrentPage(1);
+    setPageInput("1");
+  };
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -913,7 +1367,13 @@ export default function Dashboard() {
               </div>
 
               {/* Department Filter */}
-              <Select>
+              <Select
+                value={departmentFilter}
+                onValueChange={(value) => {
+                  setDepartmentFilter(value);
+                  resetPagination();
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Department" />
@@ -926,7 +1386,13 @@ export default function Dashboard() {
               </Select>
 
               {/* Application Type Filter */}
-              <Select>
+              <Select
+                value={applicationFilter}
+                onValueChange={(value) => {
+                  setApplicationFilter(value);
+                  resetPagination();
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
@@ -943,7 +1409,13 @@ export default function Dashboard() {
               </Select>
 
               {/* Cluster Filter */}
-              <Select>
+              <Select
+                value={clusterFilter}
+                onValueChange={(value) => {
+                  setClusterFilter(value);
+                  resetPagination();
+                }}
+              >
                 <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Cluster" />
@@ -993,7 +1465,7 @@ export default function Dashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {sortedProjects.map((project, index) => (
+                    {currentPageProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
                         <TableCell className="font-medium text-gray-900 w-[30%] relative">
                           <div className="overflow-visible">
