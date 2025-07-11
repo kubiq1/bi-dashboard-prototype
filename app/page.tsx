@@ -609,7 +609,7 @@ export default function Dashboard() {
             <Button
               variant="outline"
               size="sm"
-              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none [&_svg]:text-[#08312a]"
+              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
             >
               Show all Clusters
             </Button>
