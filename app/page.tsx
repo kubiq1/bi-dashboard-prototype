@@ -390,7 +390,13 @@ export default function Dashboard() {
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
-    setToday(new Date().toLocaleDateString("en-CH"));
+    setToday(
+      new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+    );
   }, []);
 
   const handleSort = (field: string) => {
