@@ -49,6 +49,7 @@ import { useEffect, useState, useRef } from "react";
 const mockProjects = [
   {
     name: "pro-bi-com-us-jentadueto",
+    department: "Human",
     cluster: ["BI4"],
     cost: "USD 2'890",
     percentage: "23.4%",
@@ -58,6 +59,7 @@ const mockProjects = [
   },
   {
     name: "hz-qa-bi-hubnext-com",
+    department: "Animal",
     cluster: ["BI5", "BI6"],
     cost: "USD 1'950",
     percentage: "15.7%",
@@ -67,6 +69,7 @@ const mockProjects = [
   },
   {
     name: "hz-storybook-bi-hubnext-com",
+    department: "Human",
     cluster: ["BI3"],
     cost: "USD 1'750",
     percentage: "14.1%",
@@ -76,6 +79,7 @@ const mockProjects = [
   },
   {
     name: "centaura-se",
+    department: "Animal",
     cluster: ["BICN2"],
     cost: "USD 1'420",
     percentage: "11.5%",
@@ -85,6 +89,7 @@ const mockProjects = [
   },
   {
     name: "insights-in-ild",
+    department: "Human",
     cluster: ["BI4", "BI5"],
     cost: "USD 980",
     percentage: "7.9%",
@@ -94,6 +99,7 @@ const mockProjects = [
   },
   {
     name: "agentereversor-com-ar",
+    department: "Animal",
     cluster: ["BI6"],
     cost: "USD 850",
     percentage: "6.9%",
@@ -103,6 +109,7 @@ const mockProjects = [
   },
   {
     name: "frontline-si",
+    department: "Human",
     cluster: ["BI3", "BI4", "BI5"],
     cost: "USD 740",
     percentage: "6.0%",
@@ -112,6 +119,7 @@ const mockProjects = [
   },
   {
     name: "making-more-health",
+    department: "Animal",
     cluster: ["BICN2"],
     cost: "USD 620",
     percentage: "5.0%",
@@ -121,6 +129,7 @@ const mockProjects = [
   },
   {
     name: "guides-boehringer-ingelheim-com",
+    department: "Human",
     cluster: ["BI5"],
     cost: "USD 580",
     percentage: "4.7%",
@@ -130,6 +139,7 @@ const mockProjects = [
   },
   {
     name: "bvdzero-es",
+    department: "Animal",
     cluster: ["BI6", "BICN2"],
     cost: "USD 520",
     percentage: "4.2%",
