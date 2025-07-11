@@ -604,7 +604,7 @@ export default function Dashboard() {
               className="text-2xl font-medium text-[#08312a]"
               style={{ fontFamily: "var(--font-headline)" }}
             >
-              Production Cluster
+              Cluster
             </h2>
             <Button
               variant="outline"
