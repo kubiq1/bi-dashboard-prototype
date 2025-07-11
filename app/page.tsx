@@ -835,7 +835,7 @@ export default function Dashboard() {
 
               {/* Application Type Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
                 </SelectTrigger>
