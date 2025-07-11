@@ -1042,24 +1042,87 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <div className="flex items-center justify-between mt-6">
-            <p className="text-sm text-gray-600">Showing 10 of 1100 projects</p>
-            <div className="flex space-x-2">
-              <Button
-                variant="outline"
-                size="sm"
-                disabled
-                className="bg-gray-100 text-gray-400 border-gray-200 rounded-none shadow-none"
+          <div className="flex flex-col lg:flex-row items-center justify-between mt-6 gap-4">
+            <p className="text-sm text-gray-600">
+              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+              {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}
+              projects
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {/* Page input field */}
+              <form
+                onSubmit={handlePageInputSubmit}
+                className="flex items-center gap-2"
               >
-                Previous
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
-              >
-                Next
-              </Button>
+                <span className="text-sm text-gray-600">Go to page:</span>
+                <Input
+                  type="number"
+                  min="1"
+                  max={totalPages}
+                  value={pageInput}
+                  onChange={(e) => setPageInput(e.target.value)}
+                  className="w-20 h-8 text-center rounded-none shadow-none"
+                />
+                <Button
+                  type="submit"
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
+                >
+                  Go
+                </Button>
+              </form>
+
+              {/* Shadcn Pagination */}
+              <Pagination className="w-auto">
+                <PaginationContent>
+                  <PaginationItem>
+                    <PaginationPrevious
+                      onClick={() => handlePageChange(currentPage - 1)}
+                      className={cn(
+                        "cursor-pointer rounded-none shadow-none",
+                        currentPage === 1
+                          ? "bg-gray-100 text-gray-400 border-gray-200 pointer-events-none"
+                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
+                      )}
+                    />
+                  </PaginationItem>
+
+                  {generatePageNumbers().map((pageNumber, index) => (
+                    <PaginationItem key={index}>
+                      {pageNumber === "..." ? (
+                        <PaginationEllipsis />
+                      ) : (
+                        <PaginationLink
+                          onClick={() => handlePageChange(pageNumber as number)}
+                          isActive={pageNumber === currentPage}
+                          className={cn(
+                            "cursor-pointer rounded-none shadow-none",
+                            pageNumber === currentPage
+                              ? "bg-[#00e47c] text-[#08312a] border-[#00e47c]"
+                              : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
+                          )}
+                        >
+                          {pageNumber}
+                        </PaginationLink>
+                      )}
+                    </PaginationItem>
+                  ))}
+
+                  <PaginationItem>
+                    <PaginationNext
+                      onClick={() => handlePageChange(currentPage + 1)}
+                      className={cn(
+                        "cursor-pointer rounded-none shadow-none",
+                        currentPage === totalPages
+                          ? "bg-gray-100 text-gray-400 border-gray-200 pointer-events-none"
+                          : "bg-white text-gray-700 border-gray-200 hover:bg-gray-50",
+                      )}
+                    />
+                  </PaginationItem>
+                </PaginationContent>
+              </Pagination>
             </div>
           </div>
         </section>
