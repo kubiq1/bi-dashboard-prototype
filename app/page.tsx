@@ -381,7 +381,7 @@ function ProjectRow({ project }: { project: any }) {
             <GitBranch className="h-4 w-4" />
           </a>
           {hoveredIcon === "repository" && (
-            <div className="absolute z-10 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
+            <div className="absolute z-50 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
               <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
                 View Repository
               </div>
