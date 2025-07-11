@@ -932,7 +932,7 @@ export default function Dashboard() {
                                   <Badge
                                     key={clusterIndex}
                                     variant="outline"
-                                    className={`font-normal whitespace-nowrap ${colorClass}`}
+                                    className={`font-normal whitespace-nowrap border-0 ${colorClass}`}
                                   >
                                     {clusterName}
                                   </Badge>
