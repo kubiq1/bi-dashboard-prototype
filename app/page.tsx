@@ -1053,13 +1053,21 @@ export default function Dashboard() {
             </div>
 
             {/* Status Indicator */}
-            <div className="flex items-center">
+            <div className="flex items-center space-x-3">
               <div className="flex items-center space-x-2 bg-green-100 border border-green-200 px-3 py-1.5 rounded-md">
                 <div className="h-2 w-2 bg-green-500 rounded-full"></div>
                 <span className="text-sm font-medium text-green-800">
                   All Systems Operational
                 </span>
               </div>
+              <a
+                href="https://boehringeringelheim.statuspage.io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-white hover:text-[#00e47c] transition-colors"
+              >
+                System status
+              </a>
             </div>
 
             <div className="flex items-center space-x-6">
