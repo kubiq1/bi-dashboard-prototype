@@ -609,7 +609,7 @@ export default function Dashboard() {
             <Button
               variant="outline"
               size="sm"
-              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
+              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
             >
               Show all Clusters
             </Button>
@@ -822,7 +822,7 @@ export default function Dashboard() {
 
               {/* Department Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-40 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Department" />
                 </SelectTrigger>
@@ -835,7 +835,7 @@ export default function Dashboard() {
 
               {/* Application Type Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-44 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Application Type" />
                 </SelectTrigger>
@@ -852,7 +852,7 @@ export default function Dashboard() {
 
               {/* Cluster Filter */}
               <Select>
-                <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
+                <SelectTrigger className="w-full sm:w-36 bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] focus:bg-[#00e47c] rounded-none shadow-none [&_svg]:text-[#08312a]">
                   <Filter className="h-4 w-4 mr-2 text-[#08312a]" />
                   <SelectValue placeholder="Cluster" />
                 </SelectTrigger>
@@ -970,7 +970,7 @@ export default function Dashboard() {
               <Button
                 variant="outline"
                 size="sm"
-                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#00e47c] hover:text-[#08312a] rounded-none shadow-none"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
               >
                 Next
               </Button>
