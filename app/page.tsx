@@ -811,7 +811,7 @@ export default function Dashboard() {
   const [pageInput, setPageInput] = useState("1");
 
   const itemsPerPage = 10;
-  const totalItems = 1100;
+  const totalItems = mockProjects.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   useEffect(() => {
@@ -861,6 +861,11 @@ export default function Dashboard() {
   };
 
   const sortedProjects = getSortedProjects();
+
+  // Get projects for current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentPageProjects = sortedProjects.slice(startIndex, endIndex);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -1393,7 +1398,7 @@ export default function Dashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {sortedProjects.map((project, index) => (
+                    {currentPageProjects.map((project, index) => (
                       <TableRow key={index} className="hover:bg-gray-50">
                         <TableCell className="font-medium text-gray-900 w-[30%] relative">
                           <div className="overflow-visible">
