@@ -1045,7 +1045,7 @@ export default function Dashboard() {
                 </a>
                 <a
                   href="#"
-                  className="text-sm font-medium text-[#00e47c] hover:text-[#00e47c] transition-colors border-b-2 border-[#00e47c] pb-1"
+                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Billing
                 </a>
