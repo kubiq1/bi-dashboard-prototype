@@ -1553,11 +1553,20 @@ export default function Dashboard() {
           </Card>
 
           <div className="flex flex-col lg:flex-row items-center justify-between mt-6 gap-4">
-            <p className="text-sm text-gray-600">
-              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
-              {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}
-              projects
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
+              >
+                Show all projects
+              </Button>
+              <p className="text-sm text-gray-600">
+                Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+                {Math.min(currentPage * itemsPerPage, totalItems)} of{" "}
+                {totalItems} projects
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-4">
               {/* Page input field */}
