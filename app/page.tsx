@@ -1366,7 +1366,7 @@ export default function Dashboard() {
         {/* Projects Cost Breakdown */}
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:gap-3 mb-4 lg:mb-0">
+            <div className="flex flex-col lg:flex-row lg:items-baseline lg:gap-3 mb-4 lg:mb-0">
               <h2
                 className="font-medium text-[#08312a]"
                 style={{
