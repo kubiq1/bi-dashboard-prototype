@@ -1366,16 +1366,21 @@ export default function Dashboard() {
         {/* Projects Cost Breakdown */}
         <section>
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-            <h2
-              className="font-medium text-[#08312a] mb-4 lg:mb-0"
-              style={{
-                fontFamily: "var(--font-headline)",
-                fontSize: "26px",
-                lineHeight: "32px",
-              }}
-            >
-              Projects
-            </h2>
+            <div className="flex flex-col lg:flex-row lg:items-baseline lg:gap-3 mb-4 lg:mb-0">
+              <h2
+                className="font-medium text-[#08312a]"
+                style={{
+                  fontFamily: "var(--font-headline)",
+                  fontSize: "26px",
+                  lineHeight: "32px",
+                }}
+              >
+                Projects
+              </h2>
+              <span className="text-sm text-gray-500 mt-1 lg:mt-0">
+                Data as of : July 2025 upload
+              </span>
+            </div>
             <div className="flex flex-col lg:flex-row gap-3">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -1548,11 +1553,20 @@ export default function Dashboard() {
           </Card>
 
           <div className="flex flex-col lg:flex-row items-center justify-between mt-6 gap-4">
-            <p className="text-sm text-gray-600">
-              Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
-              {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems}{" "}
-              projects
-            </p>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
+              >
+                Show all projects
+              </Button>
+              <p className="text-sm text-gray-600">
+                Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
+                {Math.min(currentPage * itemsPerPage, totalItems)} of{" "}
+                {totalItems} projects
+              </p>
+            </div>
 
             <div className="flex flex-col sm:flex-row items-center gap-4">
               {/* Page input field */}
