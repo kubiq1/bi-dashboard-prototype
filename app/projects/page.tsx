@@ -47,25 +47,22 @@ import { ITEMS_PER_PAGE, DEFAULT_STATIC_DATE, FILTER_OPTIONS } from "@/lib/const
 
 
 export default function ProjectsPage() {
-  const [today, setToday] = useState("August 13, 2025");
+  const [today, setToday] = useState(DEFAULT_STATIC_DATE);
   const [sortField, setSortField] = useState<string | null>(null);
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageInput, setPageInput] = useState("1");
-  const [departmentFilter, setDepartmentFilter] = useState<string>("all");
-  const [applicationFilter, setApplicationFilter] = useState<string>("all");
-  const [clusterFilter, setClusterFilter] = useState<string>("all");
-
-  const itemsPerPage = 10;
+  const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
+  const [filters, setFilters] = useState<FilterState>({
+    department: "all",
+    application: "all",
+    cluster: "all"
+  });
+  const [pagination, setPagination] = useState<PaginationState>({
+    currentPage: 1,
+    pageInput: "1",
+    itemsPerPage: ITEMS_PER_PAGE
+  });
 
   useEffect(() => {
-    setToday(
-      new Date().toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-    );
+    setToday(formatCurrentDate());
   }, []);
 
   const handleSort = (field: string) => {
