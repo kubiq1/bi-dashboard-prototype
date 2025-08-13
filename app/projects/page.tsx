@@ -356,28 +356,28 @@ export default function ProjectsPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
+                      onClick={() => handlePageChange(pagination.currentPage - 1)}
+                      disabled={pagination.currentPage === 1}
                       className="border-r-0 rounded-r-none"
                     >
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
                   </PaginationItem>
 
-                  {generatePageNumbers().map((pageNumber, index) => (
+                  {pageNumbers.map((pageNumber, index) => (
                     <PaginationItem key={index}>
                       {pageNumber === "..." ? (
                         <PaginationEllipsis />
                       ) : (
                         <Button
                           variant={
-                            pageNumber === currentPage ? "default" : "outline"
+                            pageNumber === pagination.currentPage ? "default" : "outline"
                           }
                           size="sm"
                           onClick={() => handlePageChange(pageNumber as number)}
                           className={cn(
                             "border-r-0 rounded-none",
-                            pageNumber === currentPage &&
+                            pageNumber === pagination.currentPage &&
                               "bg-[#08312a] text-white border-[#08312a]",
                           )}
                         >
@@ -391,8 +391,8 @@ export default function ProjectsPage() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
+                      onClick={() => handlePageChange(pagination.currentPage + 1)}
+                      disabled={pagination.currentPage === totalPages}
                       className="border-l-0 rounded-l-none"
                     >
                       <ChevronRight className="h-4 w-4" />
@@ -410,8 +410,8 @@ export default function ProjectsPage() {
                   type="number"
                   min="1"
                   max={totalPages}
-                  value={pageInput}
-                  onChange={(e) => setPageInput(e.target.value)}
+                  value={pagination.pageInput}
+                  onChange={(e) => setPagination(prev => ({ ...prev, pageInput: e.target.value }))}
                   className="w-16 h-8 text-center text-sm rounded-none"
                 />
                 <span className="text-sm text-gray-700">of {totalPages}</span>
