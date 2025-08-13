@@ -310,30 +310,15 @@ export default function ProjectsPage() {
                         <TableCell className="w-[15%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
-                              (clusterName, clusterIndex) => {
-                                // Define subtle colors for different clusters
-                                const clusterColors: Record<string, string> = {
-                                  BI3: "bg-slate-50 text-slate-600 border-slate-200",
-                                  BI4: "bg-blue-50 text-blue-600 border-blue-200",
-                                  BI5: "bg-emerald-50 text-emerald-600 border-emerald-200",
-                                  BI6: "bg-purple-50 text-purple-600 border-purple-200",
-                                  BICN2:
-                                    "bg-amber-50 text-amber-600 border-amber-200",
-                                };
-                                const colorClass =
-                                  clusterColors[clusterName] ||
-                                  "bg-gray-50 text-gray-600 border-gray-200";
-
-                                return (
-                                  <Badge
-                                    key={clusterIndex}
-                                    variant="outline"
-                                    className={`font-normal whitespace-nowrap border-0 ${colorClass}`}
-                                  >
-                                    {clusterName}
-                                  </Badge>
-                                );
-                              },
+                              (clusterName, clusterIndex) => (
+                                <Badge
+                                  key={clusterIndex}
+                                  variant="outline"
+                                  className={`font-normal whitespace-nowrap border-0 ${getClusterColor(clusterName)}`}
+                                >
+                                  {clusterName}
+                                </Badge>
+                              )
                             )}
                           </div>
                         </TableCell>
