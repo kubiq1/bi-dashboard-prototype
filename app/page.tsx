@@ -1038,12 +1038,12 @@ export default function Dashboard() {
                 >
                   Cluster Info
                 </Link>
-                <a
-                  href="#"
+                <Link
+                  href="/projects"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Projects
-                </a>
+                </Link>
                 <a
                   href="#"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
