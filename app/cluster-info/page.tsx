@@ -110,22 +110,22 @@ const mockClusters = [
 function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }) {
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
-      case "healthy":
+      case "operational":
         return {
           textColor: "text-green-600",
           bgColor: "bg-green-500",
           badgeColor: "bg-green-100 text-green-800"
         };
-      case "warning":
+      case "under maintenance":
         return {
-          textColor: "text-yellow-600", 
-          bgColor: "bg-yellow-500",
-          badgeColor: "bg-yellow-100 text-yellow-800"
+          textColor: "text-blue-600",
+          bgColor: "bg-blue-500",
+          badgeColor: "bg-blue-100 text-blue-800"
         };
-      case "critical":
+      case "error":
         return {
           textColor: "text-red-600",
-          bgColor: "bg-red-500", 
+          bgColor: "bg-red-500",
           badgeColor: "bg-red-100 text-red-800"
         };
       default:
