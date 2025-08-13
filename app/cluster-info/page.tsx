@@ -150,9 +150,14 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
           <CardTitle className="text-xl font-medium text-[#08312a]">
             {cluster.name}
           </CardTitle>
-          <Badge className={statusColors.badgeColor}>
-            {cluster.status}
-          </Badge>
+          <div className="flex items-center space-x-2">
+            <span className={`text-sm font-medium ${statusColors.textColor}`}>
+              {cluster.status}
+            </span>
+            <div className={`flex h-3 w-3 rounded-full ${statusColors.bgColor} shadow-sm`}>
+              <div className={`h-3 w-3 rounded-full ${statusColors.bgColor} animate-ping`}></div>
+            </div>
+          </div>
         </div>
         <CardDescription className="text-sm text-gray-600">
           {cluster.description}
