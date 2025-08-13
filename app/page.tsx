@@ -1183,7 +1183,7 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
               {/* BI4 Cluster */}
-              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 border-t-4 border-t-blue-500">
+              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
@@ -1202,7 +1202,7 @@ export default function Dashboard() {
                     Production Cluster
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 relative">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Activity className="h-4 w-4 text-gray-500" />
@@ -1240,6 +1240,7 @@ export default function Dashboard() {
                       15.39%
                     </span>
                   </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500"></div>
                 </CardContent>
               </Card>
 
