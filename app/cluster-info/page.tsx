@@ -385,12 +385,17 @@ export default function ClusterInfoPage() {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [selectedCluster, setSelectedCluster] = useState<any>(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [today, setToday] = useState("August 13, 2025");
 
-  const today = new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long", 
-    day: "numeric",
-  });
+  useEffect(() => {
+    setToday(
+      new Date().toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })
+    );
+  }, []);
 
   const getFilteredClusters = () => {
     return mockClusters.filter((cluster) => {
