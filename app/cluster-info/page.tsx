@@ -153,8 +153,8 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
   const clusterStripeColor = getClusterColor(cluster.name);
 
   return (
-    <Card 
-      className="border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 cursor-pointer"
+    <Card
+      className={`border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 cursor-pointer border-t-4 ${clusterStripeColor}`}
       onClick={onClick}
     >
       <CardHeader className="pb-3 mb-2">
