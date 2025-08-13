@@ -574,8 +574,8 @@ export default function ClusterInfoPage() {
           </p>
         </section>
 
-        {/* Drawer */}
-        <ClusterDrawer
+        {/* Modal */}
+        <ClusterModal
           cluster={selectedCluster}
           isOpen={isDrawerOpen}
           onClose={handleCloseDrawer}
