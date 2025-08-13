@@ -205,61 +205,159 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
   );
 }
 
-function ClusterDrawer({ cluster, isOpen, onClose }: { cluster: any; isOpen: boolean; onClose: () => void }) {
+function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: boolean; onClose: () => void }) {
   if (!isOpen || !cluster) return null;
 
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "operational":
+        return {
+          textColor: "text-green-600",
+          bgColor: "bg-green-500",
+          badgeColor: "bg-green-100 text-green-800"
+        };
+      case "under maintenance":
+        return {
+          textColor: "text-blue-600",
+          bgColor: "bg-blue-500",
+          badgeColor: "bg-blue-100 text-blue-800"
+        };
+      case "error":
+        return {
+          textColor: "text-red-600",
+          bgColor: "bg-red-500",
+          badgeColor: "bg-red-100 text-red-800"
+        };
+      default:
+        return {
+          textColor: "text-gray-600",
+          bgColor: "bg-gray-500",
+          badgeColor: "bg-gray-100 text-gray-800"
+        };
+    }
+  };
+
+  const statusColors = getStatusColor(cluster.status);
+
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden">
-      <div className="absolute inset-0 bg-black bg-opacity-50" onClick={onClose}></div>
-      <div className="fixed right-0 top-0 h-full w-96 bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
-        <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-6 border-b">
-            <h2 className="text-xl font-medium text-[#08312a]" style={{ fontFamily: "var(--font-headline)" }}>
-              {cluster.name} Details
-            </h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal */}
+      <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100">
+        {/* Header */}
+        <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
+                <h2 className="text-3xl font-medium text-[#08312a]" style={{ fontFamily: "var(--font-headline)" }}>
+                  {cluster.name}
+                </h2>
+                <div className="flex items-center space-x-2">
+                  <span className={`text-sm font-medium ${statusColors.textColor}`}>
+                    {cluster.status}
+                  </span>
+                  <div className={`flex h-3 w-3 rounded-full ${statusColors.bgColor} shadow-sm`}>
+                    <div className={`h-3 w-3 rounded-full ${statusColors.bgColor} animate-ping`}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <Button
               variant="ghost"
               size="sm"
               onClick={onClose}
-              className="h-8 w-8 p-0"
+              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
             >
-              <X className="h-4 w-4" />
+              <X className="h-5 w-5 text-gray-500" />
             </Button>
           </div>
-          
-          <div className="flex-1 overflow-y-auto p-6">
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-medium text-[#08312a] mb-4">Additional Metrics</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <Database className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Database Size</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-900">
-                      {cluster.databaseSize} GB
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <HardDrive className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Storage Size</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-900">
-                      {cluster.storageSize} GB
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <BarChart3 className="h-4 w-4 text-gray-500" />
-                      <span className="text-sm text-gray-600">Hits/Requests</span>
-                    </div>
-                    <span className="text-sm font-medium text-gray-900">
-                      {cluster.hitsRequests}
-                    </span>
-                  </div>
+          <p className="text-sm text-gray-600 mt-1">{cluster.description}</p>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
+          {/* Current Metrics Grid */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+              Current Metrics
+            </h3>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Activity className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">Pod Density</span>
                 </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.podDensity}%
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Server className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">Node Count</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.nodeCount}
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <MemoryStick className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">RAM Usage</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.ramUsage} GB
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Cpu className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">CPU Usage</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.cpuUsage}%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Metrics */}
+          <div>
+            <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+              Storage & Performance
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
+                <div className="flex items-center space-x-3">
+                  <Database className="h-5 w-5 text-blue-600" />
+                  <span className="font-medium text-gray-900">Database Size</span>
+                </div>
+                <span className="text-xl font-bold text-blue-600">
+                  {cluster.databaseSize} GB
+                </span>
+              </div>
+              <div className="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100">
+                <div className="flex items-center space-x-3">
+                  <HardDrive className="h-5 w-5 text-purple-600" />
+                  <span className="font-medium text-gray-900">Storage Size</span>
+                </div>
+                <span className="text-xl font-bold text-purple-600">
+                  {cluster.storageSize} GB
+                </span>
+              </div>
+              <div className="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
+                <div className="flex items-center space-x-3">
+                  <BarChart3 className="h-5 w-5 text-green-600" />
+                  <span className="font-medium text-gray-900">Hits/Requests</span>
+                </div>
+                <span className="text-xl font-bold text-green-600">
+                  {cluster.hitsRequests}
+                </span>
               </div>
             </div>
           </div>
