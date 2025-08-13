@@ -83,8 +83,8 @@ export default function ProjectsPage() {
   const totalPages = Math.ceil(totalItems / pagination.itemsPerPage);
 
   // Get projects for current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
+  const endIndex = startIndex + pagination.itemsPerPage;
   const currentPageProjects = filteredAndSortedProjects.slice(
     startIndex,
     endIndex,
@@ -92,24 +92,36 @@ export default function ProjectsPage() {
 
   // Reset to first page when filters change
   const resetPagination = () => {
-    setCurrentPage(1);
-    setPageInput("1");
+    setPagination(prev => ({
+      ...prev,
+      currentPage: 1,
+      pageInput: "1"
+    }));
   };
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
-      setPageInput(page.toString());
+      setPagination(prev => ({
+        ...prev,
+        currentPage: page,
+        pageInput: page.toString()
+      }));
     }
   };
 
   const handlePageInputSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const page = parseInt(pageInput);
+    const page = parseInt(pagination.pageInput);
     if (!isNaN(page) && page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
+      setPagination(prev => ({
+        ...prev,
+        currentPage: page
+      }));
     } else {
-      setPageInput(currentPage.toString());
+      setPagination(prev => ({
+        ...prev,
+        pageInput: pagination.currentPage.toString()
+      }));
     }
   };
 
