@@ -306,7 +306,7 @@ export default function ClusterInfoPage() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
-              <div className="flex items-center space-x-3">
+              <Link href="/" className="flex items-center space-x-3">
                 <img
                   src="/assets/primary-logo-accent.svg"
                   alt="BI Dashboard Logo"
@@ -318,16 +318,16 @@ export default function ClusterInfoPage() {
                 >
                   Dashboard
                 </h1>
-              </div>
+              </Link>
               <nav className="hidden md:flex items-center space-x-8 ml-8">
-                <a
+                <Link
                   href="/cluster-info"
                   className="text-sm font-medium text-[#00e47c] hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Cluster Info
-                </a>
+                </Link>
                 <a
-                  href="/"
+                  href="#"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Projects
