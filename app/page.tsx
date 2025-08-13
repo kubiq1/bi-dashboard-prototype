@@ -1303,7 +1303,7 @@ export default function Dashboard() {
               </Card>
 
               {/* BI6 Cluster */}
-              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 border-t-4 border-t-purple-500">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
