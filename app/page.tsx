@@ -1032,18 +1032,18 @@ export default function Dashboard() {
                 </h1>
               </div>
               <nav className="hidden md:flex items-center space-x-8 ml-8">
-                <a
-                  href="#"
+                <Link
+                  href="/cluster-info"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Cluster Info
-                </a>
-                <a
-                  href="#"
-                  className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                </Link>
+                <Link
+                  href="/"
+                  className="text-sm font-medium text-[#00e47c] hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Projects
-                </a>
+                </Link>
                 <a
                   href="#"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
