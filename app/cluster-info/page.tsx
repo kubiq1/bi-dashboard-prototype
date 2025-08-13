@@ -140,13 +140,13 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
 
   const getClusterColor = (clusterName: string) => {
     const clusterColors: Record<string, string> = {
-      BI3: "border-t-slate-500",
-      BI4: "border-t-blue-500",
-      BI5: "border-t-emerald-500",
-      BI6: "border-t-purple-500",
-      BICN2: "border-t-amber-500",
+      BI3: "bg-slate-500",
+      BI4: "bg-blue-500",
+      BI5: "bg-emerald-500",
+      BI6: "bg-purple-500",
+      BICN2: "bg-amber-500",
     };
-    return clusterColors[clusterName] || "border-t-gray-500";
+    return clusterColors[clusterName] || "bg-gray-500";
   };
 
   const statusColors = getStatusColor(cluster.status);
