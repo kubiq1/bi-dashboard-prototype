@@ -65,82 +65,22 @@ export default function ProjectsPage() {
     setToday(formatCurrentDate());
   }, []);
 
-  const handleSort = (field: string) => {
+  const handleSort = useCallback((field: string) => {
     if (sortField === field) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortField(field);
       setSortDirection("asc");
     }
-  };
+  }, [sortField, sortDirection]);
 
-  const getFilteredAndSortedProjects = () => {
-    // First apply filters
-    let filteredProjects = mockProjects.filter((project) => {
-      // Department filter
-      if (
-        departmentFilter !== "all" &&
-        project.department.toLowerCase() !== departmentFilter
-      ) {
-        return false;
-      }
+  const filteredAndSortedProjects = useMemo(() => {
+    const filtered = filterProjects(mockProjects, filters);
+    return sortField ? sortProjects(filtered, sortField, sortDirection) : filtered;
+  }, [mockProjects, filters, sortField, sortDirection]);
 
-      // Application filter
-      if (applicationFilter !== "all") {
-        const projectCms = project.cms.toLowerCase();
-        if (applicationFilter === "na" && projectCms !== "n/a") {
-          return false;
-        } else if (
-          applicationFilter !== "na" &&
-          projectCms !== applicationFilter
-        ) {
-          return false;
-        }
-      }
-
-      // Cluster filter
-      if (clusterFilter !== "all") {
-        const hasCluster = project.cluster.some(
-          (cluster) => cluster.toLowerCase() === clusterFilter.toLowerCase(),
-        );
-        if (!hasCluster) {
-          return false;
-        }
-      }
-
-      return true;
-    });
-
-    // Then apply sorting
-    if (!sortField) return filteredProjects;
-
-    return [...filteredProjects].sort((a, b) => {
-      let aValue: any = a[sortField as keyof typeof a];
-      let bValue: any = b[sortField as keyof typeof b];
-
-      // Handle special cases
-      if (sortField === "cost") {
-        aValue = parseInt(aValue.replace(/[^\d]/g, ""));
-        bValue = parseInt(bValue.replace(/[^\d]/g, ""));
-      } else if (sortField === "percentage") {
-        aValue = parseFloat(aValue.replace("%", ""));
-        bValue = parseFloat(bValue.replace("%", ""));
-      } else if (sortField === "cluster") {
-        aValue = Array.isArray(aValue) ? aValue.join(", ") : aValue;
-        bValue = Array.isArray(bValue) ? bValue.join(", ") : bValue;
-      }
-
-      if (sortDirection === "asc") {
-        return aValue > bValue ? 1 : -1;
-      } else {
-        return aValue < bValue ? 1 : -1;
-      }
-    });
-  };
-
-  const filteredAndSortedProjects = getFilteredAndSortedProjects();
   const totalItems = filteredAndSortedProjects.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / pagination.itemsPerPage);
 
   // Get projects for current page
   const startIndex = (currentPage - 1) * itemsPerPage;
