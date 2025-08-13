@@ -1191,7 +1191,7 @@ export default function Dashboard() {
                     </CardTitle>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium text-green-600">
-                        Healthy
+                        Operational
                       </span>
                       <div className="flex h-3 w-3 rounded-full bg-green-500 shadow-sm">
                         <div className="h-3 w-3 rounded-full bg-green-500 animate-ping"></div>
@@ -1251,11 +1251,11 @@ export default function Dashboard() {
                       BI5
                     </CardTitle>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm font-medium text-yellow-600">
-                        Warning
+                      <span className="text-sm font-medium text-blue-600">
+                        Under Maintenance
                       </span>
-                      <div className="flex h-3 w-3 rounded-full bg-yellow-500 shadow-sm">
-                        <div className="h-3 w-3 rounded-full bg-yellow-500 animate-ping"></div>
+                      <div className="flex h-3 w-3 rounded-full bg-blue-500 shadow-sm">
+                        <div className="h-3 w-3 rounded-full bg-blue-500 animate-ping"></div>
                       </div>
                     </div>
                   </div>
@@ -1311,7 +1311,7 @@ export default function Dashboard() {
                     </CardTitle>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium text-red-600">
-                        Critical
+                        Error
                       </span>
                       <div className="flex h-3 w-3 rounded-full bg-red-500 shadow-sm">
                         <div className="h-3 w-3 rounded-full bg-red-500 animate-ping"></div>
