@@ -198,9 +198,9 @@ export default function ProjectsPage() {
 
               {/* Department Filter */}
               <Select
-                value={departmentFilter}
+                value={filters.department}
                 onValueChange={(value) => {
-                  setDepartmentFilter(value);
+                  setFilters(prev => ({ ...prev, department: value }));
                   resetPagination();
                 }}
               >
@@ -217,9 +217,9 @@ export default function ProjectsPage() {
 
               {/* Application Type Filter */}
               <Select
-                value={applicationFilter}
+                value={filters.application}
                 onValueChange={(value) => {
-                  setApplicationFilter(value);
+                  setFilters(prev => ({ ...prev, application: value }));
                   resetPagination();
                 }}
               >
@@ -240,9 +240,9 @@ export default function ProjectsPage() {
 
               {/* Cluster Filter */}
               <Select
-                value={clusterFilter}
+                value={filters.cluster}
                 onValueChange={(value) => {
-                  setClusterFilter(value);
+                  setFilters(prev => ({ ...prev, cluster: value }));
                   resetPagination();
                 }}
               >
