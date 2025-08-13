@@ -1245,7 +1245,7 @@ export default function Dashboard() {
               </Card>
 
               {/* BI5 Cluster */}
-              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
+              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
