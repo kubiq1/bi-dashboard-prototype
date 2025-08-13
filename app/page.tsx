@@ -1240,7 +1240,7 @@ export default function Dashboard() {
                       15.39%
                     </span>
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-500"></div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-50 transition-all duration-200 group-hover:h-2"></div>
                 </CardContent>
               </Card>
 
