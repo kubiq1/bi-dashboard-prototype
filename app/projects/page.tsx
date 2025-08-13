@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState, useMemo, useCallback } from "react";
 import {
   Search,
   Filter,
@@ -7,11 +8,7 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
-  Bell,
-  ExternalLink,
-  GitBranch,
 } from "lucide-react";
-import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -33,7 +30,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Pagination,
@@ -42,7 +38,12 @@ import {
   PaginationItem,
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
-import { useEffect, useState, useRef } from "react";
+import Navigation from "@/components/shared/Navigation";
+import ProjectRow from "@/components/shared/ProjectRow";
+import { mockProjects } from "@/lib/data";
+import { Project, SortDirection, FilterState, PaginationState } from "@/lib/types";
+import { formatCurrentDate, sortProjects, filterProjects, generatePageNumbers, getClusterColor } from "@/lib/shared-utils";
+import { ITEMS_PER_PAGE, DEFAULT_STATIC_DATE, FILTER_OPTIONS } from "@/lib/constants";
 
 const mockProjects = [
   {
