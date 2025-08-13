@@ -154,7 +154,7 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
 
   return (
     <Card
-      className={`border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 cursor-pointer border-t-4 ${clusterStripeColor}`}
+      className="border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 cursor-pointer overflow-hidden"
       onClick={onClick}
     >
       <CardHeader className="pb-3 mb-2">
@@ -175,7 +175,7 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
           {cluster.description}
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 relative">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Activity className="h-4 w-4 text-gray-500" />
@@ -212,6 +212,7 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
             {cluster.cpuUsage}%
           </span>
         </div>
+        <div className={`absolute bottom-0 left-0 right-0 h-1 ${clusterStripeColor}`}></div>
       </CardContent>
     </Card>
   );
