@@ -46,6 +46,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 href="/cluster-info"
                 className={getLinkClass('cluster-info')}
                 prefetch={true}
+                onMouseEnter={() => handleMouseEnter('/cluster-info')}
               >
                 Cluster Info
               </Link>
@@ -53,6 +54,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
                 href="/projects"
                 className={getLinkClass('projects')}
                 prefetch={true}
+                onMouseEnter={() => handleMouseEnter('/projects')}
               >
                 Projects
               </Link>
