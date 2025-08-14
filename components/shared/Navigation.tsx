@@ -20,7 +20,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
       <div className="container mx-auto px-4 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center space-x-8">
-            <Link href="/" className="flex items-center space-x-3">
+            <Link href="/" className="flex items-center space-x-3" prefetch={true}>
               <img
                 src="/assets/primary-logo-accent.svg"
                 alt="BI Dashboard Logo"
