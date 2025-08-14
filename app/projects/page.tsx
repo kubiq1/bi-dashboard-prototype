@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Search,
   Filter,
@@ -47,6 +48,7 @@ import { ITEMS_PER_PAGE, DEFAULT_STATIC_DATE, FILTER_OPTIONS } from "@/lib/const
 
 
 export default function ProjectsPage() {
+  const searchParams = useSearchParams();
   const [today, setToday] = useState(DEFAULT_STATIC_DATE);
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
@@ -63,7 +65,15 @@ export default function ProjectsPage() {
 
   useEffect(() => {
     setToday(formatCurrentDate());
-  }, []);
+
+    // Check for cluster parameter in URL
+    const clusterParam = searchParams.get('cluster');
+    if (clusterParam) {
+      // Convert cluster name to lowercase to match filter options
+      const clusterValue = clusterParam.toLowerCase();
+      setFilters(prev => ({ ...prev, cluster: clusterValue }));
+    }
+  }, [searchParams]);
 
   const handleSort = useCallback((field: string) => {
     if (sortField === field) {
