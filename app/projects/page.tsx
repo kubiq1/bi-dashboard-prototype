@@ -590,7 +590,7 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
               {/* Monthly Cost */}
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                  Monthly Cost
+                  Monthly Cost — {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" })}
                 </h3>
                 <div className="bg-gray-50 rounded-xl p-4">
                   <div className="flex justify-between items-center mb-2">
