@@ -4,12 +4,6 @@ import {
   Search,
   Filter,
   TrendingUp,
-  TrendingDown,
-  User,
-  ChevronDown,
-  ChevronUp,
-  ChevronLeft,
-  ChevronRight,
   Server,
   Cpu,
   HardDrive,
@@ -17,9 +11,14 @@ import {
   Bell,
   ExternalLink,
   GitBranch,
-  CheckCircle,
   MemoryStick,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
+import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   Card,
   CardContent,
@@ -54,6 +53,12 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
+
+// Dynamic import for better performance
+const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
+  loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded"></div>,
+  ssr: true,
+});
 
 const mockProjects = [
   {
@@ -558,200 +563,6 @@ const mockProjects = [
   },
 ];
 
-function SparklineChart() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [containerWidth, setContainerWidth] = useState(280);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  // Use the provided example data
-  const usdValues = [
-    13800, 14600, 15800, 15200, 16400, 17500, 17300, 18200, 18800, 18200, 19200,
-    20000,
-  ];
-
-  const height = 64;
-
-  // Update container width on resize
-  useEffect(() => {
-    const updateWidth = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth);
-      }
-    };
-
-    updateWidth();
-
-    const resizeObserver = new ResizeObserver(updateWidth);
-    if (containerRef.current) {
-      resizeObserver.observe(containerRef.current);
-    }
-
-    return () => resizeObserver.disconnect();
-  }, []);
-
-  const max = Math.max(...usdValues);
-  const min = Math.min(...usdValues);
-  const range = max - min;
-
-  // Create points spanning full container width (edge to edge)
-  const points = usdValues.map((value, index) => {
-    const x = (index * containerWidth) / (usdValues.length - 1);
-    const y = ((max - value) / range) * height;
-    return { x, y, usd: value };
-  });
-
-  // Create horizontal grid lines (4 middle + top + bottom = 6 total)
-  const horizontalGridLines = [
-    0, // Top line
-    ...Array.from({ length: 4 }, (_, i) => ((i + 1) * height) / 5), // Middle lines
-    height, // Bottom line
-  ];
-
-  // Create 12 vertical grid lines for each month
-  const verticalGridLines = Array.from({ length: 12 }, (_, i) => {
-    const x = (i * containerWidth) / (usdValues.length - 1);
-    return x;
-  });
-
-  // Create smooth curve using cubic bezier
-  const pathData = points.reduce((path, point, index) => {
-    if (index === 0) {
-      return `M ${point.x} ${point.y}`;
-    } else {
-      const prevPoint = points[index - 1];
-      const cpx1 = prevPoint.x + (point.x - prevPoint.x) * 0.5;
-      const cpy1 = prevPoint.y;
-      const cpx2 = prevPoint.x + (point.x - prevPoint.x) * 0.5;
-      const cpy2 = point.y;
-      return (
-        path + ` C ${cpx1} ${cpy1}, ${cpx2} ${cpy2}, ${point.x} ${point.y}`
-      );
-    }
-  }, "");
-
-  const handleMouseMove = (event: React.MouseEvent<SVGElement>) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const mouseX = event.clientX - rect.left;
-    const mouseY = event.clientY - rect.top;
-
-    // Scale to SVG coordinates
-    const svgX = (mouseX / rect.width) * containerWidth;
-    const svgY = (mouseY / rect.height) * height;
-
-    // Find nearest point with distance checking in both X and Y
-    let nearestIndex = -1;
-    let minDistance = Infinity;
-
-    points.forEach((point, index) => {
-      const distance = Math.sqrt(
-        Math.pow(point.x - svgX, 2) + Math.pow(point.y - svgY, 2),
-      );
-      if (distance < minDistance && distance <= 12) {
-        // 12px threshold
-        minDistance = distance;
-        nearestIndex = index;
-      }
-    });
-
-    setHoveredIndex(nearestIndex >= 0 ? nearestIndex : null);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-  };
-
-  return (
-    <div ref={containerRef} className="h-16 relative">
-      <svg
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${containerWidth} ${height}`}
-        className="overflow-visible"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-      >
-        {/* Horizontal grid lines */}
-        {horizontalGridLines.map((y, index) => (
-          <line
-            key={`horizontal-grid-${index}`}
-            x1="0"
-            y1={y}
-            x2={containerWidth}
-            y2={y}
-            stroke="#e5e7eb"
-            strokeWidth="0.5"
-            opacity="1"
-          />
-        ))}
-
-        {/* Vertical grid lines for each month */}
-        {verticalGridLines.map((x, index) => (
-          <line
-            key={`vertical-grid-${index}`}
-            x1={x}
-            y1="0"
-            x2={x}
-            y2={height}
-            stroke="#e5e7eb"
-            strokeWidth="0.5"
-            opacity="0.5"
-          />
-        ))}
-
-        {/* Sparkline path */}
-        <path
-          d={pathData}
-          fill="none"
-          stroke="#00b871"
-          strokeWidth="2"
-          className="transition-all duration-200"
-        />
-
-        {/* Single hover dot for nearest point */}
-        {hoveredIndex !== null && (
-          <circle
-            cx={points[hoveredIndex].x}
-            cy={points[hoveredIndex].y}
-            r="4"
-            fill="#00b871"
-            stroke="white"
-            strokeWidth="2"
-            className="transition-all duration-150"
-          />
-        )}
-
-        {/* Invisible hover areas for better interaction */}
-        {points.map((point, index) => (
-          <circle
-            key={`hover-${index}`}
-            cx={point.x}
-            cy={point.y}
-            r="12"
-            fill="transparent"
-            className="cursor-crosshair"
-          />
-        ))}
-      </svg>
-
-      {/* Tooltip positioned exactly at the dot */}
-      {hoveredIndex !== null && (
-        <div
-          className="absolute pointer-events-none z-10 transition-all duration-150"
-          style={{
-            left: `${(points[hoveredIndex].x / containerWidth) * 100}%`,
-            top: `${(points[hoveredIndex].y / height) * 100}%`,
-            transform: "translate(-50%, -100%) translateY(-8px)",
-          }}
-        >
-          <div className="bg-gray-800 text-white text-xs px-2 py-1 rounded shadow-lg whitespace-nowrap">
-            USD {points[hoveredIndex].usd.toLocaleString()}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
 function ProjectRow({ project }: { project: any }) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
@@ -803,7 +614,7 @@ function ProjectRow({ project }: { project: any }) {
 }
 
 export default function Dashboard() {
-  const [today, setToday] = useState("");
+  const [today, setToday] = useState("August 13, 2025");
   const [hasNotifications, setHasNotifications] = useState(true);
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
@@ -1017,7 +828,7 @@ export default function Dashboard() {
         <div className="container mx-auto px-4 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <div className="flex items-center space-x-8">
-              <div className="flex items-center space-x-3">
+              <Link href="/" className="flex items-center space-x-3">
                 <img
                   src="/assets/primary-logo-accent.svg"
                   alt="BI Dashboard Logo"
@@ -1029,20 +840,20 @@ export default function Dashboard() {
                 >
                   Dashboard
                 </h1>
-              </div>
+              </Link>
               <nav className="hidden md:flex items-center space-x-8 ml-8">
-                <a
-                  href="#"
+                <Link
+                  href="/cluster-info"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Cluster Info
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  href="/projects"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Projects
-                </a>
+                </Link>
                 <a
                   href="#"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
@@ -1182,7 +993,7 @@ export default function Dashboard() {
           <div className="overflow-x-auto">
             <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
               {/* BI4 Cluster */}
-              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
@@ -1190,7 +1001,7 @@ export default function Dashboard() {
                     </CardTitle>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium text-green-600">
-                        Healthy
+                        Operational
                       </span>
                       <div className="flex h-3 w-3 rounded-full bg-green-500 shadow-sm">
                         <div className="h-3 w-3 rounded-full bg-green-500 animate-ping"></div>
@@ -1201,7 +1012,7 @@ export default function Dashboard() {
                     Production Cluster
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 relative">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Activity className="h-4 w-4 text-gray-500" />
@@ -1239,22 +1050,23 @@ export default function Dashboard() {
                       15.39%
                     </span>
                   </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-blue-50 transition-all duration-200 group-hover:h-2"></div>
                 </CardContent>
               </Card>
 
               {/* BI5 Cluster */}
-              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
                       BI5
                     </CardTitle>
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm font-medium text-yellow-600">
-                        Warning
+                      <span className="text-sm font-medium text-blue-600">
+                        Under Maintenance
                       </span>
-                      <div className="flex h-3 w-3 rounded-full bg-yellow-500 shadow-sm">
-                        <div className="h-3 w-3 rounded-full bg-yellow-500 animate-ping"></div>
+                      <div className="flex h-3 w-3 rounded-full bg-blue-500 shadow-sm">
+                        <div className="h-3 w-3 rounded-full bg-blue-500 animate-ping"></div>
                       </div>
                     </div>
                   </div>
@@ -1262,7 +1074,7 @@ export default function Dashboard() {
                     Production Cluster
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 relative">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Activity className="h-4 w-4 text-gray-500" />
@@ -1298,11 +1110,12 @@ export default function Dashboard() {
                       82.4%
                     </span>
                   </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-50 transition-all duration-200 group-hover:h-2"></div>
                 </CardContent>
               </Card>
 
               {/* BI6 Cluster */}
-              <Card className="min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300">
+              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
@@ -1310,7 +1123,7 @@ export default function Dashboard() {
                     </CardTitle>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium text-red-600">
-                        Critical
+                        Error
                       </span>
                       <div className="flex h-3 w-3 rounded-full bg-red-500 shadow-sm">
                         <div className="h-3 w-3 rounded-full bg-red-500 animate-ping"></div>
@@ -1321,7 +1134,7 @@ export default function Dashboard() {
                     Production Cluster
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-4 relative">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <Activity className="h-4 w-4 text-gray-500" />
@@ -1357,6 +1170,7 @@ export default function Dashboard() {
                       94.0%
                     </span>
                   </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-purple-50 transition-all duration-200 group-hover:h-2"></div>
                 </CardContent>
               </Card>
             </div>
