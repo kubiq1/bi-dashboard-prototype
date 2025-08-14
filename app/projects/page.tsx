@@ -9,6 +9,12 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  X,
+  ExternalLink,
+  GitBranch,
+  Database,
+  HardDrive,
+  Server,
 } from "lucide-react";
 import {
   Card,
@@ -57,6 +63,8 @@ export default function ProjectsPage() {
     application: "all",
     cluster: "all"
   });
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [pagination, setPagination] = useState<PaginationState>({
     currentPage: 1,
     pageInput: "1",
@@ -171,6 +179,16 @@ export default function ProjectsPage() {
         </div>
       </TableHead>
     );
+
+  const handleProjectClick = (project: Project) => {
+    setSelectedProject(project);
+    setIsProjectModalOpen(true);
+  };
+
+  const handleCloseProjectModal = () => {
+    setIsProjectModalOpen(false);
+    setSelectedProject(null);
+  };
   };
 
   return (
@@ -306,7 +324,11 @@ export default function ProjectsPage() {
                   </TableHeader>
                   <TableBody>
                     {currentPageProjects.map((project, index) => (
-                      <TableRow key={index} className="hover:bg-gray-50">
+                      <TableRow
+                        key={index}
+                        className="hover:bg-gray-50 cursor-pointer"
+                        onClick={() => handleProjectClick(project)}
+                      >
                         <TableCell className="font-medium text-gray-900 w-[30%] relative">
                           <div className="overflow-visible">
                             <ProjectRow project={project} />
