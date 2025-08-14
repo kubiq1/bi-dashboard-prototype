@@ -37,12 +37,14 @@ export default function Navigation({ currentPage }: NavigationProps) {
               <Link
                 href="/cluster-info"
                 className={getLinkClass('cluster-info')}
+                prefetch={true}
               >
                 Cluster Info
               </Link>
               <Link
                 href="/projects"
                 className={getLinkClass('projects')}
+                prefetch={true}
               >
                 Projects
               </Link>
