@@ -563,8 +563,6 @@ const mockProjects = [
   },
 ];
 
-import SparklineChart from "@/components/charts/SparklineChart";
-
 function ProjectRow({ project }: { project: any }) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
 
