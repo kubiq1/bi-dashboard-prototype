@@ -5,9 +5,11 @@ import PageLoader from '@/components/shared/PageLoader';
 export const DynamicSparklineChart = dynamic(
   () => import('@/components/charts/SparklineChart'),
   {
-    loading: () => (
-      <div className="h-16 bg-gray-100 animate-pulse rounded"></div>
-    ),
+    loading: () => {
+      return (
+        <div className="h-16 bg-gray-100 animate-pulse rounded"></div>
+      );
+    },
     ssr: true, // Enable SSR for better SEO
   }
 );
@@ -15,17 +17,11 @@ export const DynamicSparklineChart = dynamic(
 export const DynamicProjectRow = dynamic(
   () => import('@/components/shared/ProjectRow'),
   {
-    loading: () => (
-      <div className="h-6 bg-gray-100 animate-pulse rounded w-3/4"></div>
-    ),
+    loading: () => {
+      return (
+        <div className="h-6 bg-gray-100 animate-pulse rounded w-3/4"></div>
+      );
+    },
     ssr: true,
-  }
-);
-
-export const DynamicClusterModal = dynamic(
-  () => import('@/components/cluster/ClusterModal').then((mod) => ({ default: mod.ClusterModal })),
-  {
-    loading: () => <PageLoader />,
-    ssr: false, // Modal doesn't need SSR
   }
 );
