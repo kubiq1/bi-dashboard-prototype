@@ -179,6 +179,7 @@ export default function ProjectsPage() {
         </div>
       </TableHead>
     );
+  };
 
   const handleProjectClick = (project: Project) => {
     setSelectedProject(project);
@@ -188,7 +189,6 @@ export default function ProjectsPage() {
   const handleCloseProjectModal = () => {
     setIsProjectModalOpen(false);
     setSelectedProject(null);
-  };
   };
 
   return (
@@ -451,7 +451,241 @@ export default function ProjectsPage() {
             </div>
           </div>
         </section>
+
+        {/* Project Modal */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isProjectModalOpen}
+          onClose={handleCloseProjectModal}
+        />
       </main>
+    </div>
+  );
+}
+
+function ProjectModal({ project, isOpen, onClose }: { project: Project | null; isOpen: boolean; onClose: () => void }) {
+  if (!isOpen || !project) return null;
+
+  const getStageColor = (stage: string, stageColor: string) => {
+    return stageColor;
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal */}
+      <div className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100">
+        {/* Header */}
+        <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex flex-col">
+                <h2 className="text-3xl font-medium text-[#08312a]" style={{ fontFamily: "var(--font-headline)" }}>
+                  {project.name}
+                </h2>
+                <div className="flex items-center space-x-3 mt-2">
+                  {/* Quick Links */}
+                  <div className="flex items-center space-x-2">
+                    {project.repositoryUrl && (
+                      <a
+                        href={project.repositoryUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                      >
+                        <GitBranch className="h-4 w-4" />
+                        <span>Repo</span>
+                      </a>
+                    )}
+                    {project.lagoonUrl && (
+                      <a
+                        href={project.lagoonUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                      >
+                        <Server className="h-4 w-4" />
+                        <span>Lagoon</span>
+                      </a>
+                    )}
+                    {project.projectUrl && (
+                      <a
+                        href={project.projectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        <span>Prod</span>
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Badges */}
+                  <div className="flex items-center space-x-2">
+                    <Badge className={getStageColor(project.stage, project.stageColor)}>
+                      {project.stage}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+            >
+              <X className="h-5 w-5 text-gray-500" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column - Overview */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Overview
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Department</span>
+                    <span className="text-sm text-gray-900">{project.department}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Application Type</span>
+                    <span className="text-sm text-gray-900">{project.cms}</span>
+                  </div>
+                  {project.owningAgency && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Owning Agency</span>
+                      <span className="text-sm text-gray-900">{project.owningAgency}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Clusters</span>
+                    <div className="flex flex-wrap gap-1">
+                      {project.cluster.map((clusterName, index) => (
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className={`font-normal whitespace-nowrap border-0 ${getClusterColor(clusterName)}`}
+                        >
+                          {clusterName}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Monthly Cost */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Monthly Cost
+                </h3>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">Estimated Proportioned Cost</span>
+                    <span className="text-2xl font-bold text-[#08312a]">{project.estimatedCost || project.cost}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm text-gray-600">
+                    <span>Month Total Cost</span>
+                    <span>{project.monthTotalCost || "USD 12,390"}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Usage & Storage */}
+            <div className="space-y-6">
+              {/* Hits */}
+              {project.hits && (
+                <div>
+                  <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                    Usage
+                  </h3>
+                  <div className="bg-blue-50 rounded-xl p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium text-gray-700">Hits</span>
+                      <span className="text-2xl font-bold text-blue-600">{project.hits}</span>
+                    </div>
+                    {project.usagePercentage && (
+                      <div className="flex justify-between items-center text-sm text-gray-600">
+                        <span>Usage %</span>
+                        <span>{project.usagePercentage}%</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Storage */}
+              {project.storage && (
+                <div>
+                  <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                    Storage (GB)
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <Database className="h-4 w-4 text-blue-600" />
+                        <span className="text-sm font-medium text-gray-700">Database</span>
+                      </div>
+                      <span className="text-sm font-bold text-blue-600">{project.storage.database.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <HardDrive className="h-4 w-4 text-purple-600" />
+                        <span className="text-sm font-medium text-gray-700">Files</span>
+                      </div>
+                      <span className="text-sm font-bold text-purple-600">{project.storage.files.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
+                      <div className="flex items-center space-x-2">
+                        <Search className="h-4 w-4 text-green-600" />
+                        <span className="text-sm font-medium text-gray-700">Solr</span>
+                      </div>
+                      <span className="text-sm font-bold text-green-600">{project.storage.solr.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between items-center py-3 px-4 bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200">
+                      <span className="text-sm font-bold text-gray-700">Total</span>
+                      <span className="text-lg font-bold text-[#08312a]">{project.storage.total.toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Usage Audit Hint */}
+              {project.usagePercentage && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <p className="text-xs text-yellow-800">
+                    <strong>Audit hint:</strong> Usage % is derived from component shares (e.g., Hits% and Storage% [± Pods% if used]).
+                  </p>
+                  <p className="text-xs text-yellow-800 mt-1">
+                    <strong>Note:</strong> Estimated cost = Usage % × Month total cost.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <p className="text-sm text-gray-500 text-center">
+              Data as of July, 2025.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
