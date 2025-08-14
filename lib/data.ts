@@ -10,6 +10,20 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    owningAgency: "Boehringer Ingelheim Pharmaceuticals",
+    projectUrl: "https://pro-bi-com-us-jentadueto.boehringer-ingelheim.com",
+    repositoryUrl: "https://bitbucket.biscrum.com/wpsites/pro-bi-com-us-jentadueto",
+    lagoonUrl: "https://lagoon.boehringer-ingelheim.com/projects/pro-bi-com-us-jentadueto",
+    hits: "892,345",
+    storage: {
+      database: 12.45,
+      files: 89.32,
+      solr: 5.67,
+      total: 107.44
+    },
+    usagePercentage: 23.4,
+    estimatedCost: "USD 2,890",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "hz-qa-bi-hubnext-com",
@@ -20,6 +34,20 @@ export const mockProjects: Project[] = [
     cms: "Custom",
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
+    owningAgency: "Boehringer Ingelheim Animal Health",
+    projectUrl: "https://hz-qa-bi-hubnext-com.boehringer-ingelheim.com",
+    repositoryUrl: "https://bitbucket.biscrum.com/wpsites/hz-qa-bi-hubnext-com",
+    lagoonUrl: "https://lagoon.boehringer-ingelheim.com/projects/hz-qa-bi-hubnext-com",
+    hits: "674,123",
+    storage: {
+      database: 8.92,
+      files: 67.84,
+      solr: 3.21,
+      total: 79.97
+    },
+    usagePercentage: 15.7,
+    estimatedCost: "USD 1,950",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "hz-storybook-bi-hubnext-com",
@@ -30,6 +58,20 @@ export const mockProjects: Project[] = [
     cms: "WordPress",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    owningAgency: "Boehringer Ingelheim Pharmaceuticals",
+    projectUrl: "https://hz-storybook-bi-hubnext-com.boehringer-ingelheim.com",
+    repositoryUrl: "https://bitbucket.biscrum.com/wpsites/hz-storybook-bi-hubnext-com",
+    lagoonUrl: "https://lagoon.boehringer-ingelheim.com/projects/hz-storybook-bi-hubnext-com",
+    hits: "534,789",
+    storage: {
+      database: 7.23,
+      files: 45.67,
+      solr: 2.89,
+      total: 55.79
+    },
+    usagePercentage: 14.1,
+    estimatedCost: "USD 1,750",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "centaura-se",
