@@ -466,6 +466,8 @@ export default function ProjectsPage() {
 function ProjectModal({ project, isOpen, onClose }: { project: Project | null; isOpen: boolean; onClose: () => void }) {
   if (!isOpen || !project) return null;
 
+  const monthLabel = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" });
+
   const getStageColor = (stage: string, stageColor: string) => {
     return stageColor;
   };
@@ -590,7 +592,7 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
               {/* Monthly Cost */}
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                  Monthly Cost — {new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" })}
+                  Monthly Cost — {monthLabel}
                 </h3>
                 <div className="bg-gray-50 rounded-xl p-4">
                   <div className="flex justify-between items-center mb-2">
@@ -681,7 +683,7 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-gray-100">
             <p className="text-sm text-gray-500 text-center">
-              Data as of July, 2025.
+              Data as of {monthLabel}
             </p>
           </div>
         </div>
