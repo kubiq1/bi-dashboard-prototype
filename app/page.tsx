@@ -4,12 +4,6 @@ import {
   Search,
   Filter,
   TrendingUp,
-  TrendingDown,
-  User,
-  ChevronDown,
-  ChevronUp,
-  ChevronLeft,
-  ChevronRight,
   Server,
   Cpu,
   HardDrive,
@@ -17,10 +11,14 @@ import {
   Bell,
   ExternalLink,
   GitBranch,
-  CheckCircle,
   MemoryStick,
+  ChevronDown,
+  ChevronUp,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import {
   Card,
   CardContent,
