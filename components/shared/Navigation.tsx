@@ -8,12 +8,19 @@ interface NavigationProps {
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
+  const router = useRouter();
+
   const getLinkClass = (page: string) => {
     const baseClass = "text-sm font-medium transition-colors";
     if (currentPage === page) {
       return `${baseClass} text-[#00e47c] hover:text-[#00e47c] active:text-[#00e47c]`;
     }
     return `${baseClass} text-white hover:text-[#00e47c] active:text-[#00e47c]`;
+  };
+
+  // Prefetch on hover for instant navigation
+  const handleMouseEnter = (href: string) => {
+    router.prefetch(href);
   };
 
   return (
