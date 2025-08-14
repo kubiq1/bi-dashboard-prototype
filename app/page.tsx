@@ -54,6 +54,12 @@ import {
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
 
+// Dynamic import for better performance
+const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
+  loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded"></div>,
+  ssr: true,
+});
+
 const mockProjects = [
   {
     name: "pro-bi-com-us-jentadueto",
