@@ -693,22 +693,12 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
               <p className="text-sm text-gray-500">
                 Data as of {monthLabel}
               </p>
-              <div className="flex items-center space-x-3">
-                <Link
-                  href={`/billing?project=${encodeURIComponent(project.name)}&month=${encodeURIComponent(monthLabel)}`}
-                  className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors"
-                >
-                  View full billing details
-                </Link>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={onClose}
-                  className="text-gray-600 hover:text-gray-900"
-                >
-                  Close
-                </Button>
-              </div>
+              <Link
+                href={`/billing?project=${encodeURIComponent(project.name)}&month=${encodeURIComponent(monthLabel)}`}
+                className="inline-flex items-center px-3 py-1.5 text-sm font-medium bg-[#00e47c] text-[#08312a] border border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none transition-colors"
+              >
+                View full billing details
+              </Link>
             </div>
           </div>
         </div>
