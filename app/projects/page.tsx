@@ -745,71 +745,85 @@ function ProjectModal({
 
             {/* Right Column - Usage & Storage */}
             <div className="space-y-6">
-              {/* Hits */}
-              {project.hits && (
-                <div>
-                  <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                    Usage
-                  </h3>
-                  <div className="bg-blue-50 rounded-xl p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">Hits</span>
-                      <span className="text-2xl font-bold text-blue-600">{project.hits}</span>
+              {/* Usage */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Usage
+                </h3>
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">Hits</span>
+                    <span className="text-2xl font-bold text-blue-600">
+                      {project.usage.hits ? project.usage.hits.toLocaleString() : '—'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm text-gray-600">
+                    <span>Hits % of total</span>
+                    <span>{project.usage.hitsPct ? project.usage.hitsPct.toFixed(1) + '%' : '—'}</span>
+                  </div>
+                  {(!project.usage.hits || !project.usage.hitsPct) && (
+                    <div className="mt-2 text-xs text-gray-500">
+                      No data for selected month.
                     </div>
-                    {project.usagePercentage && (
-                      <div className="flex justify-between items-center text-sm text-gray-600">
-                        <span>Hits % of total</span>
-                        <span>{project.usagePercentage ? project.usagePercentage.toFixed(1) : '0.0'}%</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Storage */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Storage (GB)
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <Database className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm font-medium text-gray-700">Database</span>
+                    </div>
+                    <span className="text-sm font-bold text-blue-600">
+                      {project.storage.dbGb ? project.storage.dbGb.toFixed(2) : '—'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <HardDrive className="h-4 w-4 text-purple-600" />
+                      <span className="text-sm font-medium text-gray-700">Files</span>
+                    </div>
+                    <span className="text-sm font-bold text-purple-600">
+                      {project.storage.filesGb ? project.storage.filesGb.toFixed(2) : '—'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <Search className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-medium text-gray-700">Solr</span>
+                    </div>
+                    <span className="text-sm font-bold text-green-600">
+                      {project.storage.solrGb ? project.storage.solrGb.toFixed(2) : '—'}
+                    </span>
+                  </div>
+                  <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-bold text-gray-700">Total</span>
+                      <span className="text-lg font-bold text-[#08312a]">
+                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '—'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm text-gray-600">
+                      <span>Storage % of total</span>
+                      <span>{project.storage.storagePct ? project.storage.storagePct.toFixed(1) + '%' : '—'}</span>
+                    </div>
+                    {(!project.storage.totalGb || !project.storage.storagePct) && (
+                      <div className="mt-2 text-xs text-gray-500">
+                        No data for selected month.
                       </div>
                     )}
                   </div>
                 </div>
-              )}
-
-              {/* Storage */}
-              {project.storage && (
-                <div>
-                  <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                    Storage (GB)
-                  </h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <Database className="h-4 w-4 text-blue-600" />
-                        <span className="text-sm font-medium text-gray-700">Database</span>
-                      </div>
-                      <span className="text-sm font-bold text-blue-600">{project.storage.database.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <HardDrive className="h-4 w-4 text-purple-600" />
-                        <span className="text-sm font-medium text-gray-700">Files</span>
-                      </div>
-                      <span className="text-sm font-bold text-purple-600">{project.storage.files.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
-                      <div className="flex items-center space-x-2">
-                        <Search className="h-4 w-4 text-green-600" />
-                        <span className="text-sm font-medium text-gray-700">Solr</span>
-                      </div>
-                      <span className="text-sm font-bold text-green-600">{project.storage.solr.toFixed(2)}</span>
-                    </div>
-                    <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <span className="text-sm font-bold text-gray-700">Total</span>
-                        <span className="text-lg font-bold text-[#08312a]">{project.storage.total.toFixed(2)}</span>
-                      </div>
-                      <div className="flex justify-between items-center text-sm text-gray-600">
-                        <span>Storage % of total</span>
-                        <span>{project.usagePercentage ? project.usagePercentage.toFixed(1) : '0.0'}%</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
+              </div>
 
               {/* Usage Note */}
-              {project.usagePercentage && (
+              {(project.usage.hitsPct || project.storage.storagePct) && (
                 <div className="mt-4">
                   <p className="text-xs text-gray-500">
                     Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
