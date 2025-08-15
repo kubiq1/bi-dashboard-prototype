@@ -91,6 +91,19 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Legacy",
     stageColor: "bg-gray-100 text-gray-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: null,
+      filesGb: null,
+      solrGb: null,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 1,420",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "insights-in-ild",
@@ -101,6 +114,19 @@ export const mockProjects: Project[] = [
     cms: "GitBook",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 456789,
+      hitsPct: 7.9
+    },
+    storage: {
+      dbGb: 4.23,
+      filesGb: 32.18,
+      solrGb: 1.45,
+      totalGb: 37.86,
+      storagePct: 7.9
+    },
+    estimatedCost: "USD 980",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "agentereversor-com-ar",
@@ -111,6 +137,19 @@ export const mockProjects: Project[] = [
     cms: "Custom",
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: 3.12,
+      filesGb: null,
+      solrGb: 0.89,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 850",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "frontline-si",
