@@ -16,6 +16,8 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  X,
+  Database,
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -43,6 +45,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -53,6 +56,8 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
+import { Project } from "@/lib/types";
+import { getClusterColor } from "@/lib/shared-utils";
 
 // Dynamic import for better performance
 const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
@@ -623,6 +628,9 @@ export default function Dashboard() {
   const [departmentFilter, setDepartmentFilter] = useState<string>("all");
   const [applicationFilter, setApplicationFilter] = useState<string>("all");
   const [clusterFilter, setClusterFilter] = useState<string>("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [focusedRowRef, setFocusedRowRef] = useState<HTMLTableRowElement | null>(null);
 
   const itemsPerPage = 10;
 
