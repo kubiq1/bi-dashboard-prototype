@@ -511,7 +511,25 @@ export default function ProjectsPage() {
   );
 }
 
-function ProjectModal({ project, isOpen, onClose }: { project: Project | null; isOpen: boolean; onClose: () => void }) {
+function ProjectModal({
+  project,
+  isOpen,
+  onClose,
+  currentIndex,
+  totalResults,
+  onNavigate,
+  canNavigatePrev,
+  canNavigateNext
+}: {
+  project: Project | null;
+  isOpen: boolean;
+  onClose: () => void;
+  currentIndex: number;
+  totalResults: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  canNavigatePrev: boolean;
+  canNavigateNext: boolean;
+}) {
   // ESC key handling
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -773,12 +791,42 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
               <p className="text-sm text-gray-500">
                 Data as of {monthLabel}
               </p>
-              <Link
-                href={`/billing?project=${encodeURIComponent(project.name)}&month=${encodeURIComponent(monthLabel)}`}
-                className="inline-flex items-center px-3 py-1.5 text-sm font-medium bg-[#00e47c] text-[#08312a] border border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none transition-colors"
-              >
-                View full billing details
-              </Link>
+              <div className="flex items-center space-x-4">
+                {/* Navigation Controls */}
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('prev')}
+                    disabled={!canNavigatePrev}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Previous (←)"
+                    aria-label="Previous project"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <span className="text-sm text-gray-500 px-2">
+                    {currentIndex} of {totalResults}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('next')}
+                    disabled={!canNavigateNext}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Next (→)"
+                    aria-label="Next project"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Link
+                  href={`/billing?project=${encodeURIComponent(project.name)}&month=${encodeURIComponent(monthLabel)}`}
+                  className="inline-flex items-center px-3 py-1.5 text-sm font-medium bg-[#00e47c] text-[#08312a] border border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none transition-colors"
+                >
+                  View full billing details
+                </Link>
+              </div>
             </div>
           </div>
         </div>
