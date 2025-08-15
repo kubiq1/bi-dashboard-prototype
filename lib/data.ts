@@ -160,6 +160,19 @@ export const mockProjects: Project[] = [
     cms: "N/A",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 234567,
+      hitsPct: 6.0
+    },
+    storage: {
+      dbGb: null,
+      filesGb: 25.34,
+      solrGb: null,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 740",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "making-more-health",
@@ -170,6 +183,19 @@ export const mockProjects: Project[] = [
     cms: "Salesforce",
     stage: "Legacy",
     stageColor: "bg-gray-100 text-gray-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: null,
+      filesGb: null,
+      solrGb: null,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 620",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "guides-boehringer-ingelheim-com",
@@ -191,7 +217,7 @@ export const mockProjects: Project[] = [
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
   },
-  // Adding more projects to maintain the full dataset...
+  // Rest of projects with normalized structure...
   {
     name: "vetmedica-research-platform",
     department: "Animal",
