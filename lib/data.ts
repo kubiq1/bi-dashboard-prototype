@@ -243,7 +243,6 @@ export const mockProjects: Project[] = [
     estimatedCost: "USD 520",
     monthTotalCost: "USD 12,390"
   },
-  // Rest of projects with normalized structure...
   {
     name: "vetmedica-research-platform",
     department: "Animal",
