@@ -189,6 +189,34 @@ export default function ProjectsPage() {
     setIsProjectModalOpen(true);
   };
 
+  const navigateToProject = (direction: 'prev' | 'next') => {
+    if (!selectedProject) return;
+
+    const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
+    let newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+
+    if (newIndex >= 0 && newIndex < filteredAndSortedProjects.length) {
+      setSelectedProject(filteredAndSortedProjects[newIndex]);
+    }
+  };
+
+  const getCurrentProjectIndex = () => {
+    if (!selectedProject) return 0;
+    return filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name) + 1;
+  };
+
+  const canNavigatePrev = () => {
+    if (!selectedProject) return false;
+    const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
+    return currentIndex > 0;
+  };
+
+  const canNavigateNext = () => {
+    if (!selectedProject) return false;
+    const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
+    return currentIndex < filteredAndSortedProjects.length - 1;
+  };
+
   const handleCloseProjectModal = () => {
     setIsProjectModalOpen(false);
     setSelectedProject(null);
@@ -472,6 +500,11 @@ export default function ProjectsPage() {
           project={selectedProject}
           isOpen={isProjectModalOpen}
           onClose={handleCloseProjectModal}
+          currentIndex={getCurrentProjectIndex()}
+          totalResults={totalItems}
+          onNavigate={navigateToProject}
+          canNavigatePrev={canNavigatePrev()}
+          canNavigateNext={canNavigateNext()}
         />
       </main>
     </div>
