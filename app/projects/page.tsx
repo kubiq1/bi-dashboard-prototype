@@ -661,9 +661,15 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
                       </div>
                       <span className="text-sm font-bold text-green-600">{project.storage.solr.toFixed(2)}</span>
                     </div>
-                    <div className="flex justify-between items-center py-3 px-4 bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200">
-                      <span className="text-sm font-bold text-gray-700">Total</span>
-                      <span className="text-lg font-bold text-[#08312a]">{project.storage.total.toFixed(2)}</span>
+                    <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-bold text-gray-700">Total</span>
+                        <span className="text-lg font-bold text-[#08312a]">{project.storage.total.toFixed(2)}</span>
+                      </div>
+                      <div className="flex justify-between items-center text-sm text-gray-600">
+                        <span>Storage % of total</span>
+                        <span>{project.usagePercentage ? project.usagePercentage.toFixed(1) : '0.0'}%</span>
+                      </div>
                     </div>
                   </div>
                 </div>
