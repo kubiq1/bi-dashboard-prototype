@@ -596,7 +596,10 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
                 </h3>
                 <div className="bg-gray-50 rounded-xl p-4">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Estimated Proportioned Cost</span>
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
+                      <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
+                    </div>
                     <span className="text-2xl font-bold text-[#08312a]">{project.estimatedCost || project.cost}</span>
                   </div>
                   <div className="flex justify-between items-center text-sm text-gray-600">
