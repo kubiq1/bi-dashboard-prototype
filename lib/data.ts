@@ -252,6 +252,19 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 345678,
+      hitsPct: 7.2
+    },
+    storage: {
+      dbGb: null,
+      filesGb: 28.45,
+      solrGb: 1.23,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 890",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "respiratory-solutions-hub",
@@ -262,6 +275,19 @@ export const mockProjects: Project[] = [
     cms: "WordPress",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: 5.67,
+      filesGb: 42.34,
+      solrGb: 2.11,
+      totalGb: 50.12,
+      storagePct: 9.7
+    },
+    estimatedCost: "USD 1,200",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "diabetes-care-portal",
