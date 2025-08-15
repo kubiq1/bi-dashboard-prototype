@@ -51,7 +51,7 @@ import ProjectRow from "@/components/shared/ProjectRow";
 import { mockProjects } from "@/lib/data";
 import { Project, SortDirection, FilterState, PaginationState } from "@/lib/types";
 import { formatCurrentDate, sortProjects, filterProjects, generatePageNumbers, getClusterColor } from "@/lib/shared-utils";
-import { ITEMS_PER_PAGE, DEFAULT_STATIC_DATE, FILTER_OPTIONS } from "@/lib/constants";
+import { ITEMS_PER_PAGE, DEFAULT_STATIC_DATE, FILTER_OPTIONS, PAGE_SIZE_OPTIONS } from "@/lib/constants";
 
 
 export default function ProjectsPage() {
@@ -114,6 +114,16 @@ export default function ProjectsPage() {
   const resetPagination = () => {
     setPagination(prev => ({
       ...prev,
+      currentPage: 1,
+      pageInput: "1"
+    }));
+  };
+
+  const handleItemsPerPageChange = (value: string) => {
+    const newItemsPerPage = parseInt(value);
+    setPagination(prev => ({
+      ...prev,
+      itemsPerPage: newItemsPerPage,
       currentPage: 1,
       pageInput: "1"
     }));
@@ -420,9 +430,23 @@ export default function ProjectsPage() {
 
           {/* Pagination */}
           <div className="flex flex-col lg:flex-row items-center justify-between space-y-2 lg:space-y-0 mt-4">
-            <div className="text-sm text-gray-700">
-              Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of{" "}
-              {totalItems} results
+            <div className="flex items-center space-x-4">
+              <div className="text-sm text-gray-700">
+                Showing {startIndex + 1} to {Math.min(endIndex, totalItems)} of{" "}
+                {totalItems} results
+              </div>
+              <Select value={pagination.itemsPerPage.toString()} onValueChange={handleItemsPerPageChange}>
+                <SelectTrigger className="w-32 h-8 text-sm">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {PAGE_SIZE_OPTIONS.map((option) => (
+                    <SelectItem key={option.value} value={option.value.toString()}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="flex items-center space-x-2">
               <Pagination>
