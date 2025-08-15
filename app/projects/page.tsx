@@ -625,8 +625,8 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
                     </div>
                     {project.usagePercentage && (
                       <div className="flex justify-between items-center text-sm text-gray-600">
-                        <span>Usage %</span>
-                        <span>{project.usagePercentage}%</span>
+                        <span>Hits % of total</span>
+                        <span>{project.usagePercentage ? project.usagePercentage.toFixed(1) : '0.0'}%</span>
                       </div>
                     )}
                   </div>
