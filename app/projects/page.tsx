@@ -688,9 +688,27 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
 
           {/* Footer */}
           <div className="mt-8 pt-6 border-t border-gray-100">
-            <p className="text-sm text-gray-500 text-center">
-              Data as of {monthLabel}
-            </p>
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">
+                Data as of {monthLabel}
+              </p>
+              <div className="flex items-center space-x-3">
+                <Link
+                  href={`/billing?project=${encodeURIComponent(project.name)}&month=${encodeURIComponent(monthLabel)}`}
+                  className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors"
+                >
+                  View full billing details
+                </Link>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={onClose}
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
