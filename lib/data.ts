@@ -671,6 +671,24 @@ export const mockProjects: Project[] = [
   },
 ];
 
+// Normalize projects to ensure all have required fields
+const normalizedMockProjects = mockProjects.map(project => ({
+  ...project,
+  usage: project.usage || { hits: null, hitsPct: null },
+  storage: project.storage || {
+    dbGb: null,
+    filesGb: null,
+    solrGb: null,
+    totalGb: null,
+    storagePct: null
+  },
+  estimatedCost: project.estimatedCost || project.cost,
+  monthTotalCost: project.monthTotalCost || "USD 12,390"
+}));
+
+// Export the normalized projects
+export { normalizedMockProjects as mockProjects };
+
 export const mockClusters: Cluster[] = [
   {
     id: "BI3",
