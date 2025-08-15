@@ -66,6 +66,7 @@ export default function ProjectsPage() {
   });
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [focusedRowRef, setFocusedRowRef] = useState<HTMLTableRowElement | null>(null);
   const [pagination, setPagination] = useState<PaginationState>({
     currentPage: 1,
     pageInput: "1",
@@ -182,7 +183,8 @@ export default function ProjectsPage() {
     );
   };
 
-  const handleProjectClick = (project: Project) => {
+  const handleProjectClick = (project: Project, rowElement: HTMLTableRowElement) => {
+    setFocusedRowRef(rowElement);
     setSelectedProject(project);
     setIsProjectModalOpen(true);
   };
@@ -190,6 +192,11 @@ export default function ProjectsPage() {
   const handleCloseProjectModal = () => {
     setIsProjectModalOpen(false);
     setSelectedProject(null);
+    // Return focus to the originating row
+    if (focusedRowRef) {
+      focusedRowRef.focus();
+      setFocusedRowRef(null);
+    }
   };
 
   return (
@@ -327,8 +334,15 @@ export default function ProjectsPage() {
                     {currentPageProjects.map((project, index) => (
                       <TableRow
                         key={index}
-                        className="hover:bg-gray-50 cursor-pointer"
-                        onClick={() => handleProjectClick(project)}
+                        className="hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-inset"
+                        tabIndex={0}
+                        onClick={(e) => handleProjectClick(project, e.currentTarget)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleProjectClick(project, e.currentTarget);
+                          }
+                        }}
                       >
                         <TableCell className="font-medium text-gray-900 w-[30%] relative">
                           <div className="overflow-visible">
