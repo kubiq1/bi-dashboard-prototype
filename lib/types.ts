@@ -11,14 +11,17 @@ export interface Project {
   projectUrl?: string;
   repositoryUrl?: string;
   lagoonUrl?: string;
-  hits?: string;
-  storage?: {
-    database: number;
-    files: number;
-    solr: number;
-    total: number;
+  usage: {
+    hits: number | null;
+    hitsPct: number | null;
   };
-  usagePercentage?: number;
+  storage: {
+    dbGb: number | null;
+    filesGb: number | null;
+    solrGb: number | null;
+    totalGb: number | null;
+    storagePct: number | null;
+  };
   estimatedCost?: string;
   monthTotalCost?: string;
 }
