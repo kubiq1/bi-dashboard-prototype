@@ -206,6 +206,19 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 123456,
+      hitsPct: 4.7
+    },
+    storage: {
+      dbGb: 2.34,
+      filesGb: 15.67,
+      solrGb: 0.89,
+      totalGb: 18.90,
+      storagePct: 4.7
+    },
+    estimatedCost: "USD 580",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "bvdzero-es",
@@ -216,6 +229,19 @@ export const mockProjects: Project[] = [
     cms: "Custom",
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: 1.23,
+      filesGb: null,
+      solrGb: 0.45,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 520",
+    monthTotalCost: "USD 12,390"
   },
   // Rest of projects with normalized structure...
   {
