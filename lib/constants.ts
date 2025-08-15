@@ -34,7 +34,7 @@ export const STATUS_COLORS: Record<string, StatusColors> = {
   },
 } as const;
 
-export const ITEMS_PER_PAGE = 10;
+export const ITEMS_PER_PAGE = 25;
 
 export const DEFAULT_STATIC_DATE = "August 13, 2025";
 
