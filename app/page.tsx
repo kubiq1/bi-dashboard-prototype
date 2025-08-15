@@ -1355,7 +1355,18 @@ export default function Dashboard() {
                   </TableHeader>
                   <TableBody>
                     {currentPageProjects.map((project, index) => (
-                      <TableRow key={index} className="hover:bg-gray-50">
+                      <TableRow
+                        key={index}
+                        className="hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-inset"
+                        tabIndex={0}
+                        onClick={(e) => handleProjectClick(project, e.currentTarget)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleProjectClick(project, e.currentTarget);
+                          }
+                        }}
+                      >
                         <TableCell className="font-medium text-gray-900 w-[30%] relative">
                           <div className="overflow-visible">
                             <ProjectRow project={project} />
@@ -1369,30 +1380,15 @@ export default function Dashboard() {
                         <TableCell className="w-[15%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
-                              (clusterName, clusterIndex) => {
-                                // Define subtle colors for different clusters
-                                const clusterColors: Record<string, string> = {
-                                  BI3: "bg-slate-50 text-slate-600 border-slate-200",
-                                  BI4: "bg-blue-50 text-blue-600 border-blue-200",
-                                  BI5: "bg-emerald-50 text-emerald-600 border-emerald-200",
-                                  BI6: "bg-purple-50 text-purple-600 border-purple-200",
-                                  BICN2:
-                                    "bg-amber-50 text-amber-600 border-amber-200",
-                                };
-                                const colorClass =
-                                  clusterColors[clusterName] ||
-                                  "bg-gray-50 text-gray-600 border-gray-200";
-
-                                return (
-                                  <Badge
-                                    key={clusterIndex}
-                                    variant="outline"
-                                    className={`font-normal whitespace-nowrap border-0 ${colorClass}`}
-                                  >
-                                    {clusterName}
-                                  </Badge>
-                                );
-                              },
+                              (clusterName, clusterIndex) => (
+                                <Badge
+                                  key={clusterIndex}
+                                  variant="outline"
+                                  className={`font-normal whitespace-nowrap border-0 ${getClusterColor(clusterName)}`}
+                                >
+                                  {clusterName}
+                                </Badge>
+                              )
                             )}
                           </div>
                         </TableCell>
