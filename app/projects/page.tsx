@@ -675,14 +675,11 @@ function ProjectModal({ project, isOpen, onClose }: { project: Project | null; i
                 </div>
               )}
 
-              {/* Usage Audit Hint */}
+              {/* Usage Note */}
               {project.usagePercentage && (
-                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <p className="text-xs text-yellow-800">
-                    <strong>Audit hint:</strong> Usage % is derived from component shares (e.g., Hits% and Storage% [± Pods% if used]).
-                  </p>
-                  <p className="text-xs text-yellow-800 mt-1">
-                    <strong>Note:</strong> Estimated cost = Usage % × Month total cost.
+                <div className="mt-4">
+                  <p className="text-xs text-gray-500">
+                    Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
                   </p>
                 </div>
               )}
