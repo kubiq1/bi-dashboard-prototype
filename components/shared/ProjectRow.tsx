@@ -62,13 +62,13 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               aria-label={`View ${project.name} lagoon`}
             >
               <img
-                src="/assets/lagoon-icon-white.svg"
+                src="/assets/lagoon-icon-black.svg"
                 alt="Lagoon"
-                className="h-4 opacity-40 hover:opacity-60 transition-opacity filter brightness-0"
+                className="h-4 text-gray-400 hover:text-gray-600 transition-colors"
                 style={{
-                  filter: 'brightness(0) saturate(100%) invert(58%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(93%) contrast(88%)',
                   width: 'auto',
-                  height: '16px'
+                  height: '16px',
+                  opacity: '0.6'
                 }}
               />
             </a>
