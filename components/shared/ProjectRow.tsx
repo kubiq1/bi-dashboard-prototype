@@ -20,7 +20,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               href={project.repositoryUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+              className="text-gray-500 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
               onMouseEnter={() => setHoveredIcon("repository")}
               onMouseLeave={() => setHoveredIcon(null)}
               onKeyDown={(e) => {
@@ -50,7 +50,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               href={project.lagoonUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+              className="text-gray-500 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
               onMouseEnter={() => setHoveredIcon("lagoon")}
               onMouseLeave={() => setHoveredIcon(null)}
               onKeyDown={(e) => {
@@ -64,11 +64,9 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               <img
                 src="/assets/lagoon-icon-black.svg"
                 alt="Lagoon"
-                className="h-4 text-gray-400 hover:text-gray-600 transition-colors"
+                className="h-4 w-4"
                 style={{
-                  width: 'auto',
-                  height: '16px',
-                  opacity: '0.6'
+                  filter: 'brightness(0) saturate(100%) invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)'
                 }}
               />
             </a>
@@ -89,7 +87,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               href={project.projectUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+              className="text-gray-500 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
               onMouseEnter={() => setHoveredIcon("livesite")}
               onMouseLeave={() => setHoveredIcon(null)}
               onKeyDown={(e) => {
