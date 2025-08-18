@@ -4,7 +4,23 @@ const nextConfig: NextConfig = {
   // Enable experimental features for better performance
   experimental: {
     // Enable partial prerendering for faster page loads
-    optimizePackageImports: ['lucide-react'],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-avatar', '@radix-ui/react-select'],
+    // Enable faster refresh in development
+    forceSwcTransforms: true,
+  },
+
+  // Development performance optimizations
+  webpack: (config, { dev, isServer }) => {
+    if (dev && !isServer) {
+      // Optimize development builds
+      config.optimization = {
+        ...config.optimization,
+        removeAvailableModules: false,
+        removeEmptyChunks: false,
+        splitChunks: false,
+      };
+    }
+    return config;
   },
 
   // Optimize images and assets
