@@ -1148,6 +1148,11 @@ export default function Dashboard() {
           cluster={selectedCluster}
           isOpen={isClusterModalOpen}
           onClose={handleCloseClusterModal}
+          currentIndex={getCurrentClusterIndex()}
+          totalResults={mockClusters.length}
+          onNavigate={navigateToCluster}
+          canNavigatePrev={canNavigateClusterPrev()}
+          canNavigateNext={canNavigateClusterNext()}
         />
 
         {/* Project Modal */}
