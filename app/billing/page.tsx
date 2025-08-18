@@ -654,7 +654,7 @@ export default function BillingPage() {
                           }
                         }}
                       >
-                        <TableCell className="font-medium text-gray-900 w-[20%] relative">
+                        <TableCell className="font-medium text-gray-900 w-[25%] relative">
                           <div className="overflow-visible">
                             <ProjectRow project={project} />
                           </div>
@@ -677,12 +677,12 @@ export default function BillingPage() {
                             {project.pods}
                           </div>
                         </TableCell>
-                        <TableCell className="text-right text-gray-600 w-[10%]">
+                        <TableCell className="text-right text-gray-600 w-[12%]">
                           <div className="whitespace-nowrap">
                             {project.usagePercent.toFixed(1)}%
                           </div>
                         </TableCell>
-                        <TableCell className="text-right font-medium w-[15%]">
+                        <TableCell className="text-right font-medium w-[16%]">
                           <div className="whitespace-nowrap">
                             {project.estimatedCost}
                           </div>
