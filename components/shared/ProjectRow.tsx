@@ -64,9 +64,9 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               <img
                 src="/assets/lagoon-icon-black.svg"
                 alt="Lagoon"
-                className="h-4 w-4 opacity-40 grayscale brightness-0 invert-0"
+                className="h-4 w-4"
                 style={{
-                  filter: 'brightness(0) saturate(100%) invert(60%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(90%) contrast(92%)'
+                  filter: 'brightness(0) saturate(100%) invert(42%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%)'
                 }}
               />
             </a>
