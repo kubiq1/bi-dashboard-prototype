@@ -672,8 +672,12 @@ function ProjectModal({
                         <img
                           src="/assets/lagoon-icon-white.svg"
                           alt="Lagoon"
-                          className="h-4 w-4"
-                          style={{ filter: 'brightness(0) saturate(100%) invert(58%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(93%) contrast(88%)' }}
+                          className="h-4"
+                          style={{
+                            filter: 'brightness(0) saturate(100%) invert(58%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(93%) contrast(88%)',
+                            width: 'auto',
+                            height: '16px'
+                          }}
                         />
                         <span>Lagoon</span>
                       </a>
