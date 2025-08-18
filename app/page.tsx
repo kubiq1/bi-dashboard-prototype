@@ -1139,6 +1139,36 @@ export default function Dashboard() {
 }
 
 function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: boolean; onClose: () => void }) {
+  // ESC key handling
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   if (!isOpen || !cluster) return null;
 
   const getStatusColor = (status: string) => {
@@ -1577,7 +1607,7 @@ function ProjectModal({
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-bold text-gray-700">Total</span>
                       <span className="text-lg font-bold text-[#08312a]">
-                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '—'}
+                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '���'}
                       </span>
                     </div>
                     <div className="flex justify-between items-center text-sm text-gray-600">
