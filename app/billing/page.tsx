@@ -101,28 +101,37 @@ const generateDeterministicData = (projectIndex: number, monthMultiplier: number
   };
 };
 
-// Lazy data generation to avoid performance issues
+// Month configurations
+const monthConfigs = {
+  "2025-08": {
+    totalCost: "USD 12,390",
+    changeVsLastMonth: "+6.4%",
+    changeAmount: "USD 740 increase",
+    multiplier: 1.1,
+    totalCostValue: 12390
+  },
+  "2025-07": {
+    totalCost: "USD 11,650",
+    changeVsLastMonth: "+2.1%",
+    changeAmount: "USD 240 increase",
+    multiplier: 0.95,
+    totalCostValue: 11650
+  }
+};
+
+// Cache for generated data to avoid regeneration
+const dataCache = new Map<string, any>();
+
+// Optimized data generation
 const generateBillingDataForMonth = (monthKey: string) => {
-  const monthConfigs = {
-    "2025-08": {
-      totalCost: "USD 12,390",
-      changeVsLastMonth: "+6.4%",
-      changeAmount: "USD 740 increase",
-      multiplier: 1.1,
-      totalCostValue: 12390
-    },
-    "2025-07": {
-      totalCost: "USD 11,650",
-      changeVsLastMonth: "+2.1%",
-      changeAmount: "USD 240 increase",
-      multiplier: 0.95,
-      totalCostValue: 11650
-    }
-  };
+  // Check cache first
+  if (dataCache.has(monthKey)) {
+    return dataCache.get(monthKey);
+  }
 
   const config = monthConfigs[monthKey as keyof typeof monthConfigs] || monthConfigs["2025-08"];
 
-  return {
+  const result = {
     totalCost: config.totalCost,
     changeVsLastMonth: config.changeVsLastMonth,
     changeAmount: config.changeAmount,
@@ -146,6 +155,10 @@ const generateBillingDataForMonth = (monthKey: string) => {
       };
     })
   };
+
+  // Cache the result
+  dataCache.set(monthKey, result);
+  return result;
 };
 
 function ProjectRow({ project }: { project: any }) {
