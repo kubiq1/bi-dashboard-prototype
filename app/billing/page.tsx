@@ -1096,7 +1096,7 @@ function ProjectModal({
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-gray-700">Hits</span>
                     <span className="text-2xl font-bold text-blue-600">
-                      {project.hits ? project.hits.toLocaleString() : '—'}
+                      {project.hits ? project.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '—'}
                     </span>
                   </div>
                   {project.pods && (
