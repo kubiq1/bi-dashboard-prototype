@@ -512,18 +512,21 @@ export default function Dashboard() {
                 <Link
                   href="/cluster-info"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  prefetch={true}
                 >
                   Cluster Info
                 </Link>
                 <Link
                   href="/projects"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  prefetch={true}
                 >
                   Projects
                 </Link>
                 <Link
                   href="/billing"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  prefetch={true}
                 >
                   Billing
                 </Link>
