@@ -669,11 +669,6 @@ export default function BillingPage() {
                             {project.storage.total.toFixed(2)}
                           </div>
                         </TableCell>
-                        <TableCell className="text-center w-[8%]">
-                          <div className="whitespace-nowrap">
-                            {project.pods}
-                          </div>
-                        </TableCell>
                         <TableCell className="text-right text-gray-600 w-[12%]">
                           <div className="whitespace-nowrap">
                             {project.usagePercent.toFixed(1)}%
