@@ -58,12 +58,14 @@ export default function Navigation({ currentPage }: NavigationProps) {
               >
                 Projects
               </Link>
-              <a
-                href="#"
+              <Link
+                href="/billing"
                 className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                prefetch={true}
+                onMouseEnter={() => handleMouseEnter('/billing')}
               >
                 Billing
-              </a>
+              </Link>
             </nav>
           </div>
 
