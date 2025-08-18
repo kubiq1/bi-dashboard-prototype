@@ -1138,6 +1138,150 @@ export default function Dashboard() {
   );
 }
 
+function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: boolean; onClose: () => void }) {
+  if (!isOpen || !cluster) return null;
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "operational":
+        return {
+          textColor: "text-green-600",
+          bgColor: "bg-green-500",
+          badgeColor: "bg-green-100 text-green-800"
+        };
+      case "under maintenance":
+        return {
+          textColor: "text-blue-600",
+          bgColor: "bg-blue-500",
+          badgeColor: "bg-blue-100 text-blue-800"
+        };
+      case "error":
+        return {
+          textColor: "text-red-600",
+          bgColor: "bg-red-500",
+          badgeColor: "bg-red-100 text-red-800"
+        };
+      default:
+        return {
+          textColor: "text-gray-600",
+          bgColor: "bg-gray-500",
+          badgeColor: "bg-gray-100 text-gray-800"
+        };
+    }
+  };
+
+  const statusColors = getStatusColor(cluster.status);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal */}
+      <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100">
+        {/* Header */}
+        <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
+                <h2 className="text-3xl font-medium text-[#08312a]" style={{ fontFamily: "var(--font-headline)" }}>
+                  {cluster.name}
+                </h2>
+                <div className="flex items-center space-x-2">
+                  <span className={`text-sm font-medium ${statusColors.textColor}`}>
+                    {cluster.status}
+                  </span>
+                  <div className={`flex h-3 w-3 rounded-full ${statusColors.bgColor} shadow-sm`}>
+                    <div className={`h-3 w-3 rounded-full ${statusColors.bgColor} animate-ping`}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+            >
+              <X className="h-5 w-5 text-gray-500" />
+            </Button>
+          </div>
+          <p className="text-sm text-gray-600 mt-1">{cluster.description}</p>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
+          {/* Current Metrics Grid */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+              Current Metrics
+            </h3>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Activity className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">Pod Density</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.podDensity}%
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Server className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">Node Count</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.nodeCount}
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <MemoryStick className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">RAM Usage</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.ramUsage} GB
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Cpu className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">CPU Usage</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.cpuUsage}%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Info */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">
+                updated 2 hours ago
+              </p>
+              <Link
+                href={`/projects?cluster=${cluster.name}`}
+                className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors flex items-center space-x-1"
+              >
+                <span>View Projects</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function ProjectModal({
   project,
   isOpen,
