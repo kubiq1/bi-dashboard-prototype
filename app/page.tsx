@@ -1575,7 +1575,12 @@ function ProjectModal({
                         rel="noopener noreferrer"
                         className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
                       >
-                        <Server className="h-4 w-4" />
+                        <img
+                          src="/assets/lagoon-icon-white.svg"
+                          alt="Lagoon"
+                          className="h-4 w-4"
+                          style={{ filter: 'brightness(0) saturate(100%) invert(58%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(93%) contrast(88%)' }}
+                        />
                         <span>Lagoon</span>
                       </a>
                     )}
