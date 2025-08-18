@@ -193,6 +193,7 @@ function ProjectRow({ project }: { project: any }) {
 }
 
 export default function Dashboard() {
+  const router = useRouter();
   const [today, setToday] = useState("August 13, 2025");
   const [hasNotifications, setHasNotifications] = useState(true);
   const [sortField, setSortField] = useState<string | null>(null);
