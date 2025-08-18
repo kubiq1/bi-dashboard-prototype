@@ -617,7 +617,7 @@ export default function BillingPage() {
                 <Table className="table-fixed w-full">
                   <TableHeader>
                     <TableRow className="hover:bg-transparent">
-                      <SortableHeader field="name" className="w-[20%]">
+                      <SortableHeader field="name" className="w-[25%]">
                         Project
                       </SortableHeader>
                       <SortableHeader field="hits" className="text-right w-[12%]">
@@ -629,10 +629,10 @@ export default function BillingPage() {
                       <SortableHeader field="pods" className="text-center w-[8%]">
                         Pods
                       </SortableHeader>
-                      <SortableHeader field="usagePercent" className="text-right w-[10%]">
+                      <SortableHeader field="usagePercent" className="text-right w-[12%]">
                         Usage %
                       </SortableHeader>
-                      <SortableHeader field="estimatedCost" className="text-right w-[15%]">
+                      <SortableHeader field="estimatedCost" className="text-right w-[16%]">
                         Estimated Cost
                       </SortableHeader>
                       <SortableHeader field="cluster" className="w-[15%]">
