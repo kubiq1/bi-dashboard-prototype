@@ -14,6 +14,8 @@ import {
   Database,
   BarChart3,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import {
   Card,
