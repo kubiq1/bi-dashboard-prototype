@@ -60,7 +60,7 @@ export default function Navigation({ currentPage }: NavigationProps) {
               </Link>
               <Link
                 href="/billing"
-                className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                className={getLinkClass('billing')}
                 prefetch={true}
                 onMouseEnter={() => handleMouseEnter('/billing')}
               >
