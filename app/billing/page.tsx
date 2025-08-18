@@ -1090,6 +1090,14 @@ function ProjectModal({
                       {project.hits ? project.hits.toLocaleString() : '—'}
                     </span>
                   </div>
+                  {project.pods && (
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium text-gray-700">Pods</span>
+                      <span className="text-lg font-bold text-purple-600">
+                        {project.pods}
+                      </span>
+                    </div>
+                  )}
                   <div className="flex justify-between items-center text-sm text-gray-600">
                     <span>Usage %</span>
                     <span>{project.usagePercent ? project.usagePercent.toFixed(1) + '%' : '—'}</span>
