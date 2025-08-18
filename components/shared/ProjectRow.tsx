@@ -20,7 +20,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               href={project.repositoryUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+              className="text-gray-500 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
               onMouseEnter={() => setHoveredIcon("repository")}
               onMouseLeave={() => setHoveredIcon(null)}
               onKeyDown={(e) => {
@@ -50,7 +50,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               href={project.lagoonUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+              className="text-gray-500 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
               onMouseEnter={() => setHoveredIcon("lagoon")}
               onMouseLeave={() => setHoveredIcon(null)}
               onKeyDown={(e) => {
@@ -87,7 +87,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               href={project.projectUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+              className="text-gray-500 hover:text-gray-600 transition-colors min-w-[24px] min-h-[24px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
               onMouseEnter={() => setHoveredIcon("livesite")}
               onMouseLeave={() => setHoveredIcon(null)}
               onKeyDown={(e) => {
