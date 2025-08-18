@@ -18,6 +18,7 @@ import {
   ChevronRight,
   X,
   Database,
+  Globe,
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -55,9 +56,84 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { Project } from "@/lib/types";
 import { getClusterColor } from "@/lib/shared-utils";
 import { mockProjects } from "@/lib/data";
+
+// Mock cluster data - matching cluster info page
+const mockClusters = [
+  {
+    id: "BI3",
+    name: "BI3",
+    type: "Production",
+    status: "Operational",
+    podDensity: 68.5,
+    nodeCount: 15,
+    ramUsage: 298.7,
+    cpuUsage: 45.8,
+    databaseSize: 2847.3,
+    storageSize: 15789.2,
+    hitsRequests: "2.8M",
+    description: "Primary Production Cluster"
+  },
+  {
+    id: "BI4",
+    name: "BI4",
+    type: "Production",
+    status: "Operational",
+    podDensity: 78.2,
+    nodeCount: 12,
+    ramUsage: 256.4,
+    cpuUsage: 15.4,
+    databaseSize: 3241.7,
+    storageSize: 18923.6,
+    hitsRequests: "3.2M",
+    description: "Production Cluster"
+  },
+  {
+    id: "BI5",
+    name: "BI5",
+    type: "Production",
+    status: "Under Maintenance",
+    podDensity: 65.1,
+    nodeCount: 8,
+    ramUsage: 189.3,
+    cpuUsage: 82.4,
+    databaseSize: 1892.8,
+    storageSize: 12456.1,
+    hitsRequests: "1.9M",
+    description: "Production Cluster"
+  },
+  {
+    id: "BI6",
+    name: "BI6",
+    type: "Production",
+    status: "Error",
+    podDensity: 92.3,
+    nodeCount: 4,
+    ramUsage: 234.9,
+    cpuUsage: 94.0,
+    databaseSize: 4123.5,
+    storageSize: 8734.2,
+    hitsRequests: "4.1M",
+    description: "Production Cluster"
+  },
+  {
+    id: "BICN2",
+    name: "BICN2",
+    type: "Development",
+    status: "Operational",
+    podDensity: 42.7,
+    nodeCount: 6,
+    ramUsage: 124.8,
+    cpuUsage: 28.6,
+    databaseSize: 892.4,
+    storageSize: 5678.9,
+    hitsRequests: "0.8M",
+    description: "Development Cluster"
+  }
+];
 
 // Dynamic import for better performance
 const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
@@ -118,6 +194,7 @@ function ProjectRow({ project }: { project: any }) {
 }
 
 export default function Dashboard() {
+  const router = useRouter();
   const [today, setToday] = useState("August 13, 2025");
   const [hasNotifications, setHasNotifications] = useState(true);
   const [sortField, setSortField] = useState<string | null>(null);
@@ -130,6 +207,8 @@ export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [focusedRowRef, setFocusedRowRef] = useState<HTMLTableRowElement | null>(null);
+  const [selectedCluster, setSelectedCluster] = useState<any>(null);
+  const [isClusterModalOpen, setIsClusterModalOpen] = useState(false);
 
   const itemsPerPage = 10;
 
@@ -140,7 +219,13 @@ export default function Dashboard() {
         month: "long",
       }),
     );
-  }, []);
+
+    // Aggressively preload all routes for instant navigation
+    const routes = ['/cluster-info', '/projects', '/billing'];
+    routes.forEach(route => {
+      router.prefetch(route);
+    });
+  }, [router]);
 
   const handleSort = (field: string) => {
     if (sortField === field) {
@@ -282,6 +367,47 @@ export default function Dashboard() {
     return filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name) + 1;
   };
 
+  const handleClusterClick = (clusterName: string) => {
+    const cluster = mockClusters.find(c => c.name === clusterName);
+    if (cluster) {
+      setSelectedCluster(cluster);
+      setIsClusterModalOpen(true);
+    }
+  };
+
+  const handleCloseClusterModal = () => {
+    setIsClusterModalOpen(false);
+    setSelectedCluster(null);
+  };
+
+  const navigateToCluster = (direction: 'prev' | 'next') => {
+    if (!selectedCluster) return;
+
+    const currentIndex = mockClusters.findIndex(c => c.name === selectedCluster.name);
+    let newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+
+    if (newIndex >= 0 && newIndex < mockClusters.length) {
+      setSelectedCluster(mockClusters[newIndex]);
+    }
+  };
+
+  const getCurrentClusterIndex = () => {
+    if (!selectedCluster) return 0;
+    return mockClusters.findIndex(c => c.name === selectedCluster.name) + 1;
+  };
+
+  const canNavigateClusterPrev = () => {
+    if (!selectedCluster) return false;
+    const currentIndex = mockClusters.findIndex(c => c.name === selectedCluster.name);
+    return currentIndex > 0;
+  };
+
+  const canNavigateClusterNext = () => {
+    if (!selectedCluster) return false;
+    const currentIndex = mockClusters.findIndex(c => c.name === selectedCluster.name);
+    return currentIndex < mockClusters.length - 1;
+  };
+
   const canNavigatePrev = () => {
     if (!selectedProject) return false;
     const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
@@ -395,21 +521,24 @@ export default function Dashboard() {
                 <Link
                   href="/cluster-info"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  prefetch={true}
                 >
                   Cluster Info
                 </Link>
                 <Link
                   href="/projects"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  prefetch={true}
                 >
                   Projects
                 </Link>
-                <a
-                  href="#"
+                <Link
+                  href="/billing"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+                  prefetch={true}
                 >
                   Billing
-                </a>
+                </Link>
               </nav>
             </div>
 
@@ -532,18 +661,23 @@ export default function Dashboard() {
             >
               Cluster
             </h2>
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
-            >
-              Show all Clusters
-            </Button>
+            <Link href="/cluster-info">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
+              >
+                Show all Clusters
+              </Button>
+            </Link>
           </div>
           <div className="overflow-x-auto">
             <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
               {/* BI4 Cluster */}
-              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
+              <Card
+                className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden cursor-pointer"
+                onClick={() => handleClusterClick('BI4')}
+              >
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
@@ -605,7 +739,10 @@ export default function Dashboard() {
               </Card>
 
               {/* BI5 Cluster */}
-              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
+              <Card
+                className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden cursor-pointer"
+                onClick={() => handleClusterClick('BI5')}
+              >
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
@@ -665,7 +802,10 @@ export default function Dashboard() {
               </Card>
 
               {/* BI6 Cluster */}
-              <Card className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden">
+              <Card
+                className="group min-w-[280px] lg:min-w-0 border-gray-200 hover:shadow-lg transition-all duration-200 hover:border-gray-300 overflow-hidden cursor-pointer"
+                onClick={() => handleClusterClick('BI6')}
+              >
                 <CardHeader className="pb-3 mb-2">
                   <div className="flex items-center justify-between">
                     <CardTitle className="text-xl font-medium text-[#08312a]">
@@ -914,13 +1054,15 @@ export default function Dashboard() {
 
           <div className="flex flex-col lg:flex-row items-center justify-between mt-6 gap-4">
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Button
-                variant="outline"
-                size="sm"
-                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
-              >
-                Show all projects
-              </Button>
+              <Link href="/projects">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none"
+                >
+                  Show all projects
+                </Button>
+              </Link>
               <p className="text-sm text-gray-600">
                 Showing {(currentPage - 1) * itemsPerPage + 1} to{" "}
                 {Math.min(currentPage * itemsPerPage, totalItems)} of{" "}
@@ -1013,6 +1155,18 @@ export default function Dashboard() {
           </div>
         </section>
 
+        {/* Cluster Modal */}
+        <ClusterModal
+          cluster={selectedCluster}
+          isOpen={isClusterModalOpen}
+          onClose={handleCloseClusterModal}
+          currentIndex={getCurrentClusterIndex()}
+          totalResults={mockClusters.length}
+          onNavigate={navigateToCluster}
+          canNavigatePrev={canNavigateClusterPrev()}
+          canNavigateNext={canNavigateClusterNext()}
+        />
+
         {/* Project Modal */}
         <ProjectModal
           project={selectedProject}
@@ -1025,6 +1179,265 @@ export default function Dashboard() {
           canNavigateNext={canNavigateNext()}
         />
       </main>
+    </div>
+  );
+}
+
+function ClusterModal({
+  cluster,
+  isOpen,
+  onClose,
+  currentIndex,
+  totalResults,
+  onNavigate,
+  canNavigatePrev,
+  canNavigateNext
+}: {
+  cluster: any;
+  isOpen: boolean;
+  onClose: () => void;
+  currentIndex: number;
+  totalResults: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  canNavigatePrev: boolean;
+  canNavigateNext: boolean;
+}) {
+  // ESC key handling
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  // Arrow key navigation
+  useEffect(() => {
+    const handleArrowKeys = (event: KeyboardEvent) => {
+      if (!isOpen) return;
+
+      // Ignore if event target is an input element
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT' ||
+        target.contentEditable === 'true'
+      ) {
+        return;
+      }
+
+      if (event.key === 'ArrowLeft' && canNavigatePrev) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('prev');
+      } else if (event.key === 'ArrowRight' && canNavigateNext) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('next');
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleArrowKeys);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleArrowKeys);
+    };
+  }, [isOpen, canNavigatePrev, canNavigateNext, onNavigate]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  if (!isOpen || !cluster) return null;
+
+  const getStatusColor = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "operational":
+        return {
+          textColor: "text-green-600",
+          bgColor: "bg-green-500",
+          badgeColor: "bg-green-100 text-green-800"
+        };
+      case "under maintenance":
+        return {
+          textColor: "text-blue-600",
+          bgColor: "bg-blue-500",
+          badgeColor: "bg-blue-100 text-blue-800"
+        };
+      case "error":
+        return {
+          textColor: "text-red-600",
+          bgColor: "bg-red-500",
+          badgeColor: "bg-red-100 text-red-800"
+        };
+      default:
+        return {
+          textColor: "text-gray-600",
+          bgColor: "bg-gray-500",
+          badgeColor: "bg-gray-100 text-gray-800"
+        };
+    }
+  };
+
+  const statusColors = getStatusColor(cluster.status);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal */}
+      <div
+        className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-3">
+                <h2 className="text-3xl font-medium text-[#08312a]" style={{ fontFamily: "var(--font-headline)" }}>
+                  {cluster.name}
+                </h2>
+                <div className="flex items-center space-x-2">
+                  <span className={`text-sm font-medium ${statusColors.textColor}`}>
+                    {cluster.status}
+                  </span>
+                  <div className={`flex h-3 w-3 rounded-full ${statusColors.bgColor} shadow-sm`}>
+                    <div className={`h-3 w-3 rounded-full ${statusColors.bgColor} animate-ping`}></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+            >
+              <X className="h-5 w-5 text-gray-500" />
+            </Button>
+          </div>
+          <p className="text-sm text-gray-600 mt-1">{cluster.description}</p>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
+          {/* Current Metrics Grid */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+              Current Metrics
+            </h3>
+            <div className="grid grid-cols-2 gap-6">
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Activity className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">Pod Density</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.podDensity}%
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Server className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">Node Count</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.nodeCount}
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <MemoryStick className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">RAM Usage</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.ramUsage} GB
+                </span>
+              </div>
+              <div className="bg-gray-50 rounded-xl p-4">
+                <div className="flex items-center space-x-3 mb-2">
+                  <Cpu className="h-5 w-5 text-[#08312a]" />
+                  <span className="text-sm font-medium text-gray-700">CPU Usage</span>
+                </div>
+                <span className="text-2xl font-bold text-[#08312a]">
+                  {cluster.cpuUsage}%
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Footer Info */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">
+                updated 2 hours ago
+              </p>
+              <div className="flex items-center space-x-4">
+                {/* Navigation Controls */}
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('prev')}
+                    disabled={!canNavigatePrev}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Previous (←)"
+                    aria-label="Previous cluster"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <span className="text-sm text-gray-500 px-2">
+                    {currentIndex} of {totalResults}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('next')}
+                    disabled={!canNavigateNext}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Next (→)"
+                    aria-label="Next cluster"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Link
+                  href={`/projects?cluster=${cluster.name}`}
+                  className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors flex items-center space-x-1"
+                >
+                  <span>View Projects</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
@@ -1162,7 +1575,16 @@ function ProjectModal({
                         rel="noopener noreferrer"
                         className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
                       >
-                        <Server className="h-4 w-4" />
+                        <img
+                          src="/assets/lagoon-icon-black.svg"
+                          alt="Lagoon"
+                          className="h-4"
+                          style={{
+                            width: 'auto',
+                            height: '16px',
+                            opacity: '0.7'
+                          }}
+                        />
                         <span>Lagoon</span>
                       </a>
                     )}
@@ -1171,10 +1593,11 @@ function ProjectModal({
                         href={project.projectUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors min-w-[24px] min-h-[24px] focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+                        aria-label="Open live site (opens in new tab)"
                       >
-                        <ExternalLink className="h-4 w-4" />
-                        <span>Prod</span>
+                        <Globe className="h-4 w-4" />
+                        <span>Live site</span>
                       </a>
                     )}
                   </div>

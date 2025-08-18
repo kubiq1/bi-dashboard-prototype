@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface NavigationProps {
-  currentPage: 'dashboard' | 'cluster-info' | 'projects';
+  currentPage: 'dashboard' | 'cluster-info' | 'projects' | 'billing';
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
@@ -58,12 +58,14 @@ export default function Navigation({ currentPage }: NavigationProps) {
               >
                 Projects
               </Link>
-              <a
-                href="#"
-                className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
+              <Link
+                href="/billing"
+                className={getLinkClass('billing')}
+                prefetch={true}
+                onMouseEnter={() => handleMouseEnter('/billing')}
               >
                 Billing
-              </a>
+              </Link>
             </nav>
           </div>
 
