@@ -218,7 +218,13 @@ export default function Dashboard() {
         month: "long",
       }),
     );
-  }, []);
+
+    // Aggressively preload all routes for instant navigation
+    const routes = ['/cluster-info', '/projects', '/billing'];
+    routes.forEach(route => {
+      router.prefetch(route);
+    });
+  }, [router]);
 
   const handleSort = (field: string) => {
     if (sortField === field) {
