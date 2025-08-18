@@ -1171,7 +1171,25 @@ export default function Dashboard() {
   );
 }
 
-function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: boolean; onClose: () => void }) {
+function ClusterModal({
+  cluster,
+  isOpen,
+  onClose,
+  currentIndex,
+  totalResults,
+  onNavigate,
+  canNavigatePrev,
+  canNavigateNext
+}: {
+  cluster: any;
+  isOpen: boolean;
+  onClose: () => void;
+  currentIndex: number;
+  totalResults: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  canNavigatePrev: boolean;
+  canNavigateNext: boolean;
+}) {
   // ESC key handling
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
