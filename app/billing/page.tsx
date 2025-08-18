@@ -62,6 +62,11 @@ const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"
   ssr: true,
 });
 
+// Consistent number formatting to avoid hydration mismatches
+const formatNumber = (num: number): string => {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+};
+
 // Month options for the selector
 const monthOptions = [
   { value: "2025-08", label: "August 2025" },
