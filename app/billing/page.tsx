@@ -55,6 +55,7 @@ import { cn } from "@/lib/utils";
 import { Project } from "@/lib/types";
 import { getClusterColor } from "@/lib/shared-utils";
 import { mockProjects } from "@/lib/data";
+import Navigation from "@/components/shared/Navigation";
 
 // Dynamic import for better performance
 const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
