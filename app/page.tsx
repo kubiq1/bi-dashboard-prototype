@@ -532,13 +532,15 @@ export default function Dashboard() {
             >
               Cluster
             </h2>
-            <Button
-              variant="outline"
-              size="sm"
-              className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
-            >
-              Show all Clusters
-            </Button>
+            <Link href="/cluster-info">
+              <Button
+                variant="outline"
+                size="sm"
+                className="bg-[#00e47c] text-[#08312a] border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none [&_svg]:text-[#08312a]"
+              >
+                Show all Clusters
+              </Button>
+            </Link>
           </div>
           <div className="overflow-x-auto">
             <div className="flex space-x-4 pb-4 min-w-max lg:grid lg:grid-cols-3 lg:gap-6 lg:space-x-0">
