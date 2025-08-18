@@ -910,8 +910,12 @@ function ProjectModal({
                         <img
                           src="/assets/lagoon-icon-white.svg"
                           alt="Lagoon"
-                          className="h-4 w-4"
-                          style={{ filter: 'brightness(0) saturate(100%) invert(58%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(93%) contrast(88%)' }}
+                          className="h-4"
+                          style={{
+                            filter: 'brightness(0) saturate(100%) invert(58%) sepia(0%) saturate(0%) hue-rotate(190deg) brightness(93%) contrast(88%)',
+                            width: 'auto',
+                            height: '16px'
+                          }}
                         />
                         <span>Lagoon</span>
                       </a>
@@ -1116,7 +1120,7 @@ function ProjectModal({
                     onClick={() => onNavigate('next')}
                     disabled={!canNavigateNext}
                     className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                    title="Next (���)"
+                    title="Next (→)"
                     aria-label="Next project"
                   >
                     <ChevronRight className="h-4 w-4" />
