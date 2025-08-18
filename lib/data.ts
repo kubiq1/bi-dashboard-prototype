@@ -1,6 +1,6 @@
 import { Project, Cluster } from './types';
 
-export const mockProjects: Project[] = [
+const rawProjects: Project[] = [
   {
     name: "pro-bi-com-us-jentadueto",
     department: "Human",
@@ -10,6 +10,23 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    owningAgency: "Boehringer Ingelheim Pharmaceuticals",
+    projectUrl: "https://pro-bi-com-us-jentadueto.boehringer-ingelheim.com",
+    repositoryUrl: "https://bitbucket.biscrum.com/wpsites/pro-bi-com-us-jentadueto",
+    lagoonUrl: "https://lagoon.boehringer-ingelheim.com/projects/pro-bi-com-us-jentadueto",
+    usage: {
+      hits: 892345,
+      hitsPct: 23.4
+    },
+    storage: {
+      dbGb: 12.45,
+      filesGb: 89.32,
+      solrGb: 5.67,
+      totalGb: 107.44,
+      storagePct: 23.4
+    },
+    estimatedCost: "USD 2,890",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "hz-qa-bi-hubnext-com",
@@ -20,6 +37,23 @@ export const mockProjects: Project[] = [
     cms: "Custom",
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
+    owningAgency: "Boehringer Ingelheim Animal Health",
+    projectUrl: "https://hz-qa-bi-hubnext-com.boehringer-ingelheim.com",
+    repositoryUrl: "https://bitbucket.biscrum.com/wpsites/hz-qa-bi-hubnext-com",
+    lagoonUrl: "https://lagoon.boehringer-ingelheim.com/projects/hz-qa-bi-hubnext-com",
+    usage: {
+      hits: 674123,
+      hitsPct: 15.7
+    },
+    storage: {
+      dbGb: 8.92,
+      filesGb: 67.84,
+      solrGb: 3.21,
+      totalGb: 79.97,
+      storagePct: 15.7
+    },
+    estimatedCost: "USD 1,950",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "hz-storybook-bi-hubnext-com",
@@ -30,6 +64,23 @@ export const mockProjects: Project[] = [
     cms: "WordPress",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    owningAgency: "Boehringer Ingelheim Pharmaceuticals",
+    projectUrl: "https://hz-storybook-bi-hubnext-com.boehringer-ingelheim.com",
+    repositoryUrl: "https://bitbucket.biscrum.com/wpsites/hz-storybook-bi-hubnext-com",
+    lagoonUrl: "https://lagoon.boehringer-ingelheim.com/projects/hz-storybook-bi-hubnext-com",
+    usage: {
+      hits: 534789,
+      hitsPct: 14.1
+    },
+    storage: {
+      dbGb: 7.23,
+      filesGb: 45.67,
+      solrGb: 2.89,
+      totalGb: 55.79,
+      storagePct: 14.1
+    },
+    estimatedCost: "USD 1,750",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "centaura-se",
@@ -40,6 +91,19 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Legacy",
     stageColor: "bg-gray-100 text-gray-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: null,
+      filesGb: null,
+      solrGb: null,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 1,420",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "insights-in-ild",
@@ -50,6 +114,19 @@ export const mockProjects: Project[] = [
     cms: "GitBook",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 456789,
+      hitsPct: 7.9
+    },
+    storage: {
+      dbGb: 4.23,
+      filesGb: 32.18,
+      solrGb: 1.45,
+      totalGb: 37.86,
+      storagePct: 7.9
+    },
+    estimatedCost: "USD 980",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "agentereversor-com-ar",
@@ -60,6 +137,19 @@ export const mockProjects: Project[] = [
     cms: "Custom",
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: 3.12,
+      filesGb: null,
+      solrGb: 0.89,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 850",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "frontline-si",
@@ -70,6 +160,19 @@ export const mockProjects: Project[] = [
     cms: "N/A",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 234567,
+      hitsPct: 6.0
+    },
+    storage: {
+      dbGb: null,
+      filesGb: 25.34,
+      solrGb: null,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 740",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "making-more-health",
@@ -80,6 +183,19 @@ export const mockProjects: Project[] = [
     cms: "Salesforce",
     stage: "Legacy",
     stageColor: "bg-gray-100 text-gray-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: null,
+      filesGb: null,
+      solrGb: null,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 620",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "guides-boehringer-ingelheim-com",
@@ -90,6 +206,19 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 123456,
+      hitsPct: 4.7
+    },
+    storage: {
+      dbGb: 2.34,
+      filesGb: 15.67,
+      solrGb: 0.89,
+      totalGb: 18.90,
+      storagePct: 4.7
+    },
+    estimatedCost: "USD 580",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "bvdzero-es",
@@ -100,8 +229,20 @@ export const mockProjects: Project[] = [
     cms: "Custom",
     stage: "In Review",
     stageColor: "bg-yellow-100 text-yellow-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: 1.23,
+      filesGb: null,
+      solrGb: 0.45,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 520",
+    monthTotalCost: "USD 12,390"
   },
-  // Adding more projects to maintain the full dataset...
   {
     name: "vetmedica-research-platform",
     department: "Animal",
@@ -111,6 +252,19 @@ export const mockProjects: Project[] = [
     cms: "Drupal",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: 345678,
+      hitsPct: 7.2
+    },
+    storage: {
+      dbGb: null,
+      filesGb: 28.45,
+      solrGb: 1.23,
+      totalGb: null,
+      storagePct: null
+    },
+    estimatedCost: "USD 890",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "respiratory-solutions-hub",
@@ -121,6 +275,19 @@ export const mockProjects: Project[] = [
     cms: "WordPress",
     stage: "Active",
     stageColor: "bg-green-100 text-green-800",
+    usage: {
+      hits: null,
+      hitsPct: null
+    },
+    storage: {
+      dbGb: 5.67,
+      filesGb: 42.34,
+      solrGb: 2.11,
+      totalGb: 50.12,
+      storagePct: 9.7
+    },
+    estimatedCost: "USD 1,200",
+    monthTotalCost: "USD 12,390"
   },
   {
     name: "diabetes-care-portal",
@@ -503,6 +670,21 @@ export const mockProjects: Project[] = [
     stageColor: "bg-gray-100 text-gray-800",
   },
 ];
+
+// Normalize projects to ensure all have required fields
+export const mockProjects = rawProjects.map(project => ({
+  ...project,
+  usage: project.usage || { hits: null, hitsPct: null },
+  storage: project.storage || {
+    dbGb: null,
+    filesGb: null,
+    solrGb: null,
+    totalGb: null,
+    storagePct: null
+  },
+  estimatedCost: project.estimatedCost || project.cost,
+  monthTotalCost: project.monthTotalCost || "USD 12,390"
+}));
 
 export const mockClusters: Cluster[] = [
   {

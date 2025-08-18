@@ -339,39 +339,21 @@ function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: bool
             </div>
           </div>
 
-          {/* Additional Metrics */}
-          <div>
-            <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-              Storage & Performance
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100">
-                <div className="flex items-center space-x-3">
-                  <Database className="h-5 w-5 text-blue-600" />
-                  <span className="font-medium text-gray-900">Database Size</span>
-                </div>
-                <span className="text-xl font-bold text-blue-600">
-                  {cluster.databaseSize} GB
-                </span>
-              </div>
-              <div className="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100">
-                <div className="flex items-center space-x-3">
-                  <HardDrive className="h-5 w-5 text-purple-600" />
-                  <span className="font-medium text-gray-900">Storage Size</span>
-                </div>
-                <span className="text-xl font-bold text-purple-600">
-                  {cluster.storageSize} GB
-                </span>
-              </div>
-              <div className="flex items-center justify-between py-4 px-6 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
-                <div className="flex items-center space-x-3">
-                  <BarChart3 className="h-5 w-5 text-green-600" />
-                  <span className="font-medium text-gray-900">Hits/Requests</span>
-                </div>
-                <span className="text-xl font-bold text-green-600">
-                  {cluster.hitsRequests}
-                </span>
-              </div>
+          {/* Footer Info */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">
+                updated 2 hours ago
+              </p>
+              <Link
+                href={`/projects?cluster=${cluster.name}`}
+                className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors flex items-center space-x-1"
+              >
+                <span>View Projects</span>
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             </div>
           </div>
         </div>

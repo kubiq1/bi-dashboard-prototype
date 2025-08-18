@@ -7,6 +7,23 @@ export interface Project {
   cms: string;
   stage: string;
   stageColor: string;
+  owningAgency?: string;
+  projectUrl?: string;
+  repositoryUrl?: string;
+  lagoonUrl?: string;
+  usage: {
+    hits: number | null;
+    hitsPct: number | null;
+  };
+  storage: {
+    dbGb: number | null;
+    filesGb: number | null;
+    solrGb: number | null;
+    totalGb: number | null;
+    storagePct: number | null;
+  };
+  estimatedCost?: string;
+  monthTotalCost?: string;
 }
 
 export interface Cluster {

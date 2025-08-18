@@ -15,11 +15,29 @@ const nextConfig: NextConfig = {
   // Enable compression
   compress: true,
 
-  // Optimize bundle
-  swcMinify: true,
-
   // Better caching
   poweredByHeader: false,
+
+  // Allow cross-origin requests from Builder.io development environment
+  allowedDevOrigins: [
+    '*.fly.dev',
+    '*.builder.codes'
+  ],
+
+  // Allow cross-origin requests for Builder.io development environment
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'Permissions-Policy',
+            value: 'clipboard-write=*, clipboard-read=*',
+          },
+        ],
+      },
+    ];
+  },
 
   // Production optimizations
   ...(process.env.NODE_ENV === 'production' && {

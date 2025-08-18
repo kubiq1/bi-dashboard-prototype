@@ -16,6 +16,8 @@ import {
   ChevronUp,
   ChevronLeft,
   ChevronRight,
+  X,
+  Database,
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
@@ -43,8 +45,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   Pagination,
   PaginationContent,
@@ -53,6 +55,9 @@ import {
 } from "@/components/ui/pagination";
 import { cn } from "@/lib/utils";
 import { useEffect, useState, useRef } from "react";
+import { Project } from "@/lib/types";
+import { getClusterColor } from "@/lib/shared-utils";
+import { mockProjects } from "@/lib/data";
 
 // Dynamic import for better performance
 const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
@@ -60,508 +65,7 @@ const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"
   ssr: true,
 });
 
-const mockProjects = [
-  {
-    name: "pro-bi-com-us-jentadueto",
-    department: "Human",
-    cluster: ["BI4"],
-    cost: "USD 2,890",
-    percentage: "23.4%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "hz-qa-bi-hubnext-com",
-    department: "Animal",
-    cluster: ["BI5", "BI6"],
-    cost: "USD 1,950",
-    percentage: "15.7%",
-    cms: "Custom",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "hz-storybook-bi-hubnext-com",
-    department: "Human",
-    cluster: ["BI3"],
-    cost: "USD 1,750",
-    percentage: "14.1%",
-    cms: "WordPress",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "centaura-se",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 1,420",
-    percentage: "11.5%",
-    cms: "Drupal",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "insights-in-ild",
-    department: "Human",
-    cluster: ["BI4", "BI5"],
-    cost: "USD 980",
-    percentage: "7.9%",
-    cms: "GitBook",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "agentereversor-com-ar",
-    department: "Animal",
-    cluster: ["BI6"],
-    cost: "USD 850",
-    percentage: "6.9%",
-    cms: "Custom",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "frontline-si",
-    department: "Human",
-    cluster: ["BI3", "BI4", "BI5"],
-    cost: "USD 740",
-    percentage: "6.0%",
-    cms: "N/A",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "making-more-health",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 620",
-    percentage: "5.0%",
-    cms: "Salesforce",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "guides-boehringer-ingelheim-com",
-    department: "Human",
-    cluster: ["BI5"],
-    cost: "USD 580",
-    percentage: "4.7%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "bvdzero-es",
-    department: "Animal",
-    cluster: ["BI6", "BICN2"],
-    cost: "USD 520",
-    percentage: "4.2%",
-    cms: "Custom",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "vetmedica-research-platform",
-    department: "Animal",
-    cluster: ["BI4"],
-    cost: "USD 890",
-    percentage: "7.2%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "respiratory-solutions-hub",
-    department: "Human",
-    cluster: ["BI5"],
-    cost: "USD 1,200",
-    percentage: "9.7%",
-    cms: "WordPress",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "diabetes-care-portal",
-    department: "Human",
-    cluster: ["BI3", "BI4"],
-    cost: "USD 1,560",
-    percentage: "12.6%",
-    cms: "Custom",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "oncology-research-net",
-    department: "Human",
-    cluster: ["BI6"],
-    cost: "USD 2,100",
-    percentage: "17.0%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "animal-nutrition-guide",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 450",
-    percentage: "3.6%",
-    cms: "GitBook",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "immunology-insights",
-    department: "Human",
-    cluster: ["BI5", "BI6"],
-    cost: "USD 1,340",
-    percentage: "10.8%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "companion-animal-wellness",
-    department: "Animal",
-    cluster: ["BI3"],
-    cost: "USD 760",
-    percentage: "6.1%",
-    cms: "WordPress",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "clinical-trials-dashboard",
-    department: "Human",
-    cluster: ["BI4", "BI5"],
-    cost: "USD 1,890",
-    percentage: "15.3%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "veterinary-diagnostic-tools",
-    department: "Animal",
-    cluster: ["BI6"],
-    cost: "USD 680",
-    percentage: "5.5%",
-    cms: "Drupal",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "patient-support-program",
-    department: "Human",
-    cluster: ["BI3"],
-    cost: "USD 920",
-    percentage: "7.4%",
-    cms: "Salesforce",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "livestock-health-monitor",
-    department: "Animal",
-    cluster: ["BICN2", "BI4"],
-    cost: "USD 1,120",
-    percentage: "9.0%",
-    cms: "Custom",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "biosimilars-knowledge-base",
-    department: "Human",
-    cluster: ["BI5"],
-    cost: "USD 640",
-    percentage: "5.2%",
-    cms: "GitBook",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "equine-care-solutions",
-    department: "Animal",
-    cluster: ["BI6"],
-    cost: "USD 530",
-    percentage: "4.3%",
-    cms: "WordPress",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "rare-disease-registry",
-    department: "Human",
-    cluster: ["BI3", "BI6"],
-    cost: "USD 1,650",
-    percentage: "13.3%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "poultry-health-tracker",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 380",
-    percentage: "3.1%",
-    cms: "Custom",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "pharmaceutical-pipeline",
-    department: "Human",
-    cluster: ["BI4"],
-    cost: "USD 2,450",
-    percentage: "19.8%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "veterinary-education-hub",
-    department: "Animal",
-    cluster: ["BI5"],
-    cost: "USD 710",
-    percentage: "5.7%",
-    cms: "WordPress",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "medical-affairs-portal",
-    department: "Human",
-    cluster: ["BI3", "BI5"],
-    cost: "USD 1,280",
-    percentage: "10.3%",
-    cms: "Salesforce",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "swine-production-optimizer",
-    department: "Animal",
-    cluster: ["BI6", "BICN2"],
-    cost: "USD 590",
-    percentage: "4.8%",
-    cms: "Drupal",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "therapeutic-area-insights",
-    department: "Human",
-    cluster: ["BI4"],
-    cost: "USD 1,470",
-    percentage: "11.9%",
-    cms: "GitBook",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "companion-diagnostics",
-    department: "Animal",
-    cluster: ["BI3"],
-    cost: "USD 820",
-    percentage: "6.6%",
-    cms: "Custom",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "regulatory-submission-tracker",
-    department: "Human",
-    cluster: ["BI5", "BI6"],
-    cost: "USD 1,760",
-    percentage: "14.2%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "farm-animal-welfare",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 440",
-    percentage: "3.6%",
-    cms: "WordPress",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "drug-safety-surveillance",
-    department: "Human",
-    cluster: ["BI3"],
-    cost: "USD 1,390",
-    percentage: "11.2%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "aquaculture-health-solutions",
-    department: "Animal",
-    cluster: ["BI4"],
-    cost: "USD 660",
-    percentage: "5.3%",
-    cms: "Custom",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "personalized-medicine-platform",
-    department: "Human",
-    cluster: ["BI6"],
-    cost: "USD 2,200",
-    percentage: "17.8%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "veterinary-practice-management",
-    department: "Animal",
-    cluster: ["BI5"],
-    cost: "USD 790",
-    percentage: "6.4%",
-    cms: "Salesforce",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "clinical-data-exchange",
-    department: "Human",
-    cluster: ["BI4", "BI5"],
-    cost: "USD 1,630",
-    percentage: "13.2%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "pet-health-monitoring",
-    department: "Animal",
-    cluster: ["BI3", "BI6"],
-    cost: "USD 870",
-    percentage: "7.0%",
-    cms: "WordPress",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "biopharmaceutical-research",
-    department: "Human",
-    cluster: ["BICN2"],
-    cost: "USD 1,540",
-    percentage: "12.4%",
-    cms: "GitBook",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "livestock-breeding-optimizer",
-    department: "Animal",
-    cluster: ["BI4"],
-    cost: "USD 720",
-    percentage: "5.8%",
-    cms: "Drupal",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "therapeutic-protein-tracker",
-    department: "Human",
-    cluster: ["BI5"],
-    cost: "USD 1,180",
-    percentage: "9.5%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "animal-vaccine-registry",
-    department: "Animal",
-    cluster: ["BI6"],
-    cost: "USD 610",
-    percentage: "4.9%",
-    cms: "WordPress",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "precision-dosing-calculator",
-    department: "Human",
-    cluster: ["BI3"],
-    cost: "USD 960",
-    percentage: "7.8%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "zoo-animal-care-system",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 420",
-    percentage: "3.4%",
-    cms: "Salesforce",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "molecular-diagnostics-hub",
-    department: "Human",
-    cluster: ["BI4", "BI6"],
-    cost: "USD 1,820",
-    percentage: "14.7%",
-    cms: "Drupal",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "wildlife-health-tracker",
-    department: "Animal",
-    cluster: ["BI5"],
-    cost: "USD 480",
-    percentage: "3.9%",
-    cms: "GitBook",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-  {
-    name: "drug-interaction-checker",
-    department: "Human",
-    cluster: ["BI3", "BI4"],
-    cost: "USD 1,100",
-    percentage: "8.9%",
-    cms: "Custom",
-    stage: "Active",
-    stageColor: "bg-green-100 text-green-800",
-  },
-  {
-    name: "veterinary-telemedicine",
-    department: "Animal",
-    cluster: ["BI6"],
-    cost: "USD 750",
-    percentage: "6.1%",
-    cms: "WordPress",
-    stage: "In Review",
-    stageColor: "bg-yellow-100 text-yellow-800",
-  },
-  {
-    name: "biosecurity-monitoring",
-    department: "Animal",
-    cluster: ["BICN2"],
-    cost: "USD 350",
-    percentage: "2.8%",
-    cms: "Custom",
-    stage: "Legacy",
-    stageColor: "bg-gray-100 text-gray-800",
-  },
-];
+// Using shared normalized dataset from lib/data.ts
 
 function ProjectRow({ project }: { project: any }) {
   const [hoveredIcon, setHoveredIcon] = useState<string | null>(null);
@@ -623,6 +127,9 @@ export default function Dashboard() {
   const [departmentFilter, setDepartmentFilter] = useState<string>("all");
   const [applicationFilter, setApplicationFilter] = useState<string>("all");
   const [clusterFilter, setClusterFilter] = useState<string>("all");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [focusedRowRef, setFocusedRowRef] = useState<HTMLTableRowElement | null>(null);
 
   const itemsPerPage = 10;
 
@@ -631,7 +138,6 @@ export default function Dashboard() {
       new Date().toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
-        day: "numeric",
       }),
     );
   }, []);
@@ -742,6 +248,50 @@ export default function Dashboard() {
     } else {
       setPageInput(currentPage.toString());
     }
+  };
+
+  const handleProjectClick = (project: Project, rowElement: HTMLTableRowElement) => {
+    setFocusedRowRef(rowElement);
+    setSelectedProject(project);
+    setIsProjectModalOpen(true);
+  };
+
+  const handleCloseProjectModal = () => {
+    setIsProjectModalOpen(false);
+    setSelectedProject(null);
+    // Return focus to the originating row
+    if (focusedRowRef) {
+      focusedRowRef.focus();
+      setFocusedRowRef(null);
+    }
+  };
+
+  const navigateToProject = (direction: 'prev' | 'next') => {
+    if (!selectedProject) return;
+
+    const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
+    let newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+
+    if (newIndex >= 0 && newIndex < filteredAndSortedProjects.length) {
+      setSelectedProject(filteredAndSortedProjects[newIndex]);
+    }
+  };
+
+  const getCurrentProjectIndex = () => {
+    if (!selectedProject) return 0;
+    return filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name) + 1;
+  };
+
+  const canNavigatePrev = () => {
+    if (!selectedProject) return false;
+    const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
+    return currentIndex > 0;
+  };
+
+  const canNavigateNext = () => {
+    if (!selectedProject) return false;
+    const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
+    return currentIndex < filteredAndSortedProjects.length - 1;
   };
 
   const generatePageNumbers = () => {
@@ -1304,7 +854,18 @@ export default function Dashboard() {
                   </TableHeader>
                   <TableBody>
                     {currentPageProjects.map((project, index) => (
-                      <TableRow key={index} className="hover:bg-gray-50">
+                      <TableRow
+                        key={index}
+                        className="hover:bg-gray-50 cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-inset"
+                        tabIndex={0}
+                        onClick={(e) => handleProjectClick(project, e.currentTarget)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handleProjectClick(project, e.currentTarget);
+                          }
+                        }}
+                      >
                         <TableCell className="font-medium text-gray-900 w-[30%] relative">
                           <div className="overflow-visible">
                             <ProjectRow project={project} />
@@ -1318,30 +879,15 @@ export default function Dashboard() {
                         <TableCell className="w-[15%]">
                           <div className="flex flex-wrap gap-1">
                             {project.cluster.map(
-                              (clusterName, clusterIndex) => {
-                                // Define subtle colors for different clusters
-                                const clusterColors: Record<string, string> = {
-                                  BI3: "bg-slate-50 text-slate-600 border-slate-200",
-                                  BI4: "bg-blue-50 text-blue-600 border-blue-200",
-                                  BI5: "bg-emerald-50 text-emerald-600 border-emerald-200",
-                                  BI6: "bg-purple-50 text-purple-600 border-purple-200",
-                                  BICN2:
-                                    "bg-amber-50 text-amber-600 border-amber-200",
-                                };
-                                const colorClass =
-                                  clusterColors[clusterName] ||
-                                  "bg-gray-50 text-gray-600 border-gray-200";
-
-                                return (
-                                  <Badge
-                                    key={clusterIndex}
-                                    variant="outline"
-                                    className={`font-normal whitespace-nowrap border-0 ${colorClass}`}
-                                  >
-                                    {clusterName}
-                                  </Badge>
-                                );
-                              },
+                              (clusterName, clusterIndex) => (
+                                <Badge
+                                  key={clusterIndex}
+                                  variant="outline"
+                                  className={`font-normal whitespace-nowrap border-0 ${getClusterColor(clusterName)}`}
+                                >
+                                  {clusterName}
+                                </Badge>
+                              )
                             )}
                           </div>
                         </TableCell>
@@ -1466,7 +1012,391 @@ export default function Dashboard() {
             </div>
           </div>
         </section>
+
+        {/* Project Modal */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={isProjectModalOpen}
+          onClose={handleCloseProjectModal}
+          currentIndex={getCurrentProjectIndex()}
+          totalResults={totalItems}
+          onNavigate={navigateToProject}
+          canNavigatePrev={canNavigatePrev()}
+          canNavigateNext={canNavigateNext()}
+        />
       </main>
+    </div>
+  );
+}
+
+function ProjectModal({
+  project,
+  isOpen,
+  onClose,
+  currentIndex,
+  totalResults,
+  onNavigate,
+  canNavigatePrev,
+  canNavigateNext
+}: {
+  project: Project | null;
+  isOpen: boolean;
+  onClose: () => void;
+  currentIndex: number;
+  totalResults: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  canNavigatePrev: boolean;
+  canNavigateNext: boolean;
+}) {
+  // ESC key handling
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  // Arrow key navigation
+  useEffect(() => {
+    const handleArrowKeys = (event: KeyboardEvent) => {
+      if (!isOpen) return;
+
+      // Ignore if event target is an input element
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT' ||
+        target.contentEditable === 'true'
+      ) {
+        return;
+      }
+
+      if (event.key === 'ArrowLeft' && canNavigatePrev) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('prev');
+      } else if (event.key === 'ArrowRight' && canNavigateNext) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('next');
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleArrowKeys);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleArrowKeys);
+    };
+  }, [isOpen, canNavigatePrev, canNavigateNext, onNavigate]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  if (!isOpen || !project) return null;
+
+  const monthLabel = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" });
+
+  const getStageColor = (stage: string, stageColor: string) => {
+    return stageColor;
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-300 ease-out"
+        onClick={onClose}
+      ></div>
+
+      {/* Modal */}
+      <div
+        className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="flex flex-col">
+                <h2 className="text-3xl font-medium text-[#08312a]" style={{ fontFamily: "var(--font-headline)" }}>
+                  {project.name}
+                </h2>
+                <div className="flex items-center space-x-3 mt-2">
+                  {/* Quick Links */}
+                  <div className="flex items-center space-x-2">
+                    {project.repositoryUrl && (
+                      <a
+                        href={project.repositoryUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                      >
+                        <GitBranch className="h-4 w-4" />
+                        <span>Repo</span>
+                      </a>
+                    )}
+                    {project.lagoonUrl && (
+                      <a
+                        href={project.lagoonUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                      >
+                        <Server className="h-4 w-4" />
+                        <span>Lagoon</span>
+                      </a>
+                    )}
+                    {project.projectUrl && (
+                      <a
+                        href={project.projectUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        <span>Prod</span>
+                      </a>
+                    )}
+                  </div>
+
+                  {/* Badges */}
+                  <div className="flex items-center space-x-2">
+                    <Badge className={getStageColor(project.stage, project.stageColor)}>
+                      {project.stage}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+            >
+              <X className="h-5 w-5 text-gray-500" />
+            </Button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column - Overview */}
+            <div className="space-y-6">
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Overview
+                </h3>
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Department</span>
+                    <span className="text-sm text-gray-900">{project.department}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Application Type</span>
+                    <span className="text-sm text-gray-900">{project.cms}</span>
+                  </div>
+                  {project.owningAgency && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Owning Agency</span>
+                      <span className="text-sm text-gray-900">{project.owningAgency}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Clusters</span>
+                    <div className="flex flex-wrap gap-1">
+                      {project.cluster.map((clusterName, index) => (
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className={`font-normal whitespace-nowrap border-0 ${getClusterColor(clusterName)}`}
+                        >
+                          {clusterName}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Monthly Cost */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Monthly Cost — {monthLabel}
+                </h3>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
+                      <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
+                    </div>
+                    <span className="text-2xl font-bold text-[#08312a]">{project.estimatedCost || project.cost}</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm text-gray-600">
+                    <span>Month Total Cost</span>
+                    <span>{project.monthTotalCost || "USD 12,390"}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Usage & Storage */}
+            <div className="space-y-6">
+              {/* Usage */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Usage
+                </h3>
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">Hits</span>
+                    <span className="text-2xl font-bold text-blue-600">
+                      {project.usage.hits ? project.usage.hits.toLocaleString() : '—'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm text-gray-600">
+                    <span>Hits % of total</span>
+                    <span>{project.usage.hitsPct ? project.usage.hitsPct.toFixed(1) + '%' : '—'}</span>
+                  </div>
+                  {(!project.usage.hits || !project.usage.hitsPct) && (
+                    <div className="mt-2 text-xs text-gray-500">
+                      No data for selected month.
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Storage */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Storage (GB)
+                </h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <Database className="h-4 w-4 text-blue-600" />
+                      <span className="text-sm font-medium text-gray-700">Database</span>
+                    </div>
+                    <span className="text-sm font-bold text-blue-600">
+                      {project.storage.dbGb ? project.storage.dbGb.toFixed(2) : '—'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <HardDrive className="h-4 w-4 text-purple-600" />
+                      <span className="text-sm font-medium text-gray-700">Files</span>
+                    </div>
+                    <span className="text-sm font-bold text-purple-600">
+                      {project.storage.filesGb ? project.storage.filesGb.toFixed(2) : '—'}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 px-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <Search className="h-4 w-4 text-green-600" />
+                      <span className="text-sm font-medium text-gray-700">Solr</span>
+                    </div>
+                    <span className="text-sm font-bold text-green-600">
+                      {project.storage.solrGb ? project.storage.solrGb.toFixed(2) : '—'}
+                    </span>
+                  </div>
+                  <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-bold text-gray-700">Total</span>
+                      <span className="text-lg font-bold text-[#08312a]">
+                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '—'}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-sm text-gray-600">
+                      <span>Storage % of total</span>
+                      <span>{project.storage.storagePct ? project.storage.storagePct.toFixed(1) + '%' : '—'}</span>
+                    </div>
+                    {(!project.storage.totalGb || !project.storage.storagePct) && (
+                      <div className="mt-2 text-xs text-gray-500">
+                        No data for selected month.
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Usage Note */}
+              {(project.usage.hitsPct || project.storage.storagePct) && (
+                <div className="mt-4">
+                  <p className="text-xs text-gray-500">
+                    Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="mt-8 pt-6 border-t border-gray-100">
+            <div className="flex items-center justify-between">
+              <p className="text-sm text-gray-500">
+                Data as of {monthLabel}
+              </p>
+              <div className="flex items-center space-x-4">
+                {/* Navigation Controls */}
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('prev')}
+                    disabled={!canNavigatePrev}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Previous (←)"
+                    aria-label="Previous project"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <span className="text-sm text-gray-500 px-2">
+                    {currentIndex} of {totalResults}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('next')}
+                    disabled={!canNavigateNext}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Next (→)"
+                    aria-label="Next project"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Link
+                  href={`/billing?project=${encodeURIComponent(project.name)}&month=${encodeURIComponent(monthLabel)}`}
+                  className="inline-flex items-center px-3 py-1.5 text-sm font-medium bg-[#00e47c] text-[#08312a] border border-[#00e47c] hover:bg-[#6CEEB2] hover:text-[#08312a] rounded-none shadow-none transition-colors"
+                >
+                  View full billing details
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
