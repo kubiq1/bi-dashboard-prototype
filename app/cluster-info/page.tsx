@@ -345,7 +345,10 @@ function ClusterModal({
       ></div>
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100">
+      <div
+        className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
           <div className="flex items-center justify-between">
@@ -429,15 +432,45 @@ function ClusterModal({
               <p className="text-sm text-gray-500">
                 updated 2 hours ago
               </p>
-              <Link
-                href={`/projects?cluster=${cluster.name}`}
-                className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors flex items-center space-x-1"
-              >
-                <span>View Projects</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
+              <div className="flex items-center space-x-4">
+                {/* Navigation Controls */}
+                <div className="flex items-center space-x-2">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('prev')}
+                    disabled={!canNavigatePrev}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Previous (←)"
+                    aria-label="Previous cluster"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <span className="text-sm text-gray-500 px-2">
+                    {currentIndex} of {totalResults}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => onNavigate('next')}
+                    disabled={!canNavigateNext}
+                    className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Next (→)"
+                    aria-label="Next cluster"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Link
+                  href={`/projects?cluster=${cluster.name}`}
+                  className="text-sm font-medium text-[#08312a] hover:text-[#00e47c] transition-colors flex items-center space-x-1"
+                >
+                  <span>View Projects</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
