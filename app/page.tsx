@@ -1207,6 +1207,40 @@ function ClusterModal({
     };
   }, [isOpen, onClose]);
 
+  // Arrow key navigation
+  useEffect(() => {
+    const handleArrowKeys = (event: KeyboardEvent) => {
+      if (!isOpen) return;
+
+      // Ignore if event target is an input element
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT' ||
+        target.contentEditable === 'true'
+      ) {
+        return;
+      }
+
+      if (event.key === 'ArrowLeft' && canNavigatePrev) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('prev');
+      } else if (event.key === 'ArrowRight' && canNavigateNext) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('next');
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleArrowKeys);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleArrowKeys);
+    };
+  }, [isOpen, canNavigatePrev, canNavigateNext, onNavigate]);
+
   // Prevent body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
