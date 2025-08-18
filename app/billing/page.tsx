@@ -620,13 +620,13 @@ export default function BillingPage() {
                       <SortableHeader field="name" className="w-[25%]">
                         Project
                       </SortableHeader>
-                      <SortableHeader field="hits" className="text-right w-[12%]">
+                      <SortableHeader field="hits" className="text-right w-[14%]">
                         Hits
                       </SortableHeader>
                       <SortableHeader field="storage" className="w-[12%] text-right">
                         Storage (GB)
                       </SortableHeader>
-                      <SortableHeader field="usagePercent" className="text-right w-[12%]">
+                      <SortableHeader field="usagePercent" className="text-right w-[14%]">
                         Usage %
                       </SortableHeader>
                       <SortableHeader field="estimatedCost" className="text-right w-[16%]">
@@ -656,7 +656,7 @@ export default function BillingPage() {
                             <ProjectRow project={project} />
                           </div>
                         </TableCell>
-                        <TableCell className="text-right font-medium w-[12%]">
+                        <TableCell className="text-right font-medium w-[14%]">
                           <div className="whitespace-nowrap">
                             {project.hits.toLocaleString()}
                           </div>
@@ -669,7 +669,7 @@ export default function BillingPage() {
                             {project.storage.total.toFixed(2)}
                           </div>
                         </TableCell>
-                        <TableCell className="text-right text-gray-600 w-[12%]">
+                        <TableCell className="text-right text-gray-600 w-[14%]">
                           <div className="whitespace-nowrap">
                             {project.usagePercent.toFixed(1)}%
                           </div>
