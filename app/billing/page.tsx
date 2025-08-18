@@ -626,9 +626,6 @@ export default function BillingPage() {
                       <SortableHeader field="storage" className="w-[12%] text-right">
                         Storage (GB)
                       </SortableHeader>
-                      <SortableHeader field="pods" className="text-center w-[8%]">
-                        Pods
-                      </SortableHeader>
                       <SortableHeader field="usagePercent" className="text-right w-[12%]">
                         Usage %
                       </SortableHeader>
