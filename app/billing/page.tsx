@@ -151,7 +151,7 @@ const generateBillingDataForMonth = (monthKey: string) => {
         },
         pods: data.pods,
         usagePercent: data.usagePercent,
-        estimatedCost: `USD ${estimatedCost.toLocaleString()}`
+        estimatedCost: `USD ${estimatedCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
       };
     })
   };
