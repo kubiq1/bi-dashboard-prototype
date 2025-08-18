@@ -156,7 +156,7 @@ const generateBillingDataForMonth = (monthKey: string) => {
         },
         pods: data.pods,
         usagePercent: data.usagePercent,
-        estimatedCost: `USD ${estimatedCost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+        estimatedCost: `USD ${formatNumber(estimatedCost)}`
       };
     })
   };
@@ -672,7 +672,7 @@ export default function BillingPage() {
                         </TableCell>
                         <TableCell className="text-right font-medium w-[14%]">
                           <div className="whitespace-nowrap">
-                            {project.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                            {formatNumber(project.hits)}
                           </div>
                         </TableCell>
                         <TableCell className="w-[12%] relative">
@@ -1101,7 +1101,7 @@ function ProjectModal({
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-sm font-medium text-gray-700">Hits</span>
                     <span className="text-2xl font-bold text-blue-600">
-                      {project.hits ? project.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '—'}
+                      {project.hits ? formatNumber(project.hits) : '—'}
                     </span>
                   </div>
                   {project.pods && (
