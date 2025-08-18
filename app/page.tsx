@@ -1211,7 +1211,10 @@ function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: bool
       ></div>
 
       {/* Modal */}
-      <div className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100">
+      <div
+        className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden transform transition-all duration-300 ease-out scale-100 opacity-100"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="relative px-8 py-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
           <div className="flex items-center justify-between">
@@ -1607,7 +1610,7 @@ function ProjectModal({
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-sm font-bold text-gray-700">Total</span>
                       <span className="text-lg font-bold text-[#08312a]">
-                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '���'}
+                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '—'}
                       </span>
                     </div>
                     <div className="flex justify-between items-center text-sm text-gray-600">
