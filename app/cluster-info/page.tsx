@@ -401,6 +401,34 @@ export default function ClusterInfoPage() {
     setSelectedCluster(null);
   };
 
+  const navigateToCluster = (direction: 'prev' | 'next') => {
+    if (!selectedCluster) return;
+
+    const currentIndex = filteredClusters.findIndex(c => c.name === selectedCluster.name);
+    let newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+
+    if (newIndex >= 0 && newIndex < filteredClusters.length) {
+      setSelectedCluster(filteredClusters[newIndex]);
+    }
+  };
+
+  const getCurrentClusterIndex = () => {
+    if (!selectedCluster) return 0;
+    return filteredClusters.findIndex(c => c.name === selectedCluster.name) + 1;
+  };
+
+  const canNavigateClusterPrev = () => {
+    if (!selectedCluster) return false;
+    const currentIndex = filteredClusters.findIndex(c => c.name === selectedCluster.name);
+    return currentIndex > 0;
+  };
+
+  const canNavigateClusterNext = () => {
+    if (!selectedCluster) return false;
+    const currentIndex = filteredClusters.findIndex(c => c.name === selectedCluster.name);
+    return currentIndex < filteredClusters.length - 1;
+  };
+
   const filteredClusters = getFilteredClusters();
 
   return (
@@ -579,6 +607,11 @@ export default function ClusterInfoPage() {
           cluster={selectedCluster}
           isOpen={isDrawerOpen}
           onClose={handleCloseDrawer}
+          currentIndex={getCurrentClusterIndex()}
+          totalResults={filteredClusters.length}
+          onNavigate={navigateToCluster}
+          canNavigatePrev={canNavigateClusterPrev()}
+          canNavigateNext={canNavigateClusterNext()}
         />
       </main>
     </div>
