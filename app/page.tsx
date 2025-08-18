@@ -59,6 +59,80 @@ import { Project } from "@/lib/types";
 import { getClusterColor } from "@/lib/shared-utils";
 import { mockProjects } from "@/lib/data";
 
+// Mock cluster data - matching cluster info page
+const mockClusters = [
+  {
+    id: "BI3",
+    name: "BI3",
+    type: "Production",
+    status: "Operational",
+    podDensity: 68.5,
+    nodeCount: 15,
+    ramUsage: 298.7,
+    cpuUsage: 45.8,
+    databaseSize: 2847.3,
+    storageSize: 15789.2,
+    hitsRequests: "2.8M",
+    description: "Primary Production Cluster"
+  },
+  {
+    id: "BI4",
+    name: "BI4",
+    type: "Production",
+    status: "Operational",
+    podDensity: 78.2,
+    nodeCount: 12,
+    ramUsage: 256.4,
+    cpuUsage: 15.4,
+    databaseSize: 3241.7,
+    storageSize: 18923.6,
+    hitsRequests: "3.2M",
+    description: "Production Cluster"
+  },
+  {
+    id: "BI5",
+    name: "BI5",
+    type: "Production",
+    status: "Under Maintenance",
+    podDensity: 65.1,
+    nodeCount: 8,
+    ramUsage: 189.3,
+    cpuUsage: 82.4,
+    databaseSize: 1892.8,
+    storageSize: 12456.1,
+    hitsRequests: "1.9M",
+    description: "Production Cluster"
+  },
+  {
+    id: "BI6",
+    name: "BI6",
+    type: "Production",
+    status: "Error",
+    podDensity: 92.3,
+    nodeCount: 4,
+    ramUsage: 234.9,
+    cpuUsage: 94.0,
+    databaseSize: 4123.5,
+    storageSize: 8734.2,
+    hitsRequests: "4.1M",
+    description: "Production Cluster"
+  },
+  {
+    id: "BICN2",
+    name: "BICN2",
+    type: "Development",
+    status: "Operational",
+    podDensity: 42.7,
+    nodeCount: 6,
+    ramUsage: 124.8,
+    cpuUsage: 28.6,
+    databaseSize: 892.4,
+    storageSize: 5678.9,
+    hitsRequests: "0.8M",
+    description: "Development Cluster"
+  }
+];
+
 // Dynamic import for better performance
 const SparklineChart = dynamic(() => import("@/components/charts/SparklineChart"), {
   loading: () => <div className="h-16 bg-gray-100 animate-pulse rounded"></div>,
@@ -130,6 +204,8 @@ export default function Dashboard() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [focusedRowRef, setFocusedRowRef] = useState<HTMLTableRowElement | null>(null);
+  const [selectedCluster, setSelectedCluster] = useState<any>(null);
+  const [isClusterModalOpen, setIsClusterModalOpen] = useState(false);
 
   const itemsPerPage = 10;
 
@@ -280,6 +356,19 @@ export default function Dashboard() {
   const getCurrentProjectIndex = () => {
     if (!selectedProject) return 0;
     return filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name) + 1;
+  };
+
+  const handleClusterClick = (clusterName: string) => {
+    const cluster = mockClusters.find(c => c.name === clusterName);
+    if (cluster) {
+      setSelectedCluster(cluster);
+      setIsClusterModalOpen(true);
+    }
+  };
+
+  const handleCloseClusterModal = () => {
+    setIsClusterModalOpen(false);
+    setSelectedCluster(null);
   };
 
   const canNavigatePrev = () => {
