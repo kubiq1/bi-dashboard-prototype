@@ -16,6 +16,7 @@ import {
   Database,
   HardDrive,
   Server,
+  Globe,
 } from "lucide-react";
 import {
   Card,
