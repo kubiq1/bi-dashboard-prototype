@@ -101,15 +101,35 @@ const generateDeterministicData = (projectIndex: number, monthMultiplier: number
   };
 };
 
-const mockBillingData = {
-  "2025-08": {
-    totalCost: "USD 12,390",
-    changeVsLastMonth: "+6.4%",
-    changeAmount: "USD 740 increase",
+// Lazy data generation to avoid performance issues
+const generateBillingDataForMonth = (monthKey: string) => {
+  const monthConfigs = {
+    "2025-08": {
+      totalCost: "USD 12,390",
+      changeVsLastMonth: "+6.4%",
+      changeAmount: "USD 740 increase",
+      multiplier: 1.1,
+      totalCostValue: 12390
+    },
+    "2025-07": {
+      totalCost: "USD 11,650",
+      changeVsLastMonth: "+2.1%",
+      changeAmount: "USD 240 increase",
+      multiplier: 0.95,
+      totalCostValue: 11650
+    }
+  };
+
+  const config = monthConfigs[monthKey as keyof typeof monthConfigs] || monthConfigs["2025-08"];
+
+  return {
+    totalCost: config.totalCost,
+    changeVsLastMonth: config.changeVsLastMonth,
+    changeAmount: config.changeAmount,
     projects: mockProjects.map((project, index) => {
-      const data = generateDeterministicData(index, 1.1);
+      const data = generateDeterministicData(index, config.multiplier);
       const totalStorage = data.storage.db + data.storage.files + data.storage.solr;
-      const estimatedCost = Math.floor(data.usagePercent * 12390 / 100);
+      const estimatedCost = Math.floor(data.usagePercent * config.totalCostValue / 100);
 
       return {
         ...project,
@@ -125,31 +145,7 @@ const mockBillingData = {
         estimatedCost: `USD ${estimatedCost.toLocaleString()}`
       };
     })
-  },
-  "2025-07": {
-    totalCost: "USD 11,650",
-    changeVsLastMonth: "+2.1%",
-    changeAmount: "USD 240 increase",
-    projects: mockProjects.map((project, index) => {
-      const data = generateDeterministicData(index, 0.95);
-      const totalStorage = data.storage.db + data.storage.files + data.storage.solr;
-      const estimatedCost = Math.floor(data.usagePercent * 11650 / 100);
-
-      return {
-        ...project,
-        hits: data.hits,
-        storage: {
-          db: data.storage.db,
-          files: data.storage.files,
-          solr: data.storage.solr,
-          total: totalStorage
-        },
-        pods: data.pods,
-        usagePercent: data.usagePercent,
-        estimatedCost: `USD ${estimatedCost.toLocaleString()}`
-      };
-    })
-  }
+  };
 };
 
 function ProjectRow({ project }: { project: any }) {
