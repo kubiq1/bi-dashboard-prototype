@@ -1,6 +1,6 @@
 import { Project, Cluster } from './types';
 
-export const mockProjects: Project[] = [
+const rawProjects: Project[] = [
   {
     name: "pro-bi-com-us-jentadueto",
     department: "Human",
@@ -672,7 +672,7 @@ export const mockProjects: Project[] = [
 ];
 
 // Normalize projects to ensure all have required fields
-const normalizedMockProjects = mockProjects.map(project => ({
+export const mockProjects = rawProjects.map(project => ({
   ...project,
   usage: project.usage || { hits: null, hitsPct: null },
   storage: project.storage || {
@@ -685,9 +685,6 @@ const normalizedMockProjects = mockProjects.map(project => ({
   estimatedCost: project.estimatedCost || project.cost,
   monthTotalCost: project.monthTotalCost || "USD 12,390"
 }));
-
-// Export the normalized projects
-export { normalizedMockProjects as mockProjects };
 
 export const mockClusters: Cluster[] = [
   {
