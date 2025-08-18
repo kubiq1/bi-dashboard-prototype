@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, GitBranch } from "lucide-react";
+import { ExternalLink, GitBranch, Globe, Server } from "lucide-react";
 import { Project } from "@/lib/types";
 
 interface ProjectRowProps {
