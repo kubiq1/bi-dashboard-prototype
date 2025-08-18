@@ -64,12 +64,7 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               <img
                 src="/assets/lagoon-icon-black.svg"
                 alt="Lagoon"
-                className="h-4 text-gray-400 hover:text-gray-600 transition-colors"
-                style={{
-                  width: 'auto',
-                  height: '16px',
-                  opacity: '0.6'
-                }}
+                className="h-4 w-4"
               />
             </a>
             {hoveredIcon === "lagoon" && (
