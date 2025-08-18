@@ -79,30 +79,49 @@ const monthOptions = [
 ];
 
 // Mock billing data - this would come from API in real implementation
+// Using deterministic data to avoid hydration mismatches
+const generateDeterministicData = (projectIndex: number, monthMultiplier: number) => {
+  // Create predictable values based on project index and month
+  const baseHits = 50000 + (projectIndex * 23456);
+  const baseDb = 2.5 + (projectIndex * 0.73);
+  const baseFiles = 5.2 + (projectIndex * 1.21);
+  const baseSolr = 1.1 + (projectIndex * 0.32);
+  const basePods = 2 + (projectIndex % 6);
+  const baseUsage = 3.2 + (projectIndex * 1.87);
+
+  return {
+    hits: Math.floor(baseHits * monthMultiplier),
+    storage: {
+      db: baseDb * monthMultiplier,
+      files: baseFiles * monthMultiplier,
+      solr: baseSolr * monthMultiplier,
+    },
+    pods: basePods,
+    usagePercent: baseUsage * monthMultiplier,
+  };
+};
+
 const mockBillingData = {
   "2025-08": {
     totalCost: "USD 12,390",
     changeVsLastMonth: "+6.4%",
     changeAmount: "USD 740 increase",
-    projects: mockProjects.map((project, index) => ({
-      ...project,
-      hits: Math.floor(Math.random() * 500000) + 10000,
-      storage: {
-        db: Math.random() * 10 + 1,
-        files: Math.random() * 15 + 2,
-        solr: Math.random() * 5 + 0.5,
-      },
-      pods: Math.floor(Math.random() * 8) + 1,
-      usagePercent: Math.random() * 15 + 1,
-    })).map(project => {
-      const totalStorage = project.storage.db + project.storage.files + project.storage.solr;
-      const estimatedCost = Math.floor(project.usagePercent * 12390 / 100);
+    projects: mockProjects.map((project, index) => {
+      const data = generateDeterministicData(index, 1.1);
+      const totalStorage = data.storage.db + data.storage.files + data.storage.solr;
+      const estimatedCost = Math.floor(data.usagePercent * 12390 / 100);
+
       return {
         ...project,
+        hits: data.hits,
         storage: {
-          ...project.storage,
+          db: data.storage.db,
+          files: data.storage.files,
+          solr: data.storage.solr,
           total: totalStorage
         },
+        pods: data.pods,
+        usagePercent: data.usagePercent,
         estimatedCost: `USD ${estimatedCost.toLocaleString()}`
       };
     })
@@ -111,25 +130,22 @@ const mockBillingData = {
     totalCost: "USD 11,650",
     changeVsLastMonth: "+2.1%",
     changeAmount: "USD 240 increase",
-    projects: mockProjects.map((project, index) => ({
-      ...project,
-      hits: Math.floor(Math.random() * 450000) + 8000,
-      storage: {
-        db: Math.random() * 9 + 1,
-        files: Math.random() * 14 + 2,
-        solr: Math.random() * 4.5 + 0.5,
-      },
-      pods: Math.floor(Math.random() * 7) + 1,
-      usagePercent: Math.random() * 14 + 1,
-    })).map(project => {
-      const totalStorage = project.storage.db + project.storage.files + project.storage.solr;
-      const estimatedCost = Math.floor(project.usagePercent * 11650 / 100);
+    projects: mockProjects.map((project, index) => {
+      const data = generateDeterministicData(index, 0.95);
+      const totalStorage = data.storage.db + data.storage.files + data.storage.solr;
+      const estimatedCost = Math.floor(data.usagePercent * 11650 / 100);
+
       return {
         ...project,
+        hits: data.hits,
         storage: {
-          ...project.storage,
+          db: data.storage.db,
+          files: data.storage.files,
+          solr: data.storage.solr,
           total: totalStorage
         },
+        pods: data.pods,
+        usagePercent: data.usagePercent,
         estimatedCost: `USD ${estimatedCost.toLocaleString()}`
       };
     })
