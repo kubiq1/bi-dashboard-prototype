@@ -61,30 +61,11 @@ export default function ProjectRow({ project }: ProjectRowProps) {
               }}
               aria-label={`View ${project.name} lagoon`}
             >
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-4 w-4"
-              >
-                <path
-                  d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-                <path
-                  d="M8 12l2 2 4-4"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <img
+                src="/assets/lagoon-icon.svg"
+                alt="Lagoon"
+                className="h-4 w-4 opacity-60 hover:opacity-80 transition-opacity"
+              />
             </a>
             {hoveredIcon === "lagoon" && (
               <div className="absolute z-50 transition-all duration-150 pointer-events-none bottom-full left-1/2 transform -translate-x-1/2 mb-2">
