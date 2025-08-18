@@ -521,12 +521,12 @@ export default function Dashboard() {
                 >
                   Projects
                 </Link>
-                <a
-                  href="#"
+                <Link
+                  href="/billing"
                   className="text-sm font-medium text-white hover:text-[#00e47c] active:text-[#00e47c] transition-colors"
                 >
                   Billing
-                </a>
+                </Link>
               </nav>
             </div>
 
