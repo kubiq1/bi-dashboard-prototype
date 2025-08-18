@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
   // Better caching
   poweredByHeader: false,
 
+  // Allow cross-origin requests from Builder.io development environment
+  allowedDevOrigins: [
+    '*.fly.dev',
+    '*.builder.codes'
+  ],
+
   // Allow cross-origin requests for Builder.io development environment
   async headers() {
     return [
