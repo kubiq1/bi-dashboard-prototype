@@ -218,7 +218,89 @@ function ClusterCard({ cluster, onClick }: { cluster: any; onClick: () => void }
   );
 }
 
-function ClusterModal({ cluster, isOpen, onClose }: { cluster: any; isOpen: boolean; onClose: () => void }) {
+function ClusterModal({
+  cluster,
+  isOpen,
+  onClose,
+  currentIndex,
+  totalResults,
+  onNavigate,
+  canNavigatePrev,
+  canNavigateNext
+}: {
+  cluster: any;
+  isOpen: boolean;
+  onClose: () => void;
+  currentIndex: number;
+  totalResults: number;
+  onNavigate: (direction: 'prev' | 'next') => void;
+  canNavigatePrev: boolean;
+  canNavigateNext: boolean;
+}) {
+  // ESC key handling
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [isOpen, onClose]);
+
+  // Arrow key navigation
+  useEffect(() => {
+    const handleArrowKeys = (event: KeyboardEvent) => {
+      if (!isOpen) return;
+
+      // Ignore if event target is an input element
+      const target = event.target as HTMLElement;
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT' ||
+        target.contentEditable === 'true'
+      ) {
+        return;
+      }
+
+      if (event.key === 'ArrowLeft' && canNavigatePrev) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('prev');
+      } else if (event.key === 'ArrowRight' && canNavigateNext) {
+        event.preventDefault(); // Prevent background page scroll
+        onNavigate('next');
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleArrowKeys);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleArrowKeys);
+    };
+  }, [isOpen, canNavigatePrev, canNavigateNext, onNavigate]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   if (!isOpen || !cluster) return null;
 
   const getStatusColor = (status: string) => {
