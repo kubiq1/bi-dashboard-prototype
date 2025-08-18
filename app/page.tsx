@@ -1115,6 +1115,13 @@ export default function Dashboard() {
           </div>
         </section>
 
+        {/* Cluster Modal */}
+        <ClusterModal
+          cluster={selectedCluster}
+          isOpen={isClusterModalOpen}
+          onClose={handleCloseClusterModal}
+        />
+
         {/* Project Modal */}
         <ProjectModal
           project={selectedProject}
