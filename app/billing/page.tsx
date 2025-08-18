@@ -210,17 +210,17 @@ export default function BillingPage() {
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  const currentData = generateBillingDataForMonth(selectedMonth);
+  const currentData = useMemo(() => generateBillingDataForMonth(selectedMonth), [selectedMonth]);
   const currentMonthLabel = monthOptions.find(option => option.value === selectedMonth)?.label || "August 2025";
 
   useEffect(() => {
     // Check for project and month parameters in URL
     const projectParam = searchParams.get('project');
     const monthParam = searchParams.get('month');
-    
+
     if (monthParam) {
       // Try to find matching month option
-      const matchingMonth = monthOptions.find(option => 
+      const matchingMonth = monthOptions.find(option =>
         option.label.toLowerCase().includes(monthParam.toLowerCase())
       );
       if (matchingMonth) {
@@ -235,7 +235,7 @@ export default function BillingPage() {
         setIsProjectModalOpen(true);
       }
     }
-  }, [searchParams, currentData.projects]);
+  }, [searchParams, currentData]);
 
   const handleSort = (field: string) => {
     if (sortField === field) {
