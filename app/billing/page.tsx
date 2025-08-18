@@ -916,10 +916,11 @@ function ProjectModal({
                         href={project.projectUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors"
+                        className="flex items-center space-x-1 text-sm text-gray-600 hover:text-[#08312a] transition-colors min-w-[24px] min-h-[24px] focus:outline-none focus:ring-2 focus:ring-[#00e47c] focus:ring-offset-1 rounded"
+                        aria-label="Open live site (opens in new tab)"
                       >
-                        <ExternalLink className="h-4 w-4" />
-                        <span>Prod</span>
+                        <Globe className="h-4 w-4" />
+                        <span>Live site</span>
                       </a>
                     )}
                   </div>
