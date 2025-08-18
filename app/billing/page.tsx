@@ -210,7 +210,7 @@ export default function BillingPage() {
   const [sortField, setSortField] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc");
 
-  const currentData = mockBillingData[selectedMonth as keyof typeof mockBillingData] || mockBillingData["2025-08"];
+  const currentData = generateBillingDataForMonth(selectedMonth);
   const currentMonthLabel = monthOptions.find(option => option.value === selectedMonth)?.label || "August 2025";
 
   useEffect(() => {
