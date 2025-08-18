@@ -667,7 +667,7 @@ export default function BillingPage() {
                         </TableCell>
                         <TableCell className="text-right font-medium w-[14%]">
                           <div className="whitespace-nowrap">
-                            {project.hits.toLocaleString()}
+                            {project.hits.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                           </div>
                         </TableCell>
                         <TableCell className="w-[12%] relative">
