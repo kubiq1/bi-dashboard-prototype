@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 interface NavigationProps {
-  currentPage: 'dashboard' | 'cluster-info' | 'projects';
+  currentPage: 'dashboard' | 'cluster-info' | 'projects' | 'billing';
 }
 
 export default function Navigation({ currentPage }: NavigationProps) {
