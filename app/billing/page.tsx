@@ -664,24 +664,12 @@ export default function BillingPage() {
                             {project.hits.toLocaleString()}
                           </div>
                         </TableCell>
-                        <TableCell className="w-[20%]">
-                          <div className="grid grid-cols-4 gap-1 text-xs">
-                            <div className="text-center">
-                              <div className="font-medium text-blue-600">{project.storage.db.toFixed(2)}</div>
-                              <div className="text-gray-500">DB</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="font-medium text-purple-600">{project.storage.files.toFixed(2)}</div>
-                              <div className="text-gray-500">Files</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="font-medium text-green-600">{project.storage.solr.toFixed(2)}</div>
-                              <div className="text-gray-500">Solr</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="font-bold text-gray-900">{project.storage.total.toFixed(2)}</div>
-                              <div className="text-gray-500">Total</div>
-                            </div>
+                        <TableCell className="w-[12%] relative">
+                          <div
+                            className="text-right font-medium whitespace-nowrap cursor-help"
+                            title={`DB: ${project.storage.db.toFixed(2)} GB · Files: ${project.storage.files.toFixed(2)} GB · Solr: ${project.storage.solr.toFixed(2)} GB`}
+                          >
+                            {project.storage.total.toFixed(2)}
                           </div>
                         </TableCell>
                         <TableCell className="text-center w-[8%]">
