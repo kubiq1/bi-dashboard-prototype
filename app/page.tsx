@@ -371,6 +371,34 @@ export default function Dashboard() {
     setSelectedCluster(null);
   };
 
+  const navigateToCluster = (direction: 'prev' | 'next') => {
+    if (!selectedCluster) return;
+
+    const currentIndex = mockClusters.findIndex(c => c.name === selectedCluster.name);
+    let newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+
+    if (newIndex >= 0 && newIndex < mockClusters.length) {
+      setSelectedCluster(mockClusters[newIndex]);
+    }
+  };
+
+  const getCurrentClusterIndex = () => {
+    if (!selectedCluster) return 0;
+    return mockClusters.findIndex(c => c.name === selectedCluster.name) + 1;
+  };
+
+  const canNavigateClusterPrev = () => {
+    if (!selectedCluster) return false;
+    const currentIndex = mockClusters.findIndex(c => c.name === selectedCluster.name);
+    return currentIndex > 0;
+  };
+
+  const canNavigateClusterNext = () => {
+    if (!selectedCluster) return false;
+    const currentIndex = mockClusters.findIndex(c => c.name === selectedCluster.name);
+    return currentIndex < mockClusters.length - 1;
+  };
+
   const canNavigatePrev = () => {
     if (!selectedProject) return false;
     const currentIndex = filteredAndSortedProjects.findIndex(p => p.name === selectedProject.name);
