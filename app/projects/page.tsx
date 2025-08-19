@@ -50,7 +50,7 @@ import {
 import { cn } from "@/lib/utils";
 import Navigation from "@/components/shared/Navigation";
 import ProjectRow from "@/components/shared/ProjectRow";
-import { mockProjects } from "@/lib/data";
+import { mockProjects, getBillingMonthlyData } from "@/lib/data";
 import { Project, SortDirection, FilterState, PaginationState } from "@/lib/types";
 import { formatCurrentDate, sortProjects, filterProjects, generatePageNumbers, getClusterColor } from "@/lib/shared-utils";
 import { ITEMS_PER_PAGE, DEFAULT_STATIC_DATE, FILTER_OPTIONS, PAGE_SIZE_OPTIONS } from "@/lib/constants";
