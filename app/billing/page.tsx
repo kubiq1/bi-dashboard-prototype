@@ -19,6 +19,7 @@ import {
   HardDrive,
   Server,
   Globe,
+  Link as LinkIcon,
 } from "lucide-react";
 import {
   Card,
@@ -55,7 +56,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Project } from "@/lib/types";
 import { getClusterColor } from "@/lib/shared-utils";
-import { mockProjects } from "@/lib/data";
+import { mockProjects, getBillingMonthlyData } from "@/lib/data";
 import Navigation from "@/components/shared/Navigation";
 
 // Dynamic import for better performance
@@ -793,6 +794,44 @@ function ProjectModal({
   canNavigatePrev: boolean;
   canNavigateNext: boolean;
 }) {
+  const [showCopyToast, setShowCopyToast] = useState(false);
+
+  const handleCopyLink = async () => {
+    if (!project) return;
+
+    const currentDate = new Date();
+    const monthISO = currentDate.toISOString().slice(0, 7); // YYYY-MM format
+    const projectId = encodeURIComponent(project.name);
+    const deepLink = `${window.location.origin}/projects?project=${projectId}&month=${monthISO}`;
+
+    try {
+      // Try modern Clipboard API first
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(deepLink);
+      } else {
+        // Fallback to legacy method
+        const textArea = document.createElement('textarea');
+        textArea.value = deepLink;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+
+      setShowCopyToast(true);
+      setTimeout(() => setShowCopyToast(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+      // Show error toast
+      setShowCopyToast(true);
+      setTimeout(() => setShowCopyToast(false), 2000);
+    }
+  };
+
   // ESC key handling
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -860,6 +899,8 @@ function ProjectModal({
   if (!isOpen || !project) return null;
 
   const monthLabel = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" });
+  const monthISO = new Date().toISOString().slice(0, 7); // YYYY-MM format
+  const billingData = getBillingMonthlyData(project.name, monthISO);
 
   const getStageColor = (stage: string, stageColor: string) => {
     return stageColor;
@@ -943,21 +984,34 @@ function ProjectModal({
                 </div>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
-            >
-              <X className="h-5 w-5 text-gray-500" />
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyLink}
+                className="h-10 px-3 hover:bg-gray-100 rounded-full flex items-center space-x-2"
+                title="Copy link to this project overlay"
+                aria-label="Copy link to this project overlay"
+              >
+                <span className="text-sm text-gray-500">Copy link</span>
+                <LinkIcon className="h-5 w-5 text-gray-500" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+              >
+                <X className="h-5 w-5 text-gray-500" />
+              </Button>
+            </div>
           </div>
         </div>
 
         {/* Content */}
         <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Overview */}
+            {/* Left Column - Overview, Storage & Usage */}
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
@@ -995,56 +1049,6 @@ function ProjectModal({
                 </div>
               </div>
 
-              {/* Monthly Cost */}
-              <div>
-                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                  Monthly Cost — {monthLabel}
-                </h3>
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
-                      <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
-                    </div>
-                    <span className="text-2xl font-bold text-[#08312a]">{project.estimatedCost || project.cost}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>Month Total Cost</span>
-                    <span>{project.monthTotalCost || "USD 12,390"}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Usage & Storage */}
-            <div className="space-y-6">
-              {/* Usage */}
-              <div>
-                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                  Usage
-                </h3>
-                <div className="bg-blue-50 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Hits</span>
-                    <span className="text-2xl font-bold text-blue-600">
-                      {project.hits ? formatNumber(project.hits) : '—'}
-                    </span>
-                  </div>
-                  {project.pods && (
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">Pods</span>
-                      <span className="text-lg font-bold text-purple-600">
-                        {project.pods}
-                      </span>
-                    </div>
-                  )}
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>Usage %</span>
-                    <span>{project.usagePercent ? project.usagePercent.toFixed(1) + '%' : '—'}</span>
-                  </div>
-                </div>
-              </div>
-
               {/* Storage */}
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
@@ -1078,14 +1082,83 @@ function ProjectModal({
                       {project.storage?.solr ? project.storage.solr.toFixed(2) : '—'}
                     </span>
                   </div>
-                  <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-gray-700">Total</span>
-                      <span className="text-lg font-bold text-[#08312a]">
-                        {project.storage?.total ? project.storage.total.toFixed(2) : '—'}
-                      </span>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
+                </div>
+              </div>
+
+              {/* Usage */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Usage
+                </h3>
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-sm font-medium text-gray-700">Current Hits</span>
+                    <span className="text-2xl font-bold text-blue-600">
+                      {project.hits ? formatNumber(project.hits) : '—'}
+                    </span>
+                  </div>
+                  {!project.hits && (
+                    <div className="mt-2 text-xs text-gray-500">
+                      No data for selected month.
+                    </div>
+                  )}
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Monthly Cost */}
+            <div className="space-y-6">
+              {/* Monthly Cost */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Monthly Cost — {monthLabel}
+                </h3>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
+                      <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
+                    </div>
+                    <span className="text-2xl font-bold text-[#08312a]">
+                      {billingData?.estimatedCostUsd ? `USD ${billingData.estimatedCostUsd.toLocaleString()}` : (project.estimatedCost || project.cost)}
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-4 mt-4">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">% of Total</span>
+                    <span className="text-sm text-gray-900">{billingData?.sharePct ? billingData.sharePct.toFixed(1) + '%' : '—'}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Project Hits (month)</span>
+                    <span className="text-sm text-gray-900">{billingData?.hitsMonth ? billingData.hitsMonth.toLocaleString() : '—'}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Project Storage (month)</span>
+                    <div className="flex flex-col items-end space-y-1">
+                      <div className="text-sm text-gray-900">DB: {billingData?.storageMonth?.dbGb ? billingData.storageMonth.dbGb.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Files: {billingData?.storageMonth?.filesGb ? billingData.storageMonth.filesGb.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Solr: {billingData?.storageMonth?.solrGb ? billingData.storageMonth.solrGb.toFixed(2) + ' GB' : '—'}</div>
                     </div>
                   </div>
+                  {billingData?.podsMonth && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Project Pods (month)</span>
+                      <span className="text-sm text-gray-900">{billingData.podsMonth.toLocaleString()}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-4 text-xs text-gray-500">
+                  Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Data as of {monthLabel} upload.
                 </div>
               </div>
             </div>
@@ -1137,6 +1210,13 @@ function ProjectModal({
           </div>
         </div>
       </div>
+
+      {/* Copy Link Toast */}
+      {showCopyToast && (
+        <div className="fixed bottom-4 right-4 z-60 bg-[#08312a] text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 ease-out">
+          Link copied
+        </div>
+      )}
     </div>
   );
 }
