@@ -864,23 +864,9 @@ function ProjectModal({
                       {project.storage.solrGb ? project.storage.solrGb.toFixed(2) : '—'}
                     </span>
                   </div>
-                  <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-gray-700">Total</span>
-                      <span className="text-lg font-bold text-[#08312a]">
-                        {project.storage.totalGb ? project.storage.totalGb.toFixed(2) : '—'}
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center text-sm text-gray-600">
-                      <span>Storage % of total</span>
-                      <span>{project.storage.storagePct ? project.storage.storagePct.toFixed(1) + '%' : '—'}</span>
-                    </div>
-                    {(!project.storage.totalGb || !project.storage.storagePct) && (
-                      <div className="mt-2 text-xs text-gray-500">
-                        No data for selected month.
-                      </div>
-                    )}
-                  </div>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
                 </div>
               </div>
 
