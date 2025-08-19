@@ -60,7 +60,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Project } from "@/lib/types";
 import { getClusterColor } from "@/lib/shared-utils";
-import { mockProjects } from "@/lib/data";
+import { mockProjects, getBillingMonthlyData } from "@/lib/data";
 
 // Mock cluster data - matching cluster info page
 const mockClusters = [
