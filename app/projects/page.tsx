@@ -829,32 +829,8 @@ function ProjectModal({
               </div>
             </div>
 
-            {/* Right Column - Usage & Storage */}
+            {/* Right Column - Storage & Usage */}
             <div className="space-y-6">
-              {/* Usage */}
-              <div>
-                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                  Usage
-                </h3>
-                <div className="bg-blue-50 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Hits</span>
-                    <span className="text-2xl font-bold text-blue-600">
-                      {project.usage.hits ? project.usage.hits.toLocaleString() : '—'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>Hits % of total</span>
-                    <span>{project.usage.hitsPct ? project.usage.hitsPct.toFixed(1) + '%' : '—'}</span>
-                  </div>
-                  {(!project.usage.hits || !project.usage.hitsPct) && (
-                    <div className="mt-2 text-xs text-gray-500">
-                      No data for selected month.
-                    </div>
-                  )}
-                </div>
-              </div>
-
               {/* Storage */}
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
