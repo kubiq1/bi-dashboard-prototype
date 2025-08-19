@@ -1753,7 +1753,7 @@ function ProjectModal({
                   {billingData?.podsMonth && (
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                       <span className="text-sm font-medium text-gray-700">Project Pods (month)</span>
-                      <span className="text-sm text-gray-900">{billingData.podsMonth}</span>
+                      <span className="text-sm text-gray-900">{billingData.podsMonth.toLocaleString()}</span>
                     </div>
                   )}
                 </div>
