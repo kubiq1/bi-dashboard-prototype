@@ -567,11 +567,30 @@ function ProjectModal({
     const deepLink = `${window.location.origin}/projects?project=${projectId}&month=${monthISO}`;
 
     try {
-      await navigator.clipboard.writeText(deepLink);
+      // Try modern Clipboard API first
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(deepLink);
+      } else {
+        // Fallback to legacy method
+        const textArea = document.createElement('textarea');
+        textArea.value = deepLink;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+
       setShowCopyToast(true);
       setTimeout(() => setShowCopyToast(false), 2000);
     } catch (err) {
       console.error('Failed to copy link:', err);
+      // Show error toast
+      setShowCopyToast(true);
+      setTimeout(() => setShowCopyToast(false), 2000);
     }
   };
   // ESC key handling
