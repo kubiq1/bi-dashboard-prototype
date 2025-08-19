@@ -733,7 +733,7 @@ function ProjectModal({
                 title="Copy link to this project overlay"
                 aria-label="Copy link to this project overlay"
               >
-                <Link className="h-5 w-5 text-gray-500" />
+                <LinkIcon className="h-5 w-5 text-gray-500" />
               </Button>
               <Button
                 variant="ghost"
