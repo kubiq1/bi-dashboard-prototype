@@ -19,6 +19,7 @@ import {
   HardDrive,
   Server,
   Globe,
+  Link as LinkIcon,
 } from "lucide-react";
 import {
   Card,
@@ -1120,7 +1121,7 @@ function ProjectModal({
                     onClick={() => onNavigate('next')}
                     disabled={!canNavigateNext}
                     className="h-8 w-8 p-0 hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
-                    title="Next (→)"
+                    title="Next (���)"
                     aria-label="Next project"
                   >
                     <ChevronRight className="h-4 w-4" />
