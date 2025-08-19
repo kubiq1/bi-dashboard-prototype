@@ -982,14 +982,26 @@ function ProjectModal({
                 </div>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
-            >
-              <X className="h-5 w-5 text-gray-500" />
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyLink}
+                className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+                title="Copy link to this project overlay"
+                aria-label="Copy link to this project overlay"
+              >
+                <LinkIcon className="h-5 w-5 text-gray-500" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+              >
+                <X className="h-5 w-5 text-gray-500" />
+              </Button>
+            </div>
           </div>
         </div>
 
