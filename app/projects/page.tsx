@@ -17,7 +17,7 @@ import {
   HardDrive,
   Server,
   Globe,
-  Link,
+  Link as LinkIcon,
 } from "lucide-react";
 import {
   Card,
