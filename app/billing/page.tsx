@@ -1060,10 +1060,36 @@ function ProjectModal({
                     </div>
                     <span className="text-2xl font-bold text-[#08312a]">{project.estimatedCost || project.cost}</span>
                   </div>
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>Month Total Cost</span>
-                    <span>{project.monthTotalCost || "USD 12,390"}</span>
+                </div>
+                <div className="space-y-4 mt-4">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">% of Total</span>
+                    <span className="text-sm text-gray-900">{project.monthlyData?.percentOfTotal ? project.monthlyData.percentOfTotal.toFixed(1) + '%' : '—'}</span>
                   </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Project Hits (month)</span>
+                    <span className="text-sm text-gray-900">{project.monthlyData?.hits ? project.monthlyData.hits.toLocaleString() : '—'}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Project Storage (month)</span>
+                    <div className="flex flex-col items-end space-y-1">
+                      <div className="text-sm text-gray-900">DB: {project.monthlyData?.storage?.db ? project.monthlyData.storage.db.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Files: {project.monthlyData?.storage?.files ? project.monthlyData.storage.files.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Solr: {project.monthlyData?.storage?.solr ? project.monthlyData.storage.solr.toFixed(2) + ' GB' : '—'}</div>
+                    </div>
+                  </div>
+                  {project.monthlyData?.pods && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Project Pods (month)</span>
+                      <span className="text-sm text-gray-900">{project.monthlyData.pods}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-4 text-xs text-gray-500">
+                  Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Data as of {monthLabel} upload.
                 </div>
               </div>
             </div>
