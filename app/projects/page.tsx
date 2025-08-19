@@ -821,7 +821,9 @@ function ProjectModal({
                       <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
                       <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
                     </div>
-                    <span className="text-2xl font-bold text-[#08312a]">{project.estimatedCost || project.cost}</span>
+                    <span className="text-2xl font-bold text-[#08312a]">
+                      {billingData?.estimatedCostUsd ? `USD ${billingData.estimatedCostUsd.toLocaleString()}` : (project.estimatedCost || project.cost)}
+                    </span>
                   </div>
                 </div>
                 <div className="space-y-4 mt-4">
