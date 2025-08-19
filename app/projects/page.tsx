@@ -918,15 +918,6 @@ function ProjectModal({
                   Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
                 </div>
               </div>
-
-              {/* Usage Note */}
-              {(project.usage.hitsPct || project.storage.storagePct) && (
-                <div className="mt-4">
-                  <p className="text-xs text-gray-500">
-                    Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
-                  </p>
-                </div>
-              )}
             </div>
           </div>
 
