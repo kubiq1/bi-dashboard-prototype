@@ -1011,7 +1011,7 @@ function ProjectModal({
         {/* Content */}
         <div className="p-8 overflow-y-auto max-h-[calc(90vh-8rem)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column - Overview */}
+            {/* Left Column - Overview, Storage & Usage */}
             <div className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
@@ -1049,57 +1049,6 @@ function ProjectModal({
                 </div>
               </div>
 
-              {/* Monthly Cost */}
-              <div>
-                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
-                  Monthly Cost — {monthLabel}
-                </h3>
-                <div className="bg-gray-50 rounded-xl p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex flex-col">
-                      <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
-                      <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
-                    </div>
-                    <span className="text-2xl font-bold text-[#08312a]">
-                      {billingData?.estimatedCostUsd ? `USD ${billingData.estimatedCostUsd.toLocaleString()}` : (project.estimatedCost || project.cost)}
-                    </span>
-                  </div>
-                </div>
-                <div className="space-y-4 mt-4">
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm font-medium text-gray-700">% of Total</span>
-                    <span className="text-sm text-gray-900">{billingData?.sharePct ? billingData.sharePct.toFixed(1) + '%' : '—'}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm font-medium text-gray-700">Project Hits (month)</span>
-                    <span className="text-sm text-gray-900">{billingData?.hitsMonth ? billingData.hitsMonth.toLocaleString() : '—'}</span>
-                  </div>
-                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                    <span className="text-sm font-medium text-gray-700">Project Storage (month)</span>
-                    <div className="flex flex-col items-end space-y-1">
-                      <div className="text-sm text-gray-900">DB: {billingData?.storageMonth?.dbGb ? billingData.storageMonth.dbGb.toFixed(2) + ' GB' : '—'}</div>
-                      <div className="text-sm text-gray-900">Files: {billingData?.storageMonth?.filesGb ? billingData.storageMonth.filesGb.toFixed(2) + ' GB' : '—'}</div>
-                      <div className="text-sm text-gray-900">Solr: {billingData?.storageMonth?.solrGb ? billingData.storageMonth.solrGb.toFixed(2) + ' GB' : '—'}</div>
-                    </div>
-                  </div>
-                  {billingData?.podsMonth && (
-                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
-                      <span className="text-sm font-medium text-gray-700">Project Pods (month)</span>
-                      <span className="text-sm text-gray-900">{billingData.podsMonth.toLocaleString()}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="mt-4 text-xs text-gray-500">
-                  Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
-                </div>
-                <div className="mt-2 text-xs text-gray-500">
-                  Data as of {monthLabel} upload.
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column - Storage & Usage */}
-            <div className="space-y-6">
               {/* Storage */}
               <div>
                 <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
@@ -1159,6 +1108,57 @@ function ProjectModal({
                 </div>
                 <div className="mt-2 text-xs text-gray-500">
                   Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
+                </div>
+              </div>
+            </div>
+
+            {/* Right Column - Monthly Cost */}
+            <div className="space-y-6">
+              {/* Monthly Cost */}
+              <div>
+                <h3 className="text-lg font-medium text-[#08312a] mb-4" style={{ fontFamily: "var(--font-headline)" }}>
+                  Monthly Cost — {monthLabel}
+                </h3>
+                <div className="bg-gray-50 rounded-xl p-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="flex flex-col">
+                      <span className="text-sm font-medium text-gray-700">Estimated Cost (month)</span>
+                      <span className="text-xs text-gray-500">Estimated proportioned cost.</span>
+                    </div>
+                    <span className="text-2xl font-bold text-[#08312a]">
+                      {billingData?.estimatedCostUsd ? `USD ${billingData.estimatedCostUsd.toLocaleString()}` : (project.estimatedCost || project.cost)}
+                    </span>
+                  </div>
+                </div>
+                <div className="space-y-4 mt-4">
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">% of Total</span>
+                    <span className="text-sm text-gray-900">{billingData?.sharePct ? billingData.sharePct.toFixed(1) + '%' : '—'}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Project Hits (month)</span>
+                    <span className="text-sm text-gray-900">{billingData?.hitsMonth ? billingData.hitsMonth.toLocaleString() : '—'}</span>
+                  </div>
+                  <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span className="text-sm font-medium text-gray-700">Project Storage (month)</span>
+                    <div className="flex flex-col items-end space-y-1">
+                      <div className="text-sm text-gray-900">DB: {billingData?.storageMonth?.dbGb ? billingData.storageMonth.dbGb.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Files: {billingData?.storageMonth?.filesGb ? billingData.storageMonth.filesGb.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Solr: {billingData?.storageMonth?.solrGb ? billingData.storageMonth.solrGb.toFixed(2) + ' GB' : '—'}</div>
+                    </div>
+                  </div>
+                  {billingData?.podsMonth && (
+                    <div className="flex justify-between items-center py-2 border-b border-gray-100">
+                      <span className="text-sm font-medium text-gray-700">Project Pods (month)</span>
+                      <span className="text-sm text-gray-900">{billingData.podsMonth.toLocaleString()}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-4 text-xs text-gray-500">
+                  Usage % = (Hits% + Storage% [± Pods%]) / N; Estimated Cost = Usage % × Month total cost.
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Data as of {monthLabel} upload.
                 </div>
               </div>
             </div>
