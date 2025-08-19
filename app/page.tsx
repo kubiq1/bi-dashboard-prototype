@@ -19,6 +19,7 @@ import {
   X,
   Database,
   Globe,
+  Link as LinkIcon,
 } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
