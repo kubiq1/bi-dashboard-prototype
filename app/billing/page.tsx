@@ -899,6 +899,8 @@ function ProjectModal({
   if (!isOpen || !project) return null;
 
   const monthLabel = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long" });
+  const monthISO = new Date().toISOString().slice(0, 7); // YYYY-MM format
+  const billingData = getBillingMonthlyData(project.name, monthISO);
 
   const getStageColor = (stage: string, stageColor: string) => {
     return stageColor;
