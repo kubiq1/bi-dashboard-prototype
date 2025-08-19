@@ -17,6 +17,7 @@ import {
   HardDrive,
   Server,
   Globe,
+  Link,
 } from "lucide-react";
 import {
   Card,
@@ -555,6 +556,24 @@ function ProjectModal({
   canNavigatePrev: boolean;
   canNavigateNext: boolean;
 }) {
+  const [showCopyToast, setShowCopyToast] = useState(false);
+
+  const handleCopyLink = async () => {
+    if (!project) return;
+
+    const currentDate = new Date();
+    const monthISO = currentDate.toISOString().slice(0, 7); // YYYY-MM format
+    const projectId = encodeURIComponent(project.name);
+    const deepLink = `${window.location.origin}/projects?project=${projectId}&month=${monthISO}`;
+
+    try {
+      await navigator.clipboard.writeText(deepLink);
+      setShowCopyToast(true);
+      setTimeout(() => setShowCopyToast(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy link:', err);
+    }
+  };
   // ESC key handling
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -705,14 +724,26 @@ function ProjectModal({
                 </div>
               </div>
             </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
-            >
-              <X className="h-5 w-5 text-gray-500" />
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleCopyLink}
+                className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+                title="Copy link to this project overlay"
+                aria-label="Copy link to this project overlay"
+              >
+                <Link className="h-5 w-5 text-gray-500" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onClose}
+                className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+              >
+                <X className="h-5 w-5 text-gray-500" />
+              </Button>
+            </div>
           </div>
         </div>
 
@@ -914,6 +945,13 @@ function ProjectModal({
           </div>
         </div>
       </div>
+
+      {/* Copy Link Toast */}
+      {showCopyToast && (
+        <div className="fixed bottom-4 right-4 z-60 bg-[#08312a] text-white px-4 py-2 rounded-lg shadow-lg transform transition-all duration-300 ease-out">
+          Link copied
+        </div>
+      )}
     </div>
   );
 }
