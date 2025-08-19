@@ -671,6 +671,122 @@ const rawProjects: Project[] = [
   },
 ];
 
+// Mock billing monthly data keyed by monthISO and projectId
+export const mockBillingMonthly = {
+  "2025-08": {
+    "pro-bi-com-us-jentadueto": {
+      estimatedCostUsd: 2890,
+      sharePct: 23.4,
+      hitsMonth: 892345,
+      storageMonth: {
+        dbGb: 12.45,
+        filesGb: 89.32,
+        solrGb: 5.67
+      },
+      podsMonth: 8
+    },
+    "hz-qa-bi-hubnext-com": {
+      estimatedCostUsd: 1950,
+      sharePct: 15.7,
+      hitsMonth: 674123,
+      storageMonth: {
+        dbGb: 8.92,
+        filesGb: 67.84,
+        solrGb: 3.21
+      },
+      podsMonth: 6
+    },
+    "hz-storybook-bi-hubnext-com": {
+      estimatedCostUsd: 1750,
+      sharePct: 14.1,
+      hitsMonth: 534789,
+      storageMonth: {
+        dbGb: 7.23,
+        filesGb: 45.67,
+        solrGb: 2.89
+      }
+    },
+    "centaura-se": {
+      estimatedCostUsd: 1420,
+      sharePct: 11.5,
+      hitsMonth: null,
+      storageMonth: {
+        dbGb: null,
+        filesGb: null,
+        solrGb: null
+      }
+    },
+    "insights-in-ild": {
+      estimatedCostUsd: 980,
+      sharePct: 7.9,
+      hitsMonth: 456789,
+      storageMonth: {
+        dbGb: 4.23,
+        filesGb: 32.18,
+        solrGb: 1.45
+      },
+      podsMonth: 4
+    },
+    "agentereversor-com-ar": {
+      estimatedCostUsd: 850,
+      sharePct: 6.9,
+      hitsMonth: null,
+      storageMonth: {
+        dbGb: 3.12,
+        filesGb: null,
+        solrGb: 0.89
+      }
+    },
+    "frontline-si": {
+      estimatedCostUsd: 740,
+      sharePct: 6.0,
+      hitsMonth: 234567,
+      storageMonth: {
+        dbGb: null,
+        filesGb: 25.34,
+        solrGb: null
+      },
+      podsMonth: 3
+    },
+    "making-more-health": {
+      estimatedCostUsd: 620,
+      sharePct: 5.0,
+      hitsMonth: null,
+      storageMonth: {
+        dbGb: null,
+        filesGb: null,
+        solrGb: null
+      }
+    },
+    "guides-boehringer-ingelheim-com": {
+      estimatedCostUsd: 580,
+      sharePct: 4.7,
+      hitsMonth: 123456,
+      storageMonth: {
+        dbGb: 2.34,
+        filesGb: 15.67,
+        solrGb: 0.89
+      },
+      podsMonth: 2
+    },
+    "bvdzero-es": {
+      estimatedCostUsd: 520,
+      sharePct: 4.2,
+      hitsMonth: null,
+      storageMonth: {
+        dbGb: 1.23,
+        filesGb: null,
+        solrGb: 0.45
+      }
+    }
+  }
+};
+
+// Helper function to get billing data for a project and month
+export const getBillingMonthlyData = (projectId: string, monthISO: string) => {
+  return mockBillingMonthly[monthISO]?.[projectId] || null;
+};
+
 // Normalize projects to ensure all have required fields
 export const mockProjects = rawProjects.map(project => ({
   ...project,
