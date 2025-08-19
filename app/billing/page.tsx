@@ -1103,14 +1103,9 @@ function ProjectModal({
                       {project.storage?.solr ? project.storage.solr.toFixed(2) : '—'}
                     </span>
                   </div>
-                  <div className="bg-gradient-to-r from-gray-100 to-gray-50 rounded-lg border-2 border-gray-200 p-4">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-bold text-gray-700">Total</span>
-                      <span className="text-lg font-bold text-[#08312a]">
-                        {project.storage?.total ? project.storage.total.toFixed(2) : '—'}
-                      </span>
-                    </div>
-                  </div>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
                 </div>
               </div>
 
