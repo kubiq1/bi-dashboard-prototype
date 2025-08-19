@@ -1121,23 +1121,19 @@ function ProjectModal({
                 </h3>
                 <div className="bg-blue-50 rounded-xl p-4">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-sm font-medium text-gray-700">Hits</span>
+                    <span className="text-sm font-medium text-gray-700">Current Hits</span>
                     <span className="text-2xl font-bold text-blue-600">
                       {project.hits ? formatNumber(project.hits) : '—'}
                     </span>
                   </div>
-                  {project.pods && (
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-700">Pods</span>
-                      <span className="text-lg font-bold text-purple-600">
-                        {project.pods}
-                      </span>
+                  {!project.hits && (
+                    <div className="mt-2 text-xs text-gray-500">
+                      No data for selected month.
                     </div>
                   )}
-                  <div className="flex justify-between items-center text-sm text-gray-600">
-                    <span>Usage %</span>
-                    <span>{project.usagePercent ? project.usagePercent.toFixed(1) + '%' : '—'}</span>
-                  </div>
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Last updated Dec 12, 2024 at 2:30 PM — refreshed twice per day.
                 </div>
               </div>
             </div>
