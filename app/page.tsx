@@ -1655,10 +1655,11 @@ function ProjectModal({
                 variant="ghost"
                 size="sm"
                 onClick={handleCopyLink}
-                className="h-10 w-10 p-0 hover:bg-gray-100 rounded-full"
+                className="h-10 px-3 hover:bg-gray-100 rounded-full flex items-center space-x-2"
                 title="Copy link to this project overlay"
                 aria-label="Copy link to this project overlay"
               >
+                <span className="text-sm text-gray-500">Copy link</span>
                 <LinkIcon className="h-5 w-5 text-gray-500" />
               </Button>
               <Button
