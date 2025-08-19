@@ -827,24 +827,24 @@ function ProjectModal({
                 <div className="space-y-4 mt-4">
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-sm font-medium text-gray-700">% of Total</span>
-                    <span className="text-sm text-gray-900">{project.monthlyData?.percentOfTotal ? project.monthlyData.percentOfTotal.toFixed(1) + '%' : '—'}</span>
+                    <span className="text-sm text-gray-900">{billingData?.sharePct ? billingData.sharePct.toFixed(1) + '%' : '—'}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-sm font-medium text-gray-700">Project Hits (month)</span>
-                    <span className="text-sm text-gray-900">{project.monthlyData?.hits ? project.monthlyData.hits.toLocaleString() : '—'}</span>
+                    <span className="text-sm text-gray-900">{billingData?.hitsMonth ? billingData.hitsMonth.toLocaleString() : '—'}</span>
                   </div>
                   <div className="flex justify-between items-center py-2 border-b border-gray-100">
                     <span className="text-sm font-medium text-gray-700">Project Storage (month)</span>
                     <div className="flex flex-col items-end space-y-1">
-                      <div className="text-sm text-gray-900">DB: {project.monthlyData?.storage?.db ? project.monthlyData.storage.db.toFixed(2) + ' GB' : '—'}</div>
-                      <div className="text-sm text-gray-900">Files: {project.monthlyData?.storage?.files ? project.monthlyData.storage.files.toFixed(2) + ' GB' : '—'}</div>
-                      <div className="text-sm text-gray-900">Solr: {project.monthlyData?.storage?.solr ? project.monthlyData.storage.solr.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">DB: {billingData?.storageMonth?.dbGb ? billingData.storageMonth.dbGb.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Files: {billingData?.storageMonth?.filesGb ? billingData.storageMonth.filesGb.toFixed(2) + ' GB' : '—'}</div>
+                      <div className="text-sm text-gray-900">Solr: {billingData?.storageMonth?.solrGb ? billingData.storageMonth.solrGb.toFixed(2) + ' GB' : '—'}</div>
                     </div>
                   </div>
-                  {project.monthlyData?.pods && (
+                  {billingData?.podsMonth && (
                     <div className="flex justify-between items-center py-2 border-b border-gray-100">
                       <span className="text-sm font-medium text-gray-700">Project Pods (month)</span>
-                      <span className="text-sm text-gray-900">{project.monthlyData.pods}</span>
+                      <span className="text-sm text-gray-900">{billingData.podsMonth}</span>
                     </div>
                   )}
                 </div>
